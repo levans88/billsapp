@@ -1,0 +1,48 @@
+﻿@model billsapp.Models.session
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>session</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.session_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.session_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.session_total_spent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.session_total_spent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.session_status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.session_status)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

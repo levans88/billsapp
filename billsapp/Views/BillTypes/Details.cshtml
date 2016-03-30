@@ -1,0 +1,122 @@
+﻿@model billsapp.Models.bill_type
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>bill_type</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.type_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.task)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.task)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.url)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.url)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.day_due)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.day_due)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.month_due)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.month_due)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.year_due)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.year_due)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.auto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.auto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount_due)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amount_due)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bill_type_note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bill_type_note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.frequency.frequency_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.frequency.frequency_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.payer.payer_firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.payer.payer_firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.payment_method.payment_method_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.payment_method.payment_method_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status.status_description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status.status_description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.type_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

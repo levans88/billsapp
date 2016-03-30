@@ -1,0 +1,66 @@
+﻿@model billsapp.Models.sessions_payers
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>sessions_payers</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.balance_starting)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.balance_starting)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.balance_remaining)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.balance_remaining)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bills_sum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bills_sum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.transfer_amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.transfer_amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.payer.payer_firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.payer.payer_firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.session.session_status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.session.session_status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

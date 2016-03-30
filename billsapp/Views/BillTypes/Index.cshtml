@@ -1,0 +1,105 @@
+﻿@model IEnumerable<billsapp.Models.bill_type>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.type_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.task)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.url)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.day_due)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.month_due)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.year_due)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.auto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.amount_due)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bill_type_note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.frequency.frequency_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.payer.payer_firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.payment_method.payment_method_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status.status_description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.type_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.task)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.url)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.day_due)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.month_due)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.year_due)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.auto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.amount_due)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bill_type_note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.frequency.frequency_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.payer.payer_firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.payment_method.payment_method_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status.status_description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.type_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.type_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.type_id })
+        </td>
+    </tr>
+}
+
+</table>

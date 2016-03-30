@@ -1,0 +1,1169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="billsappDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bill">
+          <Key>
+            <PropertyRef Name="bill_id" />
+          </Key>
+          <Property Name="bill_id" Type="int" Nullable="false" />
+          <Property Name="date_due" Type="date" />
+          <Property Name="amount_due" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="bill_note" Type="nvarchar" MaxLength="300" />
+          <Property Name="type_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bill_type">
+          <Key>
+            <PropertyRef Name="type_id" />
+          </Key>
+          <Property Name="type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type_name" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="task" Type="bit" />
+          <Property Name="url" Type="nvarchar" MaxLength="45" />
+          <Property Name="day_due" Type="int" />
+          <Property Name="month_due" Type="int" />
+          <Property Name="year_due" Type="int" />
+          <Property Name="auto" Type="bit" />
+          <Property Name="amount_due" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="frequency_id" Type="int" Nullable="false" />
+          <Property Name="payment_method_id" Type="int" Nullable="false" />
+          <Property Name="payer_id" Type="int" Nullable="false" />
+          <Property Name="status_id" Type="int" Nullable="false" />
+          <Property Name="bill_type_note" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="bills_payers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="bill_id" Type="int" Nullable="false" />
+          <Property Name="payer_id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bills_payments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="bill_id" Type="int" Nullable="false" />
+          <Property Name="payment_id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bills_sessions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="bill_id" Type="int" Nullable="false" />
+          <Property Name="session_id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="frequency">
+          <Key>
+            <PropertyRef Name="frequency_id" />
+          </Key>
+          <Property Name="frequency_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="frequency_name" Type="nvarchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="payer">
+          <Key>
+            <PropertyRef Name="payer_id" />
+          </Key>
+          <Property Name="payer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="payer_firstname" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="payer_lastname" Type="nvarchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="payment">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="int" Nullable="false" />
+          <Property Name="payment_method_id" Type="int" Nullable="false" />
+          <Property Name="payment_amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="payment_date" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="payer_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="payment_method">
+          <Key>
+            <PropertyRef Name="payment_method_id" />
+          </Key>
+          <Property Name="payment_method_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="payer_id" Type="int" Nullable="false" />
+          <Property Name="payment_method_name" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="payment_method_abbreviation" Type="nvarchar" MaxLength="45" />
+          <Property Name="status_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="session">
+          <Key>
+            <PropertyRef Name="session_id" />
+          </Key>
+          <Property Name="session_id" Type="int" Nullable="false" />
+          <Property Name="session_date" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="session_total_spent" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="session_status" Type="nvarchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="session_deposit">
+          <Key>
+            <PropertyRef Name="deposit_id" />
+          </Key>
+          <Property Name="deposit_id" Type="int" Nullable="false" />
+          <Property Name="session_id" Type="int" Nullable="false" />
+          <Property Name="payer_id" Type="int" Nullable="false" />
+          <Property Name="deposit_amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="deposit_note" Type="nvarchar" MaxLength="300" />
+          <Property Name="deposit_date" Type="datetime2" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sessions_payers">
+          <Key>
+            <PropertyRef Name="session_id" />
+            <PropertyRef Name="payer_id" />
+          </Key>
+          <Property Name="balance_starting" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="balance_remaining" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="bills_sum" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="session_id" Type="int" Nullable="false" />
+          <Property Name="payer_id" Type="int" Nullable="false" />
+          <Property Name="transfer_amount" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="status_id" />
+          </Key>
+          <Property Name="status_id" Type="int" Nullable="false" />
+          <Property Name="status_description" Type="nvarchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_name" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users_payers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="payer_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="bill_type$fk_bill_type_frequency1">
+          <End Role="frequency" Type="Self.frequency" Multiplicity="1" />
+          <End Role="bill_type" Type="Self.bill_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="frequency">
+              <PropertyRef Name="frequency_id" />
+            </Principal>
+            <Dependent Role="bill_type">
+              <PropertyRef Name="frequency_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bill_type$fk_bill_type_payer1">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="bill_type" Type="Self.bill_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payer">
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="bill_type">
+              <PropertyRef Name="payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bill_type$fk_bill_type_payment_method1">
+          <End Role="payment_method" Type="Self.payment_method" Multiplicity="1" />
+          <End Role="bill_type" Type="Self.bill_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payment_method">
+              <PropertyRef Name="payment_method_id" />
+            </Principal>
+            <Dependent Role="bill_type">
+              <PropertyRef Name="payment_method_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bill_type$fk_bill_type_status1">
+          <End Role="status" Type="Self.status" Multiplicity="1" />
+          <End Role="bill_type" Type="Self.bill_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="status_id" />
+            </Principal>
+            <Dependent Role="bill_type">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bills_payers$fk_bills_payers_bill1">
+          <End Role="bill" Type="Self.bill" Multiplicity="1" />
+          <End Role="bills_payers" Type="Self.bills_payers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bill">
+              <PropertyRef Name="bill_id" />
+            </Principal>
+            <Dependent Role="bills_payers">
+              <PropertyRef Name="bill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bills_payers$fk_bills_payers_payer1">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="bills_payers" Type="Self.bills_payers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payer">
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="bills_payers">
+              <PropertyRef Name="payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bills_payments$fk_bills_payments_bill1">
+          <End Role="bill" Type="Self.bill" Multiplicity="1" />
+          <End Role="bills_payments" Type="Self.bills_payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bill">
+              <PropertyRef Name="bill_id" />
+            </Principal>
+            <Dependent Role="bills_payments">
+              <PropertyRef Name="bill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bills_sessions$fk_bills_sessions_bill1">
+          <End Role="bill" Type="Self.bill" Multiplicity="1" />
+          <End Role="bills_sessions" Type="Self.bills_sessions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bill">
+              <PropertyRef Name="bill_id" />
+            </Principal>
+            <Dependent Role="bills_sessions">
+              <PropertyRef Name="bill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bills_sessions$fk_bills_sessions_session1">
+          <End Role="session" Type="Self.session" Multiplicity="1" />
+          <End Role="bills_sessions" Type="Self.bills_sessions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="session">
+              <PropertyRef Name="session_id" />
+            </Principal>
+            <Dependent Role="bills_sessions">
+              <PropertyRef Name="session_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bill_bill_type">
+          <End Role="bill_type" Type="Self.bill_type" Multiplicity="1" />
+          <End Role="bill" Type="Self.bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bill_type">
+              <PropertyRef Name="type_id" />
+            </Principal>
+            <Dependent Role="bill">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bills_payments_payment">
+          <End Role="payment" Type="Self.payment" Multiplicity="1" />
+          <End Role="bills_payments" Type="Self.bills_payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payment">
+              <PropertyRef Name="payment_id" />
+            </Principal>
+            <Dependent Role="bills_payments">
+              <PropertyRef Name="payment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payment_method_payer">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="payment_method" Type="Self.payment_method" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payer">
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="payment_method">
+              <PropertyRef Name="payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payment_method_status">
+          <End Role="status" Type="Self.status" Multiplicity="1" />
+          <End Role="payment_method" Type="Self.payment_method" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="status_id" />
+            </Principal>
+            <Dependent Role="payment_method">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="payment$fk_payment_payer1">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="payment" Type="Self.payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payer">
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="payment">
+              <PropertyRef Name="payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="session_deposit$fk_session_deposit_sessions_payers1">
+          <End Role="sessions_payers" Type="Self.sessions_payers" Multiplicity="1" />
+          <End Role="session_deposit" Type="Self.session_deposit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sessions_payers">
+              <PropertyRef Name="session_id" />
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="session_deposit">
+              <PropertyRef Name="session_id" />
+              <PropertyRef Name="payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sessions_payers$fk_sessions_payers_payer1">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="sessions_payers" Type="Self.sessions_payers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payer">
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="sessions_payers">
+              <PropertyRef Name="payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sessions_payers$fk_sessions_payers_session1">
+          <End Role="session" Type="Self.session" Multiplicity="1" />
+          <End Role="sessions_payers" Type="Self.sessions_payers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="session">
+              <PropertyRef Name="session_id" />
+            </Principal>
+            <Dependent Role="sessions_payers">
+              <PropertyRef Name="session_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="users_payers$fk_users_payers_payer1">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="users_payers" Type="Self.users_payers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payer">
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="users_payers">
+              <PropertyRef Name="payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="users_payers$fk_users_payers_user1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="users_payers" Type="Self.users_payers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="users_payers">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="billsappDataModelStoreContainer">
+          <EntitySet Name="bill" EntityType="Self.bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bill_type" EntityType="Self.bill_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bills_payers" EntityType="Self.bills_payers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bills_payments" EntityType="Self.bills_payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bills_sessions" EntityType="Self.bills_sessions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="frequency" EntityType="Self.frequency" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="payer" EntityType="Self.payer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="payment" EntityType="Self.payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="payment_method" EntityType="Self.payment_method" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="session" EntityType="Self.session" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="session_deposit" EntityType="Self.session_deposit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sessions_payers" EntityType="Self.sessions_payers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users_payers" EntityType="Self.users_payers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="bill_type$fk_bill_type_frequency1" Association="Self.bill_type$fk_bill_type_frequency1">
+            <End Role="frequency" EntitySet="frequency" />
+            <End Role="bill_type" EntitySet="bill_type" />
+          </AssociationSet>
+          <AssociationSet Name="bill_type$fk_bill_type_payer1" Association="Self.bill_type$fk_bill_type_payer1">
+            <End Role="payer" EntitySet="payer" />
+            <End Role="bill_type" EntitySet="bill_type" />
+          </AssociationSet>
+          <AssociationSet Name="bill_type$fk_bill_type_payment_method1" Association="Self.bill_type$fk_bill_type_payment_method1">
+            <End Role="payment_method" EntitySet="payment_method" />
+            <End Role="bill_type" EntitySet="bill_type" />
+          </AssociationSet>
+          <AssociationSet Name="bill_type$fk_bill_type_status1" Association="Self.bill_type$fk_bill_type_status1">
+            <End Role="status" EntitySet="status" />
+            <End Role="bill_type" EntitySet="bill_type" />
+          </AssociationSet>
+          <AssociationSet Name="bills_payers$fk_bills_payers_bill1" Association="Self.bills_payers$fk_bills_payers_bill1">
+            <End Role="bill" EntitySet="bill" />
+            <End Role="bills_payers" EntitySet="bills_payers" />
+          </AssociationSet>
+          <AssociationSet Name="bills_payers$fk_bills_payers_payer1" Association="Self.bills_payers$fk_bills_payers_payer1">
+            <End Role="payer" EntitySet="payer" />
+            <End Role="bills_payers" EntitySet="bills_payers" />
+          </AssociationSet>
+          <AssociationSet Name="bills_payments$fk_bills_payments_bill1" Association="Self.bills_payments$fk_bills_payments_bill1">
+            <End Role="bill" EntitySet="bill" />
+            <End Role="bills_payments" EntitySet="bills_payments" />
+          </AssociationSet>
+          <AssociationSet Name="bills_sessions$fk_bills_sessions_bill1" Association="Self.bills_sessions$fk_bills_sessions_bill1">
+            <End Role="bill" EntitySet="bill" />
+            <End Role="bills_sessions" EntitySet="bills_sessions" />
+          </AssociationSet>
+          <AssociationSet Name="bills_sessions$fk_bills_sessions_session1" Association="Self.bills_sessions$fk_bills_sessions_session1">
+            <End Role="session" EntitySet="session" />
+            <End Role="bills_sessions" EntitySet="bills_sessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bill_bill_type" Association="Self.FK_bill_bill_type">
+            <End Role="bill_type" EntitySet="bill_type" />
+            <End Role="bill" EntitySet="bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bills_payments_payment" Association="Self.FK_bills_payments_payment">
+            <End Role="payment" EntitySet="payment" />
+            <End Role="bills_payments" EntitySet="bills_payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_payment_method_payer" Association="Self.FK_payment_method_payer">
+            <End Role="payer" EntitySet="payer" />
+            <End Role="payment_method" EntitySet="payment_method" />
+          </AssociationSet>
+          <AssociationSet Name="FK_payment_method_status" Association="Self.FK_payment_method_status">
+            <End Role="status" EntitySet="status" />
+            <End Role="payment_method" EntitySet="payment_method" />
+          </AssociationSet>
+          <AssociationSet Name="payment$fk_payment_payer1" Association="Self.payment$fk_payment_payer1">
+            <End Role="payer" EntitySet="payer" />
+            <End Role="payment" EntitySet="payment" />
+          </AssociationSet>
+          <AssociationSet Name="session_deposit$fk_session_deposit_sessions_payers1" Association="Self.session_deposit$fk_session_deposit_sessions_payers1">
+            <End Role="sessions_payers" EntitySet="sessions_payers" />
+            <End Role="session_deposit" EntitySet="session_deposit" />
+          </AssociationSet>
+          <AssociationSet Name="sessions_payers$fk_sessions_payers_payer1" Association="Self.sessions_payers$fk_sessions_payers_payer1">
+            <End Role="payer" EntitySet="payer" />
+            <End Role="sessions_payers" EntitySet="sessions_payers" />
+          </AssociationSet>
+          <AssociationSet Name="sessions_payers$fk_sessions_payers_session1" Association="Self.sessions_payers$fk_sessions_payers_session1">
+            <End Role="session" EntitySet="session" />
+            <End Role="sessions_payers" EntitySet="sessions_payers" />
+          </AssociationSet>
+          <AssociationSet Name="users_payers$fk_users_payers_payer1" Association="Self.users_payers$fk_users_payers_payer1">
+            <End Role="payer" EntitySet="payer" />
+            <End Role="users_payers" EntitySet="users_payers" />
+          </AssociationSet>
+          <AssociationSet Name="users_payers$fk_users_payers_user1" Association="Self.users_payers$fk_users_payers_user1">
+            <End Role="user" EntitySet="user" />
+            <End Role="users_payers" EntitySet="users_payers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="billsappDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="bill">
+          <Key>
+            <PropertyRef Name="bill_id" />
+          </Key>
+          <Property Name="bill_id" Type="Int32" Nullable="false" />
+          <Property Name="date_due" Type="DateTime" Precision="0" />
+          <Property Name="amount_due" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="bill_note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="type_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="bills_payers" Relationship="Self.bills_payers_fk_bills_payers_bill1" FromRole="bill" ToRole="bills_payers" />
+          <NavigationProperty Name="bills_payments" Relationship="Self.bills_payments_fk_bills_payments_bill1" FromRole="bill" ToRole="bills_payments" />
+          <NavigationProperty Name="bills_sessions" Relationship="Self.bills_sessions_fk_bills_sessions_bill1" FromRole="bill" ToRole="bills_sessions" />
+          <NavigationProperty Name="bill_type" Relationship="Self.FK_bill_bill_type" FromRole="bill" ToRole="bill_type" />
+        </EntityType>
+        <EntityType Name="bill_type">
+          <Key>
+            <PropertyRef Name="type_id" />
+          </Key>
+          <Property Name="type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type_name" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="task" Type="Boolean" />
+          <Property Name="url" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="day_due" Type="Int32" />
+          <Property Name="month_due" Type="Int32" />
+          <Property Name="year_due" Type="Int32" />
+          <Property Name="auto" Type="Boolean" />
+          <Property Name="amount_due" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="frequency_id" Type="Int32" Nullable="false" />
+          <Property Name="payment_method_id" Type="Int32" Nullable="false" />
+          <Property Name="payer_id" Type="Int32" Nullable="false" />
+          <Property Name="status_id" Type="Int32" Nullable="false" />
+          <Property Name="bill_type_note" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="bill" Relationship="Self.FK_bill_bill_type" FromRole="bill_type" ToRole="bill" />
+          <NavigationProperty Name="frequency" Relationship="Self.bill_type_fk_bill_type_frequency1" FromRole="bill_type" ToRole="frequency" />
+          <NavigationProperty Name="payer" Relationship="Self.bill_type_fk_bill_type_payer1" FromRole="bill_type" ToRole="payer" />
+          <NavigationProperty Name="payment_method" Relationship="Self.bill_type_fk_bill_type_payment_method1" FromRole="bill_type" ToRole="payment_method" />
+          <NavigationProperty Name="status" Relationship="Self.bill_type_fk_bill_type_status1" FromRole="bill_type" ToRole="status" />
+        </EntityType>
+        <EntityType Name="bills_payers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="bill_id" Type="Int32" Nullable="false" />
+          <Property Name="payer_id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="bill" Relationship="Self.bills_payers_fk_bills_payers_bill1" FromRole="bills_payers" ToRole="bill" />
+          <NavigationProperty Name="payer" Relationship="Self.bills_payers_fk_bills_payers_payer1" FromRole="bills_payers" ToRole="payer" />
+        </EntityType>
+        <EntityType Name="bills_payments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="bill_id" Type="Int32" Nullable="false" />
+          <Property Name="payment_id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="bill" Relationship="Self.bills_payments_fk_bills_payments_bill1" FromRole="bills_payments" ToRole="bill" />
+          <NavigationProperty Name="payment" Relationship="Self.FK_bills_payments_payment" FromRole="bills_payments" ToRole="payment" />
+        </EntityType>
+        <EntityType Name="bills_sessions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="bill_id" Type="Int32" Nullable="false" />
+          <Property Name="session_id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="bill" Relationship="Self.bills_sessions_fk_bills_sessions_bill1" FromRole="bills_sessions" ToRole="bill" />
+          <NavigationProperty Name="session" Relationship="Self.bills_sessions_fk_bills_sessions_session1" FromRole="bills_sessions" ToRole="session" />
+        </EntityType>
+        <EntityType Name="frequency">
+          <Key>
+            <PropertyRef Name="frequency_id" />
+          </Key>
+          <Property Name="frequency_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="frequency_name" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="bill_type" Relationship="Self.bill_type_fk_bill_type_frequency1" FromRole="frequency" ToRole="bill_type" />
+        </EntityType>
+        <EntityType Name="payer">
+          <Key>
+            <PropertyRef Name="payer_id" />
+          </Key>
+          <Property Name="payer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="payer_firstname" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="payer_lastname" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="bill_type" Relationship="Self.bill_type_fk_bill_type_payer1" FromRole="payer" ToRole="bill_type" />
+          <NavigationProperty Name="bills_payers" Relationship="Self.bills_payers_fk_bills_payers_payer1" FromRole="payer" ToRole="bills_payers" />
+          <NavigationProperty Name="payment_method" Relationship="Self.FK_payment_method_payer" FromRole="payer" ToRole="payment_method" />
+          <NavigationProperty Name="payment" Relationship="Self.payment_fk_payment_payer1" FromRole="payer" ToRole="payment" />
+          <NavigationProperty Name="sessions_payers" Relationship="Self.sessions_payers_fk_sessions_payers_payer1" FromRole="payer" ToRole="sessions_payers" />
+          <NavigationProperty Name="users_payers" Relationship="Self.users_payers_fk_users_payers_payer1" FromRole="payer" ToRole="users_payers" />
+        </EntityType>
+        <EntityType Name="payment">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="Int32" Nullable="false" />
+          <Property Name="payment_method_id" Type="Int32" Nullable="false" />
+          <Property Name="payment_amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="payment_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="payer_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="bills_payments" Relationship="Self.FK_bills_payments_payment" FromRole="payment" ToRole="bills_payments" />
+          <NavigationProperty Name="payer" Relationship="Self.payment_fk_payment_payer1" FromRole="payment" ToRole="payer" />
+        </EntityType>
+        <EntityType Name="payment_method">
+          <Key>
+            <PropertyRef Name="payment_method_id" />
+          </Key>
+          <Property Name="payment_method_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="payer_id" Type="Int32" Nullable="false" />
+          <Property Name="payment_method_name" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="payment_method_abbreviation" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="status_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="bill_type" Relationship="Self.bill_type_fk_bill_type_payment_method1" FromRole="payment_method" ToRole="bill_type" />
+          <NavigationProperty Name="payer" Relationship="Self.FK_payment_method_payer" FromRole="payment_method" ToRole="payer" />
+          <NavigationProperty Name="status" Relationship="Self.FK_payment_method_status" FromRole="payment_method" ToRole="status" />
+        </EntityType>
+        <EntityType Name="session">
+          <Key>
+            <PropertyRef Name="session_id" />
+          </Key>
+          <Property Name="session_id" Type="Int32" Nullable="false" />
+          <Property Name="session_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="session_total_spent" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="session_status" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="bills_sessions" Relationship="Self.bills_sessions_fk_bills_sessions_session1" FromRole="session" ToRole="bills_sessions" />
+          <NavigationProperty Name="sessions_payers" Relationship="Self.sessions_payers_fk_sessions_payers_session1" FromRole="session" ToRole="sessions_payers" />
+        </EntityType>
+        <EntityType Name="session_deposit">
+          <Key>
+            <PropertyRef Name="deposit_id" />
+          </Key>
+          <Property Name="deposit_id" Type="Int32" Nullable="false" />
+          <Property Name="session_id" Type="Int32" Nullable="false" />
+          <Property Name="payer_id" Type="Int32" Nullable="false" />
+          <Property Name="deposit_amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="deposit_note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="deposit_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="sessions_payers" Relationship="Self.session_deposit_fk_session_deposit_sessions_payers1" FromRole="session_deposit" ToRole="sessions_payers" />
+        </EntityType>
+        <EntityType Name="sessions_payers">
+          <Key>
+            <PropertyRef Name="session_id" />
+            <PropertyRef Name="payer_id" />
+          </Key>
+          <Property Name="balance_starting" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="balance_remaining" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="bills_sum" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="session_id" Type="Int32" Nullable="false" />
+          <Property Name="payer_id" Type="Int32" Nullable="false" />
+          <Property Name="transfer_amount" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="payer" Relationship="Self.sessions_payers_fk_sessions_payers_payer1" FromRole="sessions_payers" ToRole="payer" />
+          <NavigationProperty Name="session" Relationship="Self.sessions_payers_fk_sessions_payers_session1" FromRole="sessions_payers" ToRole="session" />
+          <NavigationProperty Name="session_deposit" Relationship="Self.session_deposit_fk_session_deposit_sessions_payers1" FromRole="sessions_payers" ToRole="session_deposit" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="status_id" />
+          </Key>
+          <Property Name="status_id" Type="Int32" Nullable="false" />
+          <Property Name="status_description" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="bill_type" Relationship="Self.bill_type_fk_bill_type_status1" FromRole="status" ToRole="bill_type" />
+          <NavigationProperty Name="payment_method" Relationship="Self.FK_payment_method_status" FromRole="status" ToRole="payment_method" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_name" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="users_payers" Relationship="Self.users_payers_fk_users_payers_user1" FromRole="user" ToRole="users_payers" />
+        </EntityType>
+        <EntityType Name="users_payers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="payer_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="payer" Relationship="Self.users_payers_fk_users_payers_payer1" FromRole="users_payers" ToRole="payer" />
+          <NavigationProperty Name="user" Relationship="Self.users_payers_fk_users_payers_user1" FromRole="users_payers" ToRole="user" />
+        </EntityType>
+        <Association Name="bills_payers_fk_bills_payers_bill1">
+          <End Role="bill" Type="Self.bill" Multiplicity="1" />
+          <End Role="bills_payers" Type="Self.bills_payers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bill">
+              <PropertyRef Name="bill_id" />
+            </Principal>
+            <Dependent Role="bills_payers">
+              <PropertyRef Name="bill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bills_payments_fk_bills_payments_bill1">
+          <End Role="bill" Type="Self.bill" Multiplicity="1" />
+          <End Role="bills_payments" Type="Self.bills_payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bill">
+              <PropertyRef Name="bill_id" />
+            </Principal>
+            <Dependent Role="bills_payments">
+              <PropertyRef Name="bill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bills_sessions_fk_bills_sessions_bill1">
+          <End Role="bill" Type="Self.bill" Multiplicity="1" />
+          <End Role="bills_sessions" Type="Self.bills_sessions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bill">
+              <PropertyRef Name="bill_id" />
+            </Principal>
+            <Dependent Role="bills_sessions">
+              <PropertyRef Name="bill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bill_bill_type">
+          <End Role="bill_type" Type="Self.bill_type" Multiplicity="1" />
+          <End Role="bill" Type="Self.bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bill_type">
+              <PropertyRef Name="type_id" />
+            </Principal>
+            <Dependent Role="bill">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bill_type_fk_bill_type_frequency1">
+          <End Role="frequency" Type="Self.frequency" Multiplicity="1" />
+          <End Role="bill_type" Type="Self.bill_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="frequency">
+              <PropertyRef Name="frequency_id" />
+            </Principal>
+            <Dependent Role="bill_type">
+              <PropertyRef Name="frequency_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bill_type_fk_bill_type_payer1">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="bill_type" Type="Self.bill_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payer">
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="bill_type">
+              <PropertyRef Name="payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bill_type_fk_bill_type_payment_method1">
+          <End Role="payment_method" Type="Self.payment_method" Multiplicity="1" />
+          <End Role="bill_type" Type="Self.bill_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payment_method">
+              <PropertyRef Name="payment_method_id" />
+            </Principal>
+            <Dependent Role="bill_type">
+              <PropertyRef Name="payment_method_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bill_type_fk_bill_type_status1">
+          <End Role="status" Type="Self.status" Multiplicity="1" />
+          <End Role="bill_type" Type="Self.bill_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="status_id" />
+            </Principal>
+            <Dependent Role="bill_type">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bills_payers_fk_bills_payers_payer1">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="bills_payers" Type="Self.bills_payers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payer">
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="bills_payers">
+              <PropertyRef Name="payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bills_payments_payment">
+          <End Role="payment" Type="Self.payment" Multiplicity="1" />
+          <End Role="bills_payments" Type="Self.bills_payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payment">
+              <PropertyRef Name="payment_id" />
+            </Principal>
+            <Dependent Role="bills_payments">
+              <PropertyRef Name="payment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bills_sessions_fk_bills_sessions_session1">
+          <End Role="session" Type="Self.session" Multiplicity="1" />
+          <End Role="bills_sessions" Type="Self.bills_sessions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="session">
+              <PropertyRef Name="session_id" />
+            </Principal>
+            <Dependent Role="bills_sessions">
+              <PropertyRef Name="session_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payment_method_payer">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="payment_method" Type="Self.payment_method" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payer">
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="payment_method">
+              <PropertyRef Name="payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="payment_fk_payment_payer1">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="payment" Type="Self.payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payer">
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="payment">
+              <PropertyRef Name="payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sessions_payers_fk_sessions_payers_payer1">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="sessions_payers" Type="Self.sessions_payers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payer">
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="sessions_payers">
+              <PropertyRef Name="payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="users_payers_fk_users_payers_payer1">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="users_payers" Type="Self.users_payers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payer">
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="users_payers">
+              <PropertyRef Name="payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payment_method_status">
+          <End Role="status" Type="Self.status" Multiplicity="1" />
+          <End Role="payment_method" Type="Self.payment_method" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="status_id" />
+            </Principal>
+            <Dependent Role="payment_method">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sessions_payers_fk_sessions_payers_session1">
+          <End Role="session" Type="Self.session" Multiplicity="1" />
+          <End Role="sessions_payers" Type="Self.sessions_payers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="session">
+              <PropertyRef Name="session_id" />
+            </Principal>
+            <Dependent Role="sessions_payers">
+              <PropertyRef Name="session_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="session_deposit_fk_session_deposit_sessions_payers1">
+          <End Role="sessions_payers" Type="Self.sessions_payers" Multiplicity="1" />
+          <End Role="session_deposit" Type="Self.session_deposit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sessions_payers">
+              <PropertyRef Name="session_id" />
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="session_deposit">
+              <PropertyRef Name="session_id" />
+              <PropertyRef Name="payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="users_payers_fk_users_payers_user1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="users_payers" Type="Self.users_payers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="users_payers">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="billsappdbEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bill" EntityType="Self.bill" />
+          <EntitySet Name="bill_type" EntityType="Self.bill_type" />
+          <EntitySet Name="bills_payers" EntityType="Self.bills_payers" />
+          <EntitySet Name="bills_payments" EntityType="Self.bills_payments" />
+          <EntitySet Name="bills_sessions" EntityType="Self.bills_sessions" />
+          <EntitySet Name="frequency" EntityType="Self.frequency" />
+          <EntitySet Name="payer" EntityType="Self.payer" />
+          <EntitySet Name="payment" EntityType="Self.payment" />
+          <EntitySet Name="payment_method" EntityType="Self.payment_method" />
+          <EntitySet Name="session" EntityType="Self.session" />
+          <EntitySet Name="session_deposit" EntityType="Self.session_deposit" />
+          <EntitySet Name="sessions_payers" EntityType="Self.sessions_payers" />
+          <EntitySet Name="status" EntityType="Self.status" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <EntitySet Name="users_payers" EntityType="Self.users_payers" />
+          <AssociationSet Name="bills_payers_fk_bills_payers_bill1" Association="Self.bills_payers_fk_bills_payers_bill1">
+            <End Role="bill" EntitySet="bill" />
+            <End Role="bills_payers" EntitySet="bills_payers" />
+          </AssociationSet>
+          <AssociationSet Name="bills_payments_fk_bills_payments_bill1" Association="Self.bills_payments_fk_bills_payments_bill1">
+            <End Role="bill" EntitySet="bill" />
+            <End Role="bills_payments" EntitySet="bills_payments" />
+          </AssociationSet>
+          <AssociationSet Name="bills_sessions_fk_bills_sessions_bill1" Association="Self.bills_sessions_fk_bills_sessions_bill1">
+            <End Role="bill" EntitySet="bill" />
+            <End Role="bills_sessions" EntitySet="bills_sessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bill_bill_type" Association="Self.FK_bill_bill_type">
+            <End Role="bill_type" EntitySet="bill_type" />
+            <End Role="bill" EntitySet="bill" />
+          </AssociationSet>
+          <AssociationSet Name="bill_type_fk_bill_type_frequency1" Association="Self.bill_type_fk_bill_type_frequency1">
+            <End Role="frequency" EntitySet="frequency" />
+            <End Role="bill_type" EntitySet="bill_type" />
+          </AssociationSet>
+          <AssociationSet Name="bill_type_fk_bill_type_payer1" Association="Self.bill_type_fk_bill_type_payer1">
+            <End Role="payer" EntitySet="payer" />
+            <End Role="bill_type" EntitySet="bill_type" />
+          </AssociationSet>
+          <AssociationSet Name="bill_type_fk_bill_type_payment_method1" Association="Self.bill_type_fk_bill_type_payment_method1">
+            <End Role="payment_method" EntitySet="payment_method" />
+            <End Role="bill_type" EntitySet="bill_type" />
+          </AssociationSet>
+          <AssociationSet Name="bill_type_fk_bill_type_status1" Association="Self.bill_type_fk_bill_type_status1">
+            <End Role="status" EntitySet="status" />
+            <End Role="bill_type" EntitySet="bill_type" />
+          </AssociationSet>
+          <AssociationSet Name="bills_payers_fk_bills_payers_payer1" Association="Self.bills_payers_fk_bills_payers_payer1">
+            <End Role="payer" EntitySet="payer" />
+            <End Role="bills_payers" EntitySet="bills_payers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bills_payments_payment" Association="Self.FK_bills_payments_payment">
+            <End Role="payment" EntitySet="payment" />
+            <End Role="bills_payments" EntitySet="bills_payments" />
+          </AssociationSet>
+          <AssociationSet Name="bills_sessions_fk_bills_sessions_session1" Association="Self.bills_sessions_fk_bills_sessions_session1">
+            <End Role="session" EntitySet="session" />
+            <End Role="bills_sessions" EntitySet="bills_sessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_payment_method_payer" Association="Self.FK_payment_method_payer">
+            <End Role="payer" EntitySet="payer" />
+            <End Role="payment_method" EntitySet="payment_method" />
+          </AssociationSet>
+          <AssociationSet Name="payment_fk_payment_payer1" Association="Self.payment_fk_payment_payer1">
+            <End Role="payer" EntitySet="payer" />
+            <End Role="payment" EntitySet="payment" />
+          </AssociationSet>
+          <AssociationSet Name="sessions_payers_fk_sessions_payers_payer1" Association="Self.sessions_payers_fk_sessions_payers_payer1">
+            <End Role="payer" EntitySet="payer" />
+            <End Role="sessions_payers" EntitySet="sessions_payers" />
+          </AssociationSet>
+          <AssociationSet Name="users_payers_fk_users_payers_payer1" Association="Self.users_payers_fk_users_payers_payer1">
+            <End Role="payer" EntitySet="payer" />
+            <End Role="users_payers" EntitySet="users_payers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_payment_method_status" Association="Self.FK_payment_method_status">
+            <End Role="status" EntitySet="status" />
+            <End Role="payment_method" EntitySet="payment_method" />
+          </AssociationSet>
+          <AssociationSet Name="sessions_payers_fk_sessions_payers_session1" Association="Self.sessions_payers_fk_sessions_payers_session1">
+            <End Role="session" EntitySet="session" />
+            <End Role="sessions_payers" EntitySet="sessions_payers" />
+          </AssociationSet>
+          <AssociationSet Name="session_deposit_fk_session_deposit_sessions_payers1" Association="Self.session_deposit_fk_session_deposit_sessions_payers1">
+            <End Role="sessions_payers" EntitySet="sessions_payers" />
+            <End Role="session_deposit" EntitySet="session_deposit" />
+          </AssociationSet>
+          <AssociationSet Name="users_payers_fk_users_payers_user1" Association="Self.users_payers_fk_users_payers_user1">
+            <End Role="user" EntitySet="user" />
+            <End Role="users_payers" EntitySet="users_payers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="billsappDataModelStoreContainer" CdmEntityContainer="billsappdbEntities1">
+          <EntitySetMapping Name="bill">
+            <EntityTypeMapping TypeName="billsappDataModel.bill">
+              <MappingFragment StoreEntitySet="bill">
+                <ScalarProperty Name="bill_id" ColumnName="bill_id" />
+                <ScalarProperty Name="date_due" ColumnName="date_due" />
+                <ScalarProperty Name="amount_due" ColumnName="amount_due" />
+                <ScalarProperty Name="bill_note" ColumnName="bill_note" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bill_type">
+            <EntityTypeMapping TypeName="billsappDataModel.bill_type">
+              <MappingFragment StoreEntitySet="bill_type">
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="type_name" ColumnName="type_name" />
+                <ScalarProperty Name="task" ColumnName="task" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="day_due" ColumnName="day_due" />
+                <ScalarProperty Name="month_due" ColumnName="month_due" />
+                <ScalarProperty Name="year_due" ColumnName="year_due" />
+                <ScalarProperty Name="auto" ColumnName="auto" />
+                <ScalarProperty Name="amount_due" ColumnName="amount_due" />
+                <ScalarProperty Name="frequency_id" ColumnName="frequency_id" />
+                <ScalarProperty Name="payment_method_id" ColumnName="payment_method_id" />
+                <ScalarProperty Name="payer_id" ColumnName="payer_id" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="bill_type_note" ColumnName="bill_type_note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bills_payers">
+            <EntityTypeMapping TypeName="billsappDataModel.bills_payers">
+              <MappingFragment StoreEntitySet="bills_payers">
+                <ScalarProperty Name="bill_id" ColumnName="bill_id" />
+                <ScalarProperty Name="payer_id" ColumnName="payer_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bills_payments">
+            <EntityTypeMapping TypeName="billsappDataModel.bills_payments">
+              <MappingFragment StoreEntitySet="bills_payments">
+                <ScalarProperty Name="bill_id" ColumnName="bill_id" />
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bills_sessions">
+            <EntityTypeMapping TypeName="billsappDataModel.bills_sessions">
+              <MappingFragment StoreEntitySet="bills_sessions">
+                <ScalarProperty Name="bill_id" ColumnName="bill_id" />
+                <ScalarProperty Name="session_id" ColumnName="session_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="frequency">
+            <EntityTypeMapping TypeName="billsappDataModel.frequency">
+              <MappingFragment StoreEntitySet="frequency">
+                <ScalarProperty Name="frequency_id" ColumnName="frequency_id" />
+                <ScalarProperty Name="frequency_name" ColumnName="frequency_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="payer">
+            <EntityTypeMapping TypeName="billsappDataModel.payer">
+              <MappingFragment StoreEntitySet="payer">
+                <ScalarProperty Name="payer_id" ColumnName="payer_id" />
+                <ScalarProperty Name="payer_firstname" ColumnName="payer_firstname" />
+                <ScalarProperty Name="payer_lastname" ColumnName="payer_lastname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="payment">
+            <EntityTypeMapping TypeName="billsappDataModel.payment">
+              <MappingFragment StoreEntitySet="payment">
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+                <ScalarProperty Name="payment_method_id" ColumnName="payment_method_id" />
+                <ScalarProperty Name="payment_amount" ColumnName="payment_amount" />
+                <ScalarProperty Name="payment_date" ColumnName="payment_date" />
+                <ScalarProperty Name="payer_id" ColumnName="payer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="payment_method">
+            <EntityTypeMapping TypeName="billsappDataModel.payment_method">
+              <MappingFragment StoreEntitySet="payment_method">
+                <ScalarProperty Name="payment_method_id" ColumnName="payment_method_id" />
+                <ScalarProperty Name="payer_id" ColumnName="payer_id" />
+                <ScalarProperty Name="payment_method_name" ColumnName="payment_method_name" />
+                <ScalarProperty Name="payment_method_abbreviation" ColumnName="payment_method_abbreviation" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="session">
+            <EntityTypeMapping TypeName="billsappDataModel.session">
+              <MappingFragment StoreEntitySet="session">
+                <ScalarProperty Name="session_id" ColumnName="session_id" />
+                <ScalarProperty Name="session_date" ColumnName="session_date" />
+                <ScalarProperty Name="session_total_spent" ColumnName="session_total_spent" />
+                <ScalarProperty Name="session_status" ColumnName="session_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="session_deposit">
+            <EntityTypeMapping TypeName="billsappDataModel.session_deposit">
+              <MappingFragment StoreEntitySet="session_deposit">
+                <ScalarProperty Name="deposit_id" ColumnName="deposit_id" />
+                <ScalarProperty Name="session_id" ColumnName="session_id" />
+                <ScalarProperty Name="payer_id" ColumnName="payer_id" />
+                <ScalarProperty Name="deposit_amount" ColumnName="deposit_amount" />
+                <ScalarProperty Name="deposit_note" ColumnName="deposit_note" />
+                <ScalarProperty Name="deposit_date" ColumnName="deposit_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sessions_payers">
+            <EntityTypeMapping TypeName="billsappDataModel.sessions_payers">
+              <MappingFragment StoreEntitySet="sessions_payers">
+                <ScalarProperty Name="balance_starting" ColumnName="balance_starting" />
+                <ScalarProperty Name="balance_remaining" ColumnName="balance_remaining" />
+                <ScalarProperty Name="bills_sum" ColumnName="bills_sum" />
+                <ScalarProperty Name="session_id" ColumnName="session_id" />
+                <ScalarProperty Name="payer_id" ColumnName="payer_id" />
+                <ScalarProperty Name="transfer_amount" ColumnName="transfer_amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="status">
+            <EntityTypeMapping TypeName="billsappDataModel.status">
+              <MappingFragment StoreEntitySet="status">
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="status_description" ColumnName="status_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="billsappDataModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users_payers">
+            <EntityTypeMapping TypeName="billsappDataModel.users_payers">
+              <MappingFragment StoreEntitySet="users_payers">
+                <ScalarProperty Name="payer_id" ColumnName="payer_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

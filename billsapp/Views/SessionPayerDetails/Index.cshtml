@@ -1,0 +1,63 @@
+﻿@model IEnumerable<billsapp.Models.sessions_payers>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.balance_starting)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.balance_remaining)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bills_sum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.transfer_amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.payer.payer_firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.session.session_status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.balance_starting)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.balance_remaining)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bills_sum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.transfer_amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.payer.payer_firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.session.session_status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

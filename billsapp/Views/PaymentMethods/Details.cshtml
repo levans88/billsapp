@@ -1,0 +1,50 @@
+﻿@model billsapp.Models.payment_method
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>payment_method</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.payment_method_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.payment_method_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.payment_method_abbreviation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.payment_method_abbreviation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.payer.payer_firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.payer.payer_firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status.status_description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status.status_description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.payment_method_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

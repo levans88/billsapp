@@ -1,0 +1,50 @@
+﻿@model billsapp.Models.bill
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>bill</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.date_due)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_due)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount_due)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amount_due)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bill_note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bill_note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bill_type.type_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bill_type.type_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.bill_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
