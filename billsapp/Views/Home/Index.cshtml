@@ -8,18 +8,21 @@
     <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-<div>
-    <ul>
-        <li>@Html.ActionLink("Actual bills", "Index", "Bills")</li>
-        <li>@Html.ActionLink("List of bill template types", "Index", "BillTypes")</li>
-        <li>@Html.ActionLink("Payers currently in the system", "Index", "Payers")</li>
-        <li>@Html.ActionLink("List of payment methods and abbreviations", "Index", "PaymentMethods")</li>
-        <li>@Html.ActionLink("Completed payments and amounts", "Index", "Payments")</li>
-        <li>@Html.ActionLink("Deposits made during bill pay sessions", "Index", "SessionDeposits")</li>
-        <li>@Html.ActionLink("Bill pay session details", "Index", "SessionDetails")</li>
-        <li>@Html.ActionLink("Bill payer session details", "Index", "SessionPayerDetails")</li>
-    </ul>
-</div>
+@if (Request.IsAuthenticated) {
+    <div>
+        <p>Displayed for debugging/testing, only if logged in / authenticated...</p>
+        <ul>
+            <li>@Html.ActionLink("Actual bills", "Index", "Bills")</li>
+            <li>@Html.ActionLink("List of bill template types", "Index", "BillTypes")</li>
+            <li>@Html.ActionLink("Payers currently in the system", "Index", "Payers")</li>
+            <li>@Html.ActionLink("List of payment methods and abbreviations", "Index", "PaymentMethods")</li>
+            <li>@Html.ActionLink("Completed payments and amounts", "Index", "Payments")</li>
+            <li>@Html.ActionLink("Deposits made during bill pay sessions", "Index", "SessionDeposits")</li>
+            <li>@Html.ActionLink("Bill pay session details", "Index", "SessionDetails")</li>
+            <li>@Html.ActionLink("Bill payer session details", "Index", "SessionPayerDetails")</li>
+        </ul>
+    </div>
+}
 
 @*<div class="row">
     <div class="col-md-4">
