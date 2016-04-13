@@ -25,6 +25,11 @@ namespace billsapp.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<bill> bill { get; set; }
         public virtual DbSet<bill_type> bill_type { get; set; }
         public virtual DbSet<bills_payers> bills_payers { get; set; }
@@ -38,7 +43,6 @@ namespace billsapp.Models
         public virtual DbSet<session_deposit> session_deposit { get; set; }
         public virtual DbSet<sessions_payers> sessions_payers { get; set; }
         public virtual DbSet<status> status { get; set; }
-        public virtual DbSet<user> user { get; set; }
         public virtual DbSet<users_payers> users_payers { get; set; }
     }
 }

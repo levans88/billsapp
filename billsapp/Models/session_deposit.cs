@@ -21,6 +21,7 @@ namespace billsapp.Models
         public string deposit_note { get; set; }
         public System.DateTime deposit_date { get; set; }
     
-        public virtual sessions_payers sessions_payers { get; set; }
+        public virtual payer payer { get; set; }
+        public virtual session session { get; set; }
     }
 }

@@ -12,19 +12,18 @@ namespace billsapp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class user
+    public partial class AspNetRoles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public user()
+        public AspNetRoles()
         {
-            this.users_payers = new HashSet<users_payers>();
+            this.AspNetUsers = new HashSet<AspNetUsers>();
         }
     
-        public int user_id { get; set; }
-        public string user_name { get; set; }
-        public string password { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<users_payers> users_payers { get; set; }
+        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
     }
 }

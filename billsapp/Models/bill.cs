@@ -28,12 +28,12 @@ namespace billsapp.Models
         public string bill_note { get; set; }
         public int type_id { get; set; }
     
+        public virtual bill_type bill_type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bills_payers> bills_payers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bills_payments> bills_payments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bills_sessions> bills_sessions { get; set; }
-        public virtual bill_type bill_type { get; set; }
     }
 }

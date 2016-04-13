@@ -12,13 +12,12 @@ namespace billsapp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class users_payers
+    public partial class AspNetUserLogins
     {
-        public int payer_id { get; set; }
-        public string user_id { get; set; }
-        public int id { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual payer payer { get; set; }
     }
 }

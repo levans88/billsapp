@@ -14,12 +14,7 @@ namespace billsapp.Models
     
     public partial class sessions_payers
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public sessions_payers()
-        {
-            this.session_deposit = new HashSet<session_deposit>();
-        }
-    
+        public int id { get; set; }
         public Nullable<decimal> balance_starting { get; set; }
         public Nullable<decimal> balance_remaining { get; set; }
         public Nullable<decimal> bills_sum { get; set; }
@@ -29,7 +24,5 @@ namespace billsapp.Models
     
         public virtual payer payer { get; set; }
         public virtual session session { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<session_deposit> session_deposit { get; set; }
     }
 }

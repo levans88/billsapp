@@ -29,5 +29,6 @@ namespace billsapp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bills_payments> bills_payments { get; set; }
         public virtual payer payer { get; set; }
+        public virtual payment_method payment_method { get; set; }
     }
 }
