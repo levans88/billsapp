@@ -16,6 +16,11 @@ namespace billsapp.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        //Added custom columns to AspNetUsers table in DB
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public int primary_payer_id { get; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

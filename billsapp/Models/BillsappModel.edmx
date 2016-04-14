@@ -65,12 +65,15 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="primary_payer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="bill">
           <Key>
             <PropertyRef Name="bill_id" />
           </Key>
-          <Property Name="bill_id" Type="int" Nullable="false" />
+          <Property Name="bill_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date_due" Type="date" />
           <Property Name="amount_due" Type="decimal" Precision="10" Scale="2" />
           <Property Name="bill_note" Type="nvarchar" MaxLength="300" />
@@ -80,7 +83,7 @@
           <Key>
             <PropertyRef Name="type_id" />
           </Key>
-          <Property Name="type_id" Type="int" Nullable="false" />
+          <Property Name="type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="type_name" Type="nvarchar" MaxLength="45" Nullable="false" />
           <Property Name="task" Type="bit" />
           <Property Name="url" Type="nvarchar" MaxLength="45" />
@@ -101,7 +104,7 @@
           </Key>
           <Property Name="bill_id" Type="int" Nullable="false" />
           <Property Name="payer_id" Type="int" Nullable="false" />
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="bills_payments">
           <Key>
@@ -109,7 +112,7 @@
           </Key>
           <Property Name="bill_id" Type="int" Nullable="false" />
           <Property Name="payment_id" Type="int" Nullable="false" />
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="bills_sessions">
           <Key>
@@ -117,13 +120,13 @@
           </Key>
           <Property Name="bill_id" Type="int" Nullable="false" />
           <Property Name="session_id" Type="int" Nullable="false" />
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="frequency">
           <Key>
             <PropertyRef Name="frequency_id" />
           </Key>
-          <Property Name="frequency_id" Type="int" Nullable="false" />
+          <Property Name="frequency_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="frequency_name" Type="nvarchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <EntityType Name="payer">
@@ -131,14 +134,14 @@
             <PropertyRef Name="payer_id" />
           </Key>
           <Property Name="payer_id" Type="int" Nullable="false" />
-          <Property Name="payer_firstname" Type="nvarchar" MaxLength="45" Nullable="false" />
-          <Property Name="payer_lastname" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="payer_property_001" Type="int" />
+          <Property Name="payer_property_002" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="payment">
           <Key>
             <PropertyRef Name="payment_id" />
           </Key>
-          <Property Name="payment_id" Type="int" Nullable="false" />
+          <Property Name="payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="payment_method_id" Type="int" Nullable="false" />
           <Property Name="payment_amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="payment_date" Type="datetime2" Precision="0" Nullable="false" />
@@ -148,7 +151,7 @@
           <Key>
             <PropertyRef Name="payment_method_id" />
           </Key>
-          <Property Name="payment_method_id" Type="int" Nullable="false" />
+          <Property Name="payment_method_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="payer_id" Type="int" Nullable="false" />
           <Property Name="payment_method_name" Type="nvarchar" MaxLength="45" Nullable="false" />
           <Property Name="payment_method_abbreviation" Type="nvarchar" MaxLength="45" />
@@ -158,7 +161,7 @@
           <Key>
             <PropertyRef Name="session_id" />
           </Key>
-          <Property Name="session_id" Type="int" Nullable="false" />
+          <Property Name="session_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="session_date" Type="datetime2" Precision="0" Nullable="false" />
           <Property Name="session_total_spent" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="session_status" Type="nvarchar" MaxLength="45" Nullable="false" />
@@ -167,7 +170,7 @@
           <Key>
             <PropertyRef Name="deposit_id" />
           </Key>
-          <Property Name="deposit_id" Type="int" Nullable="false" />
+          <Property Name="deposit_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="session_id" Type="int" Nullable="false" />
           <Property Name="payer_id" Type="int" Nullable="false" />
           <Property Name="deposit_amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
@@ -178,7 +181,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="balance_starting" Type="decimal" Precision="10" Scale="2" />
           <Property Name="balance_remaining" Type="decimal" Precision="10" Scale="2" />
           <Property Name="bills_sum" Type="decimal" Precision="10" Scale="2" />
@@ -190,7 +193,7 @@
           <Key>
             <PropertyRef Name="status_id" />
           </Key>
-          <Property Name="status_id" Type="int" Nullable="false" />
+          <Property Name="status_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="status_description" Type="nvarchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <EntityType Name="users_payers">
@@ -199,7 +202,7 @@
           </Key>
           <Property Name="payer_id" Type="int" Nullable="false" />
           <Property Name="user_id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="bill_type_frequency_id_FK">
           <End Role="frequency" Type="Self.frequency" Multiplicity="1" />
@@ -226,7 +229,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="bill_type_payer_id_FK">
-          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="payer" Type="Self.payer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="bill_type" Type="Self.bill_type" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="payer">
@@ -390,7 +395,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="payment_method_payer_id_FK">
-          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="payer" Type="Self.payer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="payment_method" Type="Self.payment_method" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="payer">
@@ -811,6 +818,9 @@
           <NavigationProperty Name="AspNetUserLogins" Relationship="billsappDataModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="users_payers" Relationship="billsappDataModel.users_payers_user_id_FK" FromRole="AspNetUsers" ToRole="users_payers" />
           <NavigationProperty Name="AspNetRoles" Relationship="billsappDataModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <Property Name="primary_payer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="last_name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="bill">
           <Key>
@@ -893,8 +903,6 @@
             <PropertyRef Name="payer_id" />
           </Key>
           <Property Name="payer_id" Type="Int32" Nullable="false" />
-          <Property Name="payer_firstname" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="payer_lastname" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="bill_type" Relationship="billsappDataModel.bill_type_payer_id_FK" FromRole="payer" ToRole="bill_type" />
           <NavigationProperty Name="bills_payers" Relationship="billsappDataModel.bills_payers_payer_id_FK" FromRole="payer" ToRole="bills_payers" />
           <NavigationProperty Name="payment_method" Relationship="billsappDataModel.payment_method_payer_id_FK" FromRole="payer" ToRole="payment_method" />
@@ -902,6 +910,8 @@
           <NavigationProperty Name="session_deposit" Relationship="billsappDataModel.session_deposit_payer_id_FK" FromRole="payer" ToRole="session_deposit" />
           <NavigationProperty Name="sessions_payers" Relationship="billsappDataModel.sessions_payers_payer_id_FK" FromRole="payer" ToRole="sessions_payers" />
           <NavigationProperty Name="users_payers" Relationship="billsappDataModel.users_payers_payer_id_FK" FromRole="payer" ToRole="users_payers" />
+          <Property Name="payer_property_001" Type="Int32" />
+          <Property Name="payer_property_002" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="payment">
           <Key>
@@ -1318,6 +1328,9 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="billsappDataModel.AspNetUsers">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="primary_payer_id" ColumnName="primary_payer_id" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
@@ -1402,8 +1415,8 @@
           <EntitySetMapping Name="payer">
             <EntityTypeMapping TypeName="billsappDataModel.payer">
               <MappingFragment StoreEntitySet="payer">
-                <ScalarProperty Name="payer_lastname" ColumnName="payer_lastname" />
-                <ScalarProperty Name="payer_firstname" ColumnName="payer_firstname" />
+                <ScalarProperty Name="payer_property_002" ColumnName="payer_property_002" />
+                <ScalarProperty Name="payer_property_001" ColumnName="payer_property_001" />
                 <ScalarProperty Name="payer_id" ColumnName="payer_id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -27,8 +27,8 @@ namespace billsapp.Models
         }
     
         public int payer_id { get; set; }
-        public string payer_firstname { get; set; }
-        public string payer_lastname { get; set; }
+        public Nullable<int> payer_property_001 { get; set; }
+        public string payer_property_002 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bill_type> bill_type { get; set; }
