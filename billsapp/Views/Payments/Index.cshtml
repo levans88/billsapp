@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.payment_date)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.payer.payer_firstname)
+            @Html.DisplayNameFor(model => model.payer.payer_property_01)
         </th>
         <th></th>
     </tr>
@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.payment_date)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.payer.payer_firstname)
+            @Html.DisplayFor(modelItem => item.payer.payer_property_01)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.payment_id }) |

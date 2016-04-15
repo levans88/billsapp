@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.deposit_date)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sessions_payers.session_id)
+            @Html.DisplayNameFor(model => model.session_id)
         </th>
         <th></th>
     </tr>
@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.deposit_date)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.sessions_payers.session_id)
+            @Html.DisplayFor(modelItem => item.session_id)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.deposit_id }) |

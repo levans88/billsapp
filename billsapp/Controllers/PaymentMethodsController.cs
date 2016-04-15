@@ -39,7 +39,7 @@ namespace billsapp.Controllers
         // GET: PaymentMethods/Create
         public ActionResult Create()
         {
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname");
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01");
             ViewBag.status_id = new SelectList(db.status, "status_id", "status_description");
             return View();
         }
@@ -58,7 +58,7 @@ namespace billsapp.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname", payment_method.payer_id);
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01", payment_method.payer_id);
             ViewBag.status_id = new SelectList(db.status, "status_id", "status_description", payment_method.status_id);
             return View(payment_method);
         }
@@ -75,7 +75,7 @@ namespace billsapp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname", payment_method.payer_id);
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01", payment_method.payer_id);
             ViewBag.status_id = new SelectList(db.status, "status_id", "status_description", payment_method.status_id);
             return View(payment_method);
         }
@@ -93,7 +93,7 @@ namespace billsapp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname", payment_method.payer_id);
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01", payment_method.payer_id);
             ViewBag.status_id = new SelectList(db.status, "status_id", "status_description", payment_method.status_id);
             return View(payment_method);
         }

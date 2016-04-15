@@ -40,7 +40,7 @@ namespace billsapp.Controllers
         public ActionResult Create()
         {
             ViewBag.frequency_id = new SelectList(db.frequency, "frequency_id", "frequency_name");
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname");
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01");
             ViewBag.payment_method_id = new SelectList(db.payment_method, "payment_method_id", "payment_method_name");
             ViewBag.status_id = new SelectList(db.status, "status_id", "status_description");
             return View();
@@ -61,7 +61,7 @@ namespace billsapp.Controllers
             }
 
             ViewBag.frequency_id = new SelectList(db.frequency, "frequency_id", "frequency_name", bill_type.frequency_id);
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname", bill_type.payer_id);
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01", bill_type.payer_id);
             ViewBag.payment_method_id = new SelectList(db.payment_method, "payment_method_id", "payment_method_name", bill_type.payment_method_id);
             ViewBag.status_id = new SelectList(db.status, "status_id", "status_description", bill_type.status_id);
             return View(bill_type);
@@ -80,7 +80,7 @@ namespace billsapp.Controllers
                 return HttpNotFound();
             }
             ViewBag.frequency_id = new SelectList(db.frequency, "frequency_id", "frequency_name", bill_type.frequency_id);
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname", bill_type.payer_id);
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01", bill_type.payer_id);
             ViewBag.payment_method_id = new SelectList(db.payment_method, "payment_method_id", "payment_method_name", bill_type.payment_method_id);
             ViewBag.status_id = new SelectList(db.status, "status_id", "status_description", bill_type.status_id);
             return View(bill_type);
@@ -100,7 +100,7 @@ namespace billsapp.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.frequency_id = new SelectList(db.frequency, "frequency_id", "frequency_name", bill_type.frequency_id);
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname", bill_type.payer_id);
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01", bill_type.payer_id);
             ViewBag.payment_method_id = new SelectList(db.payment_method, "payment_method_id", "payment_method_name", bill_type.payment_method_id);
             ViewBag.status_id = new SelectList(db.status, "status_id", "status_description", bill_type.status_id);
             return View(bill_type);

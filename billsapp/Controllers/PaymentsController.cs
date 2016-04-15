@@ -39,7 +39,7 @@ namespace billsapp.Controllers
         // GET: Payments/Create
         public ActionResult Create()
         {
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname");
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace billsapp.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname", payment.payer_id);
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01", payment.payer_id);
             return View(payment);
         }
 
@@ -73,7 +73,7 @@ namespace billsapp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname", payment.payer_id);
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01", payment.payer_id);
             return View(payment);
         }
 
@@ -90,7 +90,7 @@ namespace billsapp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname", payment.payer_id);
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01", payment.payer_id);
             return View(payment);
         }
 
