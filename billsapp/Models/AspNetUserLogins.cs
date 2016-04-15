@@ -12,16 +12,12 @@ namespace billsapp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class session_deposit
+    public partial class AspNetUserLogins
     {
-        public int deposit_id { get; set; }
-        public int session_id { get; set; }
-        public int payer_id { get; set; }
-        public decimal deposit_amount { get; set; }
-        public string deposit_note { get; set; }
-        public System.DateTime deposit_date { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
     
-        public virtual payer payer { get; set; }
-        public virtual session session { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

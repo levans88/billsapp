@@ -39,7 +39,7 @@ namespace billsapp.Controllers
         // GET: SessionPayerDetails/Create
         public ActionResult Create()
         {
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname");
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01");
             ViewBag.session_id = new SelectList(db.session, "session_id", "session_status");
             return View();
         }
@@ -58,7 +58,7 @@ namespace billsapp.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname", sessions_payers.payer_id);
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01", sessions_payers.payer_id);
             ViewBag.session_id = new SelectList(db.session, "session_id", "session_status", sessions_payers.session_id);
             return View(sessions_payers);
         }
@@ -75,7 +75,7 @@ namespace billsapp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname", sessions_payers.payer_id);
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01", sessions_payers.payer_id);
             ViewBag.session_id = new SelectList(db.session, "session_id", "session_status", sessions_payers.session_id);
             return View(sessions_payers);
         }
@@ -93,7 +93,7 @@ namespace billsapp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_firstname", sessions_payers.payer_id);
+            ViewBag.payer_id = new SelectList(db.payer, "payer_id", "payer_property_01", sessions_payers.payer_id);
             ViewBag.session_id = new SelectList(db.session, "session_id", "session_status", sessions_payers.session_id);
             return View(sessions_payers);
         }

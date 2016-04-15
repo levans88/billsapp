@@ -18,6 +18,7 @@ namespace billsapp.Models
         public payment_method()
         {
             this.bill_type = new HashSet<bill_type>();
+            this.payment = new HashSet<payment>();
         }
     
         public int payment_method_id { get; set; }
@@ -29,6 +30,8 @@ namespace billsapp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bill_type> bill_type { get; set; }
         public virtual payer payer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<payment> payment { get; set; }
         public virtual status status { get; set; }
     }
 }

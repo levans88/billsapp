@@ -17,6 +17,7 @@ namespace billsapp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public status()
         {
+            this.AspNetUsers = new HashSet<AspNetUsers>();
             this.bill_type = new HashSet<bill_type>();
             this.payment_method = new HashSet<payment_method>();
         }
@@ -24,6 +25,8 @@ namespace billsapp.Models
         public int status_id { get; set; }
         public string status_description { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bill_type> bill_type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -12,13 +12,11 @@ namespace billsapp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class users_payers
+    public partial class C__MigrationHistory
     {
-        public int payer_id { get; set; }
-        public int user_id { get; set; }
-        public int id { get; set; }
-    
-        public virtual payer payer { get; set; }
-        public virtual user user { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

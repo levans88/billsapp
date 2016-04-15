@@ -12,10 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.payer_firstname)
+            @Html.DisplayNameFor(model => model.payer_property_01)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.payer_lastname)
+            @Html.DisplayNameFor(model => model.payer_property_02)
         </th>
         <th></th>
     </tr>
@@ -23,10 +23,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.payer_firstname)
+            @Html.DisplayFor(modelItem => item.payer_property_01)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.payer_lastname)
+            @Html.DisplayFor(modelItem => item.payer_property_02)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.payer_id }) |

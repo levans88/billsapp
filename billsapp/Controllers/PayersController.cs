@@ -46,7 +46,7 @@ namespace billsapp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "payer_id,payer_firstname,payer_lastname")] payer payer)
+        public ActionResult Create([Bind(Include = "payer_id,payer_property_01,payer_property_02")] payer payer)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace billsapp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "payer_id,payer_firstname,payer_lastname")] payer payer)
+        public ActionResult Edit([Bind(Include = "payer_id,payer_property_01,payer_property_02")] payer payer)
         {
             if (ModelState.IsValid)
             {

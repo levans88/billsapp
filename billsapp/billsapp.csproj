@@ -180,11 +180,22 @@
     <Compile Include="Controllers\SessionDepositsController.cs" />
     <Compile Include="Controllers\SessionDetailsController.cs" />
     <Compile Include="Controllers\SessionPayerDetailsController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetRoles.cs">
+      <DependentUpon>BillsappModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaims.cs">
+      <DependentUpon>BillsappModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogins.cs">
+      <DependentUpon>BillsappModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUsers.cs">
+      <DependentUpon>BillsappModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\bill.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
@@ -215,6 +226,9 @@
     <Compile Include="Models\bill_type.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>BillsappModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\frequency.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
@@ -223,10 +237,19 @@
     <Compile Include="Models\payer.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\payers_permissions.cs">
+      <DependentUpon>BillsappModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\payment.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\payment_method.cs">
+      <DependentUpon>BillsappModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\permission.cs">
+      <DependentUpon>BillsappModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\permission_level.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\session.cs">
@@ -239,12 +262,6 @@
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\status.cs">
-      <DependentUpon>BillsappModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\user.cs">
-      <DependentUpon>BillsappModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\users_payers.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -285,8 +302,12 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="ConnectionStringsDebug.config" />
-    <Content Include="ConnectionStringsRelease.config" />
+    <Content Include="ConnectionStringsDebug.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ConnectionStringsRelease.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\billsharing_debug.pubxml" />
     <None Include="Properties\PublishProfiles\billsharing_release.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -347,11 +368,6 @@
     <Content Include="Views\BillTypes\Details.cshtml" />
     <Content Include="Views\BillTypes\Edit.cshtml" />
     <Content Include="Views\BillTypes\Index.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Payers\Create.cshtml" />
     <Content Include="Views\Payers\Delete.cshtml" />
     <Content Include="Views\Payers\Details.cshtml" />

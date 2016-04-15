@@ -18,6 +18,7 @@ namespace billsapp.Models
         public session()
         {
             this.bills_sessions = new HashSet<bills_sessions>();
+            this.session_deposit = new HashSet<session_deposit>();
             this.sessions_payers = new HashSet<sessions_payers>();
         }
     
@@ -28,6 +29,8 @@ namespace billsapp.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bills_sessions> bills_sessions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<session_deposit> session_deposit { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sessions_payers> sessions_payers { get; set; }
     }

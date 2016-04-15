@@ -19,27 +19,32 @@ namespace billsapp.Models
         {
             this.bill_type = new HashSet<bill_type>();
             this.bills_payers = new HashSet<bills_payers>();
+            this.payers_permissions = new HashSet<payers_permissions>();
             this.payment_method = new HashSet<payment_method>();
             this.payment = new HashSet<payment>();
+            this.session_deposit = new HashSet<session_deposit>();
             this.sessions_payers = new HashSet<sessions_payers>();
-            this.users_payers = new HashSet<users_payers>();
         }
     
         public int payer_id { get; set; }
-        public string payer_firstname { get; set; }
-        public string payer_lastname { get; set; }
+        public string user_id { get; set; }
+        public Nullable<int> payer_property_01 { get; set; }
+        public string payer_property_02 { get; set; }
     
+        public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bill_type> bill_type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bills_payers> bills_payers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<payers_permissions> payers_permissions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<payment_method> payment_method { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<payment> payment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<sessions_payers> sessions_payers { get; set; }
+        public virtual ICollection<session_deposit> session_deposit { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<users_payers> users_payers { get; set; }
+        public virtual ICollection<sessions_payers> sessions_payers { get; set; }
     }
 }

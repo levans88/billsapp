@@ -17,7 +17,7 @@ namespace billsapp.Controllers
         // GET: SessionDeposits
         public ActionResult Index()
         {
-            var session_deposit = db.session_deposit.Include(s => s.sessions_payers);
+            var session_deposit = db.session_deposit.Include(s => s.payer).Include(s => s.session);
             return View(session_deposit.ToList());
         }
 

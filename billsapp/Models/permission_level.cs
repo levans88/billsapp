@@ -12,19 +12,18 @@ namespace billsapp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class user
+    public partial class permission_level
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public user()
+        public permission_level()
         {
-            this.users_payers = new HashSet<users_payers>();
+            this.payers_permissions = new HashSet<payers_permissions>();
         }
     
-        public int user_id { get; set; }
-        public string user_name { get; set; }
-        public string password { get; set; }
+        public int permission_level_id { get; set; }
+        public string permission_level_description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<users_payers> users_payers { get; set; }
+        public virtual ICollection<payers_permissions> payers_permissions { get; set; }
     }
 }

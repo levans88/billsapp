@@ -12,23 +12,18 @@ namespace billsapp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class payment
+    public partial class permission
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public payment()
+        public permission()
         {
-            this.bills_payments = new HashSet<bills_payments>();
+            this.payers_permissions = new HashSet<payers_permissions>();
         }
     
-        public int payment_id { get; set; }
-        public int payment_method_id { get; set; }
-        public decimal payment_amount { get; set; }
-        public System.DateTime payment_date { get; set; }
-        public int payer_id { get; set; }
+        public int permission_id { get; set; }
+        public string permission_description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<bills_payments> bills_payments { get; set; }
-        public virtual payer payer { get; set; }
-        public virtual payment_method payment_method { get; set; }
+        public virtual ICollection<payers_permissions> payers_permissions { get; set; }
     }
 }
