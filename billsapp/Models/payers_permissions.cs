@@ -12,13 +12,16 @@ namespace billsapp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class users_payers
+    public partial class payers_permissions
     {
-        public int payer_id { get; set; }
-        public string user_id { get; set; }
         public int id { get; set; }
+        public int source_payer_id { get; set; }
+        public int target_payer_id { get; set; }
+        public int permission_id { get; set; }
+        public int permission_level_id { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual payer payer { get; set; }
+        public virtual permission permission { get; set; }
+        public virtual permission_level permission_level { get; set; }
     }
 }

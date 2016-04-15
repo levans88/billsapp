@@ -237,10 +237,19 @@
     <Compile Include="Models\payer.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\payers_permissions.cs">
+      <DependentUpon>BillsappModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\payment.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\payment_method.cs">
+      <DependentUpon>BillsappModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\permission.cs">
+      <DependentUpon>BillsappModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\permission_level.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\session.cs">
@@ -253,9 +262,6 @@
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\status.cs">
-      <DependentUpon>BillsappModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\users_payers.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

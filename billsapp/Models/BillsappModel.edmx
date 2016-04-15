@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="billsappDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -43,11 +33,11 @@
         </EntityType>
         <EntityType Name="AspNetUserRoles">
           <Key>
-            <PropertyRef Name="UserId" />
             <PropertyRef Name="RoleId" />
+            <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -67,14 +57,14 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="first_name" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="last_name" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="primary_payer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="bill">
           <Key>
             <PropertyRef Name="bill_id" />
           </Key>
           <Property Name="bill_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="date_due" Type="date" />
+          <Property Name="date_due" Type="datetime" />
           <Property Name="amount_due" Type="decimal" Precision="10" Scale="2" />
           <Property Name="bill_note" Type="nvarchar" MaxLength="300" />
           <Property Name="type_id" Type="int" Nullable="false" />
@@ -122,6 +112,16 @@
           <Property Name="session_id" Type="int" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
         <EntityType Name="frequency">
           <Key>
             <PropertyRef Name="frequency_id" />
@@ -133,9 +133,20 @@
           <Key>
             <PropertyRef Name="payer_id" />
           </Key>
-          <Property Name="payer_id" Type="int" Nullable="false" />
-          <Property Name="payer_property_001" Type="int" />
-          <Property Name="payer_property_002" Type="nvarchar" MaxLength="256" />
+          <Property Name="payer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="payer_property_01" Type="int" />
+          <Property Name="payer_property_02" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="payers_permissions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="source_payer_id" Type="int" Nullable="false" />
+          <Property Name="target_payer_id" Type="int" Nullable="false" />
+          <Property Name="permission_id" Type="int" Nullable="false" />
+          <Property Name="permission_level_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="payment">
           <Key>
@@ -144,7 +155,7 @@
           <Property Name="payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="payment_method_id" Type="int" Nullable="false" />
           <Property Name="payment_amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="payment_date" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="payment_date" Type="datetime" Nullable="false" />
           <Property Name="payer_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="payment_method">
@@ -157,12 +168,26 @@
           <Property Name="payment_method_abbreviation" Type="nvarchar" MaxLength="45" />
           <Property Name="status_id" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="permission">
+          <Key>
+            <PropertyRef Name="permission_id" />
+          </Key>
+          <Property Name="permission_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="permission_description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="permission_level">
+          <Key>
+            <PropertyRef Name="permission_level_id" />
+          </Key>
+          <Property Name="permission_level_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="permission_level_description" Type="nvarchar" MaxLength="15" />
+        </EntityType>
         <EntityType Name="session">
           <Key>
             <PropertyRef Name="session_id" />
           </Key>
           <Property Name="session_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="session_date" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="session_date" Type="datetime" Nullable="false" />
           <Property Name="session_total_spent" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="session_status" Type="nvarchar" MaxLength="45" Nullable="false" />
         </EntityType>
@@ -175,7 +200,7 @@
           <Property Name="payer_id" Type="int" Nullable="false" />
           <Property Name="deposit_amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="deposit_note" Type="nvarchar" MaxLength="300" />
-          <Property Name="deposit_date" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="deposit_date" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="sessions_payers">
           <Key>
@@ -196,15 +221,43 @@
           <Property Name="status_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="status_description" Type="nvarchar" MaxLength="45" Nullable="false" />
         </EntityType>
-        <EntityType Name="users_payers">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="payer_id" Type="int" Nullable="false" />
-          <Property Name="user_id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
-        <Association Name="bill_type_frequency_id_FK">
+        <Association Name="FK_AspNetUserRoles_AspNetRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsers_status">
+          <End Role="status" Type="Self.status" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="status_id" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bill_type_frequency_id_FK">
           <End Role="frequency" Type="Self.frequency" Multiplicity="1" />
           <End Role="bill_type" Type="Self.bill_type" Multiplicity="*" />
           <ReferentialConstraint>
@@ -216,7 +269,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bill_type_id_FK">
+        <Association Name="FK_bill_type_id_FK">
           <End Role="bill_type" Type="Self.bill_type" Multiplicity="1" />
           <End Role="bill" Type="Self.bill" Multiplicity="*" />
           <ReferentialConstraint>
@@ -228,10 +281,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bill_type_payer_id_FK">
-          <End Role="payer" Type="Self.payer" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK_bill_type_payer_id_FK">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
           <End Role="bill_type" Type="Self.bill_type" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="payer">
@@ -242,7 +293,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bill_type_payment_method_id_FK">
+        <Association Name="FK_bill_type_payment_method_id_FK">
           <End Role="payment_method" Type="Self.payment_method" Multiplicity="1" />
           <End Role="bill_type" Type="Self.bill_type" Multiplicity="*" />
           <ReferentialConstraint>
@@ -254,7 +305,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bill_type_status_id_FK">
+        <Association Name="FK_bill_type_status_id_FK">
           <End Role="status" Type="Self.status" Multiplicity="1" />
           <End Role="bill_type" Type="Self.bill_type" Multiplicity="*" />
           <ReferentialConstraint>
@@ -266,7 +317,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bills_payers_bill_id_FK">
+        <Association Name="FK_bills_payers_bill_id_FK">
           <End Role="bill" Type="Self.bill" Multiplicity="1" />
           <End Role="bills_payers" Type="Self.bills_payers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -278,7 +329,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bills_payers_payer_id_FK">
+        <Association Name="FK_bills_payers_payer_id_FK">
           <End Role="payer" Type="Self.payer" Multiplicity="1" />
           <End Role="bills_payers" Type="Self.bills_payers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -290,7 +341,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bills_payments_bill_id_FK">
+        <Association Name="FK_bills_payments_bill_id_FK">
           <End Role="bill" Type="Self.bill" Multiplicity="1" />
           <End Role="bills_payments" Type="Self.bills_payments" Multiplicity="*" />
           <ReferentialConstraint>
@@ -302,7 +353,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bills_payments_payment_id_FK">
+        <Association Name="FK_bills_payments_payment_id_FK">
           <End Role="payment" Type="Self.payment" Multiplicity="1" />
           <End Role="bills_payments" Type="Self.bills_payments" Multiplicity="*" />
           <ReferentialConstraint>
@@ -314,7 +365,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bills_sessions_bill_id_FK">
+        <Association Name="FK_bills_sessions_bill_id_FK">
           <End Role="bill" Type="Self.bill" Multiplicity="1" />
           <End Role="bills_sessions" Type="Self.bills_sessions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -326,7 +377,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bills_sessions_session_id_FK">
+        <Association Name="FK_bills_sessions_session_id_FK">
           <End Role="session" Type="Self.session" Multiplicity="1" />
           <End Role="bills_sessions" Type="Self.bills_sessions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -366,38 +417,56 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetRoles">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+        <Association Name="FK_payer_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="payer" Type="Self.payer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="UserId" />
+            <Dependent Role="payer">
+              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="payment_method_payer_id_FK">
-          <End Role="payer" Type="Self.payer" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK_payers_permissions_payer">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
+          <End Role="payers_permissions" Type="Self.payers_permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payer">
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="payers_permissions">
+              <PropertyRef Name="source_payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payers_permissions_permission">
+          <End Role="permission" Type="Self.permission" Multiplicity="1" />
+          <End Role="payers_permissions" Type="Self.payers_permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="permission">
+              <PropertyRef Name="permission_id" />
+            </Principal>
+            <Dependent Role="payers_permissions">
+              <PropertyRef Name="permission_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payers_permissions_permission_level">
+          <End Role="permission_level" Type="Self.permission_level" Multiplicity="1" />
+          <End Role="payers_permissions" Type="Self.payers_permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="permission_level">
+              <PropertyRef Name="permission_level_id" />
+            </Principal>
+            <Dependent Role="payers_permissions">
+              <PropertyRef Name="permission_level_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payment_method_payer_id_FK">
+          <End Role="payer" Type="Self.payer" Multiplicity="1" />
           <End Role="payment_method" Type="Self.payment_method" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="payer">
@@ -408,7 +477,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="payment_method_status_id_FK">
+        <Association Name="FK_payment_method_status_id_FK">
           <End Role="status" Type="Self.status" Multiplicity="1" />
           <End Role="payment_method" Type="Self.payment_method" Multiplicity="*" />
           <ReferentialConstraint>
@@ -420,7 +489,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="payment_payer_id_FK">
+        <Association Name="FK_payment_payer_id_FK">
           <End Role="payer" Type="Self.payer" Multiplicity="1" />
           <End Role="payment" Type="Self.payment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -432,7 +501,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="payment_payment_method_id_FK">
+        <Association Name="FK_payment_payment_method_id_FK">
           <End Role="payment_method" Type="Self.payment_method" Multiplicity="1" />
           <End Role="payment" Type="Self.payment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -444,7 +513,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="session_deposit_payer_id_FK">
+        <Association Name="FK_session_deposit_payer_id_FK">
           <End Role="payer" Type="Self.payer" Multiplicity="1" />
           <End Role="session_deposit" Type="Self.session_deposit" Multiplicity="*" />
           <ReferentialConstraint>
@@ -456,7 +525,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="session_deposit_session_id_FK">
+        <Association Name="FK_session_deposit_session_id_FK">
           <End Role="session" Type="Self.session" Multiplicity="1" />
           <End Role="session_deposit" Type="Self.session_deposit" Multiplicity="*" />
           <ReferentialConstraint>
@@ -468,7 +537,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="sessions_payers_payer_id_FK">
+        <Association Name="FK_sessions_payers_payer_id_FK">
           <End Role="payer" Type="Self.payer" Multiplicity="1" />
           <End Role="sessions_payers" Type="Self.sessions_payers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -480,7 +549,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="sessions_payers_session_id_FK">
+        <Association Name="FK_sessions_payers_session_id_FK">
           <End Role="session" Type="Self.session" Multiplicity="1" />
           <End Role="sessions_payers" Type="Self.sessions_payers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -489,35 +558,10 @@
             </Principal>
             <Dependent Role="sessions_payers">
               <PropertyRef Name="session_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="users_payers_payer_id_FK">
-          <End Role="payer" Type="Self.payer" Multiplicity="1" />
-          <End Role="users_payers" Type="Self.users_payers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="payer">
-              <PropertyRef Name="payer_id" />
-            </Principal>
-            <Dependent Role="users_payers">
-              <PropertyRef Name="payer_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="users_payers_user_id_FK">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="users_payers" Type="Self.users_payers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="users_payers">
-              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="billsappDataModelStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -528,56 +572,71 @@
           <EntitySet Name="bills_payers" EntityType="Self.bills_payers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bills_payments" EntityType="Self.bills_payments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bills_sessions" EntityType="Self.bills_sessions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="frequency" EntityType="Self.frequency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="payer" EntityType="Self.payer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="payers_permissions" EntityType="Self.payers_permissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="payment" EntityType="Self.payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="payment_method" EntityType="Self.payment_method" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="permission" EntityType="Self.permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="permission_level" EntityType="Self.permission_level" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="session" EntityType="Self.session" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="session_deposit" EntityType="Self.session_deposit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sessions_payers" EntityType="Self.sessions_payers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="users_payers" EntityType="Self.users_payers" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="bill_type_frequency_id_FK" Association="Self.bill_type_frequency_id_FK">
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles" Association="Self.FK_AspNetUserRoles_AspNetRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers" Association="Self.FK_AspNetUserRoles_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsers_status" Association="Self.FK_AspNetUsers_status">
+            <End Role="status" EntitySet="status" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bill_type_frequency_id_FK" Association="Self.FK_bill_type_frequency_id_FK">
             <End Role="frequency" EntitySet="frequency" />
             <End Role="bill_type" EntitySet="bill_type" />
           </AssociationSet>
-          <AssociationSet Name="bill_type_id_FK" Association="Self.bill_type_id_FK">
+          <AssociationSet Name="FK_bill_type_id_FK" Association="Self.FK_bill_type_id_FK">
             <End Role="bill_type" EntitySet="bill_type" />
             <End Role="bill" EntitySet="bill" />
           </AssociationSet>
-          <AssociationSet Name="bill_type_payer_id_FK" Association="Self.bill_type_payer_id_FK">
+          <AssociationSet Name="FK_bill_type_payer_id_FK" Association="Self.FK_bill_type_payer_id_FK">
             <End Role="payer" EntitySet="payer" />
             <End Role="bill_type" EntitySet="bill_type" />
           </AssociationSet>
-          <AssociationSet Name="bill_type_payment_method_id_FK" Association="Self.bill_type_payment_method_id_FK">
+          <AssociationSet Name="FK_bill_type_payment_method_id_FK" Association="Self.FK_bill_type_payment_method_id_FK">
             <End Role="payment_method" EntitySet="payment_method" />
             <End Role="bill_type" EntitySet="bill_type" />
           </AssociationSet>
-          <AssociationSet Name="bill_type_status_id_FK" Association="Self.bill_type_status_id_FK">
+          <AssociationSet Name="FK_bill_type_status_id_FK" Association="Self.FK_bill_type_status_id_FK">
             <End Role="status" EntitySet="status" />
             <End Role="bill_type" EntitySet="bill_type" />
           </AssociationSet>
-          <AssociationSet Name="bills_payers_bill_id_FK" Association="Self.bills_payers_bill_id_FK">
+          <AssociationSet Name="FK_bills_payers_bill_id_FK" Association="Self.FK_bills_payers_bill_id_FK">
             <End Role="bill" EntitySet="bill" />
             <End Role="bills_payers" EntitySet="bills_payers" />
           </AssociationSet>
-          <AssociationSet Name="bills_payers_payer_id_FK" Association="Self.bills_payers_payer_id_FK">
+          <AssociationSet Name="FK_bills_payers_payer_id_FK" Association="Self.FK_bills_payers_payer_id_FK">
             <End Role="payer" EntitySet="payer" />
             <End Role="bills_payers" EntitySet="bills_payers" />
           </AssociationSet>
-          <AssociationSet Name="bills_payments_bill_id_FK" Association="Self.bills_payments_bill_id_FK">
+          <AssociationSet Name="FK_bills_payments_bill_id_FK" Association="Self.FK_bills_payments_bill_id_FK">
             <End Role="bill" EntitySet="bill" />
             <End Role="bills_payments" EntitySet="bills_payments" />
           </AssociationSet>
-          <AssociationSet Name="bills_payments_payment_id_FK" Association="Self.bills_payments_payment_id_FK">
+          <AssociationSet Name="FK_bills_payments_payment_id_FK" Association="Self.FK_bills_payments_payment_id_FK">
             <End Role="payment" EntitySet="payment" />
             <End Role="bills_payments" EntitySet="bills_payments" />
           </AssociationSet>
-          <AssociationSet Name="bills_sessions_bill_id_FK" Association="Self.bills_sessions_bill_id_FK">
+          <AssociationSet Name="FK_bills_sessions_bill_id_FK" Association="Self.FK_bills_sessions_bill_id_FK">
             <End Role="bill" EntitySet="bill" />
             <End Role="bills_sessions" EntitySet="bills_sessions" />
           </AssociationSet>
-          <AssociationSet Name="bills_sessions_session_id_FK" Association="Self.bills_sessions_session_id_FK">
+          <AssociationSet Name="FK_bills_sessions_session_id_FK" Association="Self.FK_bills_sessions_session_id_FK">
             <End Role="session" EntitySet="session" />
             <End Role="bills_sessions" EntitySet="bills_sessions" />
           </AssociationSet>
@@ -589,53 +648,53 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <AssociationSet Name="FK_payer_AspNetUsers" Association="Self.FK_payer_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+            <End Role="payer" EntitySet="payer" />
           </AssociationSet>
-          <AssociationSet Name="payment_method_payer_id_FK" Association="Self.payment_method_payer_id_FK">
+          <AssociationSet Name="FK_payers_permissions_payer" Association="Self.FK_payers_permissions_payer">
+            <End Role="payer" EntitySet="payer" />
+            <End Role="payers_permissions" EntitySet="payers_permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_payers_permissions_permission" Association="Self.FK_payers_permissions_permission">
+            <End Role="permission" EntitySet="permission" />
+            <End Role="payers_permissions" EntitySet="payers_permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_payers_permissions_permission_level" Association="Self.FK_payers_permissions_permission_level">
+            <End Role="permission_level" EntitySet="permission_level" />
+            <End Role="payers_permissions" EntitySet="payers_permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_payment_method_payer_id_FK" Association="Self.FK_payment_method_payer_id_FK">
             <End Role="payer" EntitySet="payer" />
             <End Role="payment_method" EntitySet="payment_method" />
           </AssociationSet>
-          <AssociationSet Name="payment_method_status_id_FK" Association="Self.payment_method_status_id_FK">
+          <AssociationSet Name="FK_payment_method_status_id_FK" Association="Self.FK_payment_method_status_id_FK">
             <End Role="status" EntitySet="status" />
             <End Role="payment_method" EntitySet="payment_method" />
           </AssociationSet>
-          <AssociationSet Name="payment_payer_id_FK" Association="Self.payment_payer_id_FK">
+          <AssociationSet Name="FK_payment_payer_id_FK" Association="Self.FK_payment_payer_id_FK">
             <End Role="payer" EntitySet="payer" />
             <End Role="payment" EntitySet="payment" />
           </AssociationSet>
-          <AssociationSet Name="payment_payment_method_id_FK" Association="Self.payment_payment_method_id_FK">
+          <AssociationSet Name="FK_payment_payment_method_id_FK" Association="Self.FK_payment_payment_method_id_FK">
             <End Role="payment_method" EntitySet="payment_method" />
             <End Role="payment" EntitySet="payment" />
           </AssociationSet>
-          <AssociationSet Name="session_deposit_payer_id_FK" Association="Self.session_deposit_payer_id_FK">
+          <AssociationSet Name="FK_session_deposit_payer_id_FK" Association="Self.FK_session_deposit_payer_id_FK">
             <End Role="payer" EntitySet="payer" />
             <End Role="session_deposit" EntitySet="session_deposit" />
           </AssociationSet>
-          <AssociationSet Name="session_deposit_session_id_FK" Association="Self.session_deposit_session_id_FK">
+          <AssociationSet Name="FK_session_deposit_session_id_FK" Association="Self.FK_session_deposit_session_id_FK">
             <End Role="session" EntitySet="session" />
             <End Role="session_deposit" EntitySet="session_deposit" />
           </AssociationSet>
-          <AssociationSet Name="sessions_payers_payer_id_FK" Association="Self.sessions_payers_payer_id_FK">
+          <AssociationSet Name="FK_sessions_payers_payer_id_FK" Association="Self.FK_sessions_payers_payer_id_FK">
             <End Role="payer" EntitySet="payer" />
             <End Role="sessions_payers" EntitySet="sessions_payers" />
           </AssociationSet>
-          <AssociationSet Name="sessions_payers_session_id_FK" Association="Self.sessions_payers_session_id_FK">
+          <AssociationSet Name="FK_sessions_payers_session_id_FK" Association="Self.FK_sessions_payers_session_id_FK">
             <End Role="session" EntitySet="session" />
             <End Role="sessions_payers" EntitySet="sessions_payers" />
-          </AssociationSet>
-          <AssociationSet Name="users_payers_payer_id_FK" Association="Self.users_payers_payer_id_FK">
-            <End Role="payer" EntitySet="payer" />
-            <End Role="users_payers" EntitySet="users_payers" />
-          </AssociationSet>
-          <AssociationSet Name="users_payers_user_id_FK" Association="Self.users_payers_user_id_FK">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="users_payers" EntitySet="users_payers" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -643,7 +702,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="billsappDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="billsappdbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="billsappDataModel.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="billsappDataModel.AspNetRoles" />
           <EntitySet Name="AspNetUserClaims" EntityType="billsappDataModel.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="billsappDataModel.AspNetUserLogins" />
@@ -653,15 +711,18 @@
           <EntitySet Name="bills_payers" EntityType="billsappDataModel.bills_payers" />
           <EntitySet Name="bills_payments" EntityType="billsappDataModel.bills_payments" />
           <EntitySet Name="bills_sessions" EntityType="billsappDataModel.bills_sessions" />
+          <EntitySet Name="C__MigrationHistory" EntityType="billsappDataModel.C__MigrationHistory" />
           <EntitySet Name="frequency" EntityType="billsappDataModel.frequency" />
           <EntitySet Name="payer" EntityType="billsappDataModel.payer" />
+          <EntitySet Name="payers_permissions" EntityType="billsappDataModel.payers_permissions" />
           <EntitySet Name="payment" EntityType="billsappDataModel.payment" />
           <EntitySet Name="payment_method" EntityType="billsappDataModel.payment_method" />
+          <EntitySet Name="permission" EntityType="billsappDataModel.permission" />
+          <EntitySet Name="permission_level" EntityType="billsappDataModel.permission_level" />
           <EntitySet Name="session" EntityType="billsappDataModel.session" />
           <EntitySet Name="session_deposit" EntityType="billsappDataModel.session_deposit" />
           <EntitySet Name="sessions_payers" EntityType="billsappDataModel.sessions_payers" />
           <EntitySet Name="status" EntityType="billsappDataModel.status" />
-          <EntitySet Name="users_payers" EntityType="billsappDataModel.users_payers" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="billsappDataModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -670,87 +731,99 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="users_payers_user_id_FK" Association="billsappDataModel.users_payers_user_id_FK">
+          <AssociationSet Name="FK_AspNetUsers_status" Association="billsappDataModel.FK_AspNetUsers_status">
+            <End Role="status" EntitySet="status" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="users_payers" EntitySet="users_payers" />
           </AssociationSet>
-          <AssociationSet Name="bill_type_id_FK" Association="billsappDataModel.bill_type_id_FK">
+          <AssociationSet Name="FK_payer_AspNetUsers" Association="billsappDataModel.FK_payer_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="payer" EntitySet="payer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bill_type_id_FK" Association="billsappDataModel.FK_bill_type_id_FK">
             <End Role="bill_type" EntitySet="bill_type" />
             <End Role="bill" EntitySet="bill" />
           </AssociationSet>
-          <AssociationSet Name="bills_payers_bill_id_FK" Association="billsappDataModel.bills_payers_bill_id_FK">
+          <AssociationSet Name="FK_bills_payers_bill_id_FK" Association="billsappDataModel.FK_bills_payers_bill_id_FK">
             <End Role="bill" EntitySet="bill" />
             <End Role="bills_payers" EntitySet="bills_payers" />
           </AssociationSet>
-          <AssociationSet Name="bills_payments_bill_id_FK" Association="billsappDataModel.bills_payments_bill_id_FK">
+          <AssociationSet Name="FK_bills_payments_bill_id_FK" Association="billsappDataModel.FK_bills_payments_bill_id_FK">
             <End Role="bill" EntitySet="bill" />
             <End Role="bills_payments" EntitySet="bills_payments" />
           </AssociationSet>
-          <AssociationSet Name="bills_sessions_bill_id_FK" Association="billsappDataModel.bills_sessions_bill_id_FK">
+          <AssociationSet Name="FK_bills_sessions_bill_id_FK" Association="billsappDataModel.FK_bills_sessions_bill_id_FK">
             <End Role="bill" EntitySet="bill" />
             <End Role="bills_sessions" EntitySet="bills_sessions" />
           </AssociationSet>
-          <AssociationSet Name="bill_type_frequency_id_FK" Association="billsappDataModel.bill_type_frequency_id_FK">
+          <AssociationSet Name="FK_bill_type_frequency_id_FK" Association="billsappDataModel.FK_bill_type_frequency_id_FK">
             <End Role="frequency" EntitySet="frequency" />
             <End Role="bill_type" EntitySet="bill_type" />
           </AssociationSet>
-          <AssociationSet Name="bill_type_payer_id_FK" Association="billsappDataModel.bill_type_payer_id_FK">
+          <AssociationSet Name="FK_bill_type_payer_id_FK" Association="billsappDataModel.FK_bill_type_payer_id_FK">
             <End Role="payer" EntitySet="payer" />
             <End Role="bill_type" EntitySet="bill_type" />
           </AssociationSet>
-          <AssociationSet Name="bill_type_payment_method_id_FK" Association="billsappDataModel.bill_type_payment_method_id_FK">
+          <AssociationSet Name="FK_bill_type_payment_method_id_FK" Association="billsappDataModel.FK_bill_type_payment_method_id_FK">
             <End Role="payment_method" EntitySet="payment_method" />
             <End Role="bill_type" EntitySet="bill_type" />
           </AssociationSet>
-          <AssociationSet Name="bill_type_status_id_FK" Association="billsappDataModel.bill_type_status_id_FK">
+          <AssociationSet Name="FK_bill_type_status_id_FK" Association="billsappDataModel.FK_bill_type_status_id_FK">
             <End Role="status" EntitySet="status" />
             <End Role="bill_type" EntitySet="bill_type" />
           </AssociationSet>
-          <AssociationSet Name="bills_payers_payer_id_FK" Association="billsappDataModel.bills_payers_payer_id_FK">
+          <AssociationSet Name="FK_bills_payers_payer_id_FK" Association="billsappDataModel.FK_bills_payers_payer_id_FK">
             <End Role="payer" EntitySet="payer" />
             <End Role="bills_payers" EntitySet="bills_payers" />
           </AssociationSet>
-          <AssociationSet Name="bills_payments_payment_id_FK" Association="billsappDataModel.bills_payments_payment_id_FK">
+          <AssociationSet Name="FK_bills_payments_payment_id_FK" Association="billsappDataModel.FK_bills_payments_payment_id_FK">
             <End Role="payment" EntitySet="payment" />
             <End Role="bills_payments" EntitySet="bills_payments" />
           </AssociationSet>
-          <AssociationSet Name="bills_sessions_session_id_FK" Association="billsappDataModel.bills_sessions_session_id_FK">
+          <AssociationSet Name="FK_bills_sessions_session_id_FK" Association="billsappDataModel.FK_bills_sessions_session_id_FK">
             <End Role="session" EntitySet="session" />
             <End Role="bills_sessions" EntitySet="bills_sessions" />
           </AssociationSet>
-          <AssociationSet Name="payment_method_payer_id_FK" Association="billsappDataModel.payment_method_payer_id_FK">
+          <AssociationSet Name="FK_payers_permissions_payer" Association="billsappDataModel.FK_payers_permissions_payer">
+            <End Role="payer" EntitySet="payer" />
+            <End Role="payers_permissions" EntitySet="payers_permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_payment_method_payer_id_FK" Association="billsappDataModel.FK_payment_method_payer_id_FK">
             <End Role="payer" EntitySet="payer" />
             <End Role="payment_method" EntitySet="payment_method" />
           </AssociationSet>
-          <AssociationSet Name="payment_payer_id_FK" Association="billsappDataModel.payment_payer_id_FK">
+          <AssociationSet Name="FK_payment_payer_id_FK" Association="billsappDataModel.FK_payment_payer_id_FK">
             <End Role="payer" EntitySet="payer" />
             <End Role="payment" EntitySet="payment" />
           </AssociationSet>
-          <AssociationSet Name="session_deposit_payer_id_FK" Association="billsappDataModel.session_deposit_payer_id_FK">
+          <AssociationSet Name="FK_session_deposit_payer_id_FK" Association="billsappDataModel.FK_session_deposit_payer_id_FK">
             <End Role="payer" EntitySet="payer" />
             <End Role="session_deposit" EntitySet="session_deposit" />
           </AssociationSet>
-          <AssociationSet Name="sessions_payers_payer_id_FK" Association="billsappDataModel.sessions_payers_payer_id_FK">
+          <AssociationSet Name="FK_sessions_payers_payer_id_FK" Association="billsappDataModel.FK_sessions_payers_payer_id_FK">
             <End Role="payer" EntitySet="payer" />
             <End Role="sessions_payers" EntitySet="sessions_payers" />
           </AssociationSet>
-          <AssociationSet Name="users_payers_payer_id_FK" Association="billsappDataModel.users_payers_payer_id_FK">
-            <End Role="payer" EntitySet="payer" />
-            <End Role="users_payers" EntitySet="users_payers" />
+          <AssociationSet Name="FK_payers_permissions_permission" Association="billsappDataModel.FK_payers_permissions_permission">
+            <End Role="permission" EntitySet="permission" />
+            <End Role="payers_permissions" EntitySet="payers_permissions" />
           </AssociationSet>
-          <AssociationSet Name="payment_payment_method_id_FK" Association="billsappDataModel.payment_payment_method_id_FK">
+          <AssociationSet Name="FK_payers_permissions_permission_level" Association="billsappDataModel.FK_payers_permissions_permission_level">
+            <End Role="permission_level" EntitySet="permission_level" />
+            <End Role="payers_permissions" EntitySet="payers_permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_payment_payment_method_id_FK" Association="billsappDataModel.FK_payment_payment_method_id_FK">
             <End Role="payment_method" EntitySet="payment_method" />
             <End Role="payment" EntitySet="payment" />
           </AssociationSet>
-          <AssociationSet Name="payment_method_status_id_FK" Association="billsappDataModel.payment_method_status_id_FK">
+          <AssociationSet Name="FK_payment_method_status_id_FK" Association="billsappDataModel.FK_payment_method_status_id_FK">
             <End Role="status" EntitySet="status" />
             <End Role="payment_method" EntitySet="payment_method" />
           </AssociationSet>
-          <AssociationSet Name="session_deposit_session_id_FK" Association="billsappDataModel.session_deposit_session_id_FK">
+          <AssociationSet Name="FK_session_deposit_session_id_FK" Association="billsappDataModel.FK_session_deposit_session_id_FK">
             <End Role="session" EntitySet="session" />
             <End Role="session_deposit" EntitySet="session_deposit" />
           </AssociationSet>
-          <AssociationSet Name="sessions_payers_session_id_FK" Association="billsappDataModel.sessions_payers_session_id_FK">
+          <AssociationSet Name="FK_sessions_payers_session_id_FK" Association="billsappDataModel.FK_sessions_payers_session_id_FK">
             <End Role="session" EntitySet="session" />
             <End Role="sessions_payers" EntitySet="sessions_payers" />
           </AssociationSet>
@@ -759,16 +832,6 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -814,33 +877,34 @@
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="billsappDataModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="billsappDataModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="users_payers" Relationship="billsappDataModel.users_payers_user_id_FK" FromRole="AspNetUsers" ToRole="users_payers" />
-          <NavigationProperty Name="AspNetRoles" Relationship="billsappDataModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <Property Name="primary_payer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="first_name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="last_name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="status_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="billsappDataModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="billsappDataModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="status" Relationship="billsappDataModel.FK_AspNetUsers_status" FromRole="AspNetUsers" ToRole="status" />
+          <NavigationProperty Name="payer" Relationship="billsappDataModel.FK_payer_AspNetUsers" FromRole="AspNetUsers" ToRole="payer" />
+          <NavigationProperty Name="AspNetRoles" Relationship="billsappDataModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
         <EntityType Name="bill">
           <Key>
             <PropertyRef Name="bill_id" />
           </Key>
-          <Property Name="bill_id" Type="Int32" Nullable="false" />
-          <Property Name="date_due" Type="DateTime" Precision="0" />
+          <Property Name="bill_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date_due" Type="DateTime" Precision="3" />
           <Property Name="amount_due" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="bill_note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="type_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="bill_type" Relationship="billsappDataModel.bill_type_id_FK" FromRole="bill" ToRole="bill_type" />
-          <NavigationProperty Name="bills_payers" Relationship="billsappDataModel.bills_payers_bill_id_FK" FromRole="bill" ToRole="bills_payers" />
-          <NavigationProperty Name="bills_payments" Relationship="billsappDataModel.bills_payments_bill_id_FK" FromRole="bill" ToRole="bills_payments" />
-          <NavigationProperty Name="bills_sessions" Relationship="billsappDataModel.bills_sessions_bill_id_FK" FromRole="bill" ToRole="bills_sessions" />
+          <NavigationProperty Name="bill_type" Relationship="billsappDataModel.FK_bill_type_id_FK" FromRole="bill" ToRole="bill_type" />
+          <NavigationProperty Name="bills_payers" Relationship="billsappDataModel.FK_bills_payers_bill_id_FK" FromRole="bill" ToRole="bills_payers" />
+          <NavigationProperty Name="bills_payments" Relationship="billsappDataModel.FK_bills_payments_bill_id_FK" FromRole="bill" ToRole="bills_payments" />
+          <NavigationProperty Name="bills_sessions" Relationship="billsappDataModel.FK_bills_sessions_bill_id_FK" FromRole="bill" ToRole="bills_sessions" />
         </EntityType>
         <EntityType Name="bill_type">
           <Key>
             <PropertyRef Name="type_id" />
           </Key>
-          <Property Name="type_id" Type="Int32" Nullable="false" />
+          <Property Name="type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="type_name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
           <Property Name="task" Type="Boolean" />
           <Property Name="url" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
@@ -854,11 +918,11 @@
           <Property Name="payer_id" Type="Int32" Nullable="false" />
           <Property Name="status_id" Type="Int32" Nullable="false" />
           <Property Name="bill_type_note" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="bill" Relationship="billsappDataModel.bill_type_id_FK" FromRole="bill_type" ToRole="bill" />
-          <NavigationProperty Name="frequency" Relationship="billsappDataModel.bill_type_frequency_id_FK" FromRole="bill_type" ToRole="frequency" />
-          <NavigationProperty Name="payer" Relationship="billsappDataModel.bill_type_payer_id_FK" FromRole="bill_type" ToRole="payer" />
-          <NavigationProperty Name="payment_method" Relationship="billsappDataModel.bill_type_payment_method_id_FK" FromRole="bill_type" ToRole="payment_method" />
-          <NavigationProperty Name="status" Relationship="billsappDataModel.bill_type_status_id_FK" FromRole="bill_type" ToRole="status" />
+          <NavigationProperty Name="bill" Relationship="billsappDataModel.FK_bill_type_id_FK" FromRole="bill_type" ToRole="bill" />
+          <NavigationProperty Name="frequency" Relationship="billsappDataModel.FK_bill_type_frequency_id_FK" FromRole="bill_type" ToRole="frequency" />
+          <NavigationProperty Name="payer" Relationship="billsappDataModel.FK_bill_type_payer_id_FK" FromRole="bill_type" ToRole="payer" />
+          <NavigationProperty Name="payment_method" Relationship="billsappDataModel.FK_bill_type_payment_method_id_FK" FromRole="bill_type" ToRole="payment_method" />
+          <NavigationProperty Name="status" Relationship="billsappDataModel.FK_bill_type_status_id_FK" FromRole="bill_type" ToRole="status" />
         </EntityType>
         <EntityType Name="bills_payers">
           <Key>
@@ -866,9 +930,9 @@
           </Key>
           <Property Name="bill_id" Type="Int32" Nullable="false" />
           <Property Name="payer_id" Type="Int32" Nullable="false" />
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="bill" Relationship="billsappDataModel.bills_payers_bill_id_FK" FromRole="bills_payers" ToRole="bill" />
-          <NavigationProperty Name="payer" Relationship="billsappDataModel.bills_payers_payer_id_FK" FromRole="bills_payers" ToRole="payer" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="bill" Relationship="billsappDataModel.FK_bills_payers_bill_id_FK" FromRole="bills_payers" ToRole="bill" />
+          <NavigationProperty Name="payer" Relationship="billsappDataModel.FK_bills_payers_payer_id_FK" FromRole="bills_payers" ToRole="payer" />
         </EntityType>
         <EntityType Name="bills_payments">
           <Key>
@@ -876,9 +940,9 @@
           </Key>
           <Property Name="bill_id" Type="Int32" Nullable="false" />
           <Property Name="payment_id" Type="Int32" Nullable="false" />
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="bill" Relationship="billsappDataModel.bills_payments_bill_id_FK" FromRole="bills_payments" ToRole="bill" />
-          <NavigationProperty Name="payment" Relationship="billsappDataModel.bills_payments_payment_id_FK" FromRole="bills_payments" ToRole="payment" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="bill" Relationship="billsappDataModel.FK_bills_payments_bill_id_FK" FromRole="bills_payments" ToRole="bill" />
+          <NavigationProperty Name="payment" Relationship="billsappDataModel.FK_bills_payments_payment_id_FK" FromRole="bills_payments" ToRole="payment" />
         </EntityType>
         <EntityType Name="bills_sessions">
           <Key>
@@ -886,117 +950,149 @@
           </Key>
           <Property Name="bill_id" Type="Int32" Nullable="false" />
           <Property Name="session_id" Type="Int32" Nullable="false" />
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="bill" Relationship="billsappDataModel.bills_sessions_bill_id_FK" FromRole="bills_sessions" ToRole="bill" />
-          <NavigationProperty Name="session" Relationship="billsappDataModel.bills_sessions_session_id_FK" FromRole="bills_sessions" ToRole="session" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="bill" Relationship="billsappDataModel.FK_bills_sessions_bill_id_FK" FromRole="bills_sessions" ToRole="bill" />
+          <NavigationProperty Name="session" Relationship="billsappDataModel.FK_bills_sessions_session_id_FK" FromRole="bills_sessions" ToRole="session" />
+        </EntityType>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="frequency">
           <Key>
             <PropertyRef Name="frequency_id" />
           </Key>
-          <Property Name="frequency_id" Type="Int32" Nullable="false" />
+          <Property Name="frequency_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="frequency_name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="bill_type" Relationship="billsappDataModel.bill_type_frequency_id_FK" FromRole="frequency" ToRole="bill_type" />
+          <NavigationProperty Name="bill_type" Relationship="billsappDataModel.FK_bill_type_frequency_id_FK" FromRole="frequency" ToRole="bill_type" />
         </EntityType>
         <EntityType Name="payer">
           <Key>
             <PropertyRef Name="payer_id" />
           </Key>
-          <Property Name="payer_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="bill_type" Relationship="billsappDataModel.bill_type_payer_id_FK" FromRole="payer" ToRole="bill_type" />
-          <NavigationProperty Name="bills_payers" Relationship="billsappDataModel.bills_payers_payer_id_FK" FromRole="payer" ToRole="bills_payers" />
-          <NavigationProperty Name="payment_method" Relationship="billsappDataModel.payment_method_payer_id_FK" FromRole="payer" ToRole="payment_method" />
-          <NavigationProperty Name="payment" Relationship="billsappDataModel.payment_payer_id_FK" FromRole="payer" ToRole="payment" />
-          <NavigationProperty Name="session_deposit" Relationship="billsappDataModel.session_deposit_payer_id_FK" FromRole="payer" ToRole="session_deposit" />
-          <NavigationProperty Name="sessions_payers" Relationship="billsappDataModel.sessions_payers_payer_id_FK" FromRole="payer" ToRole="sessions_payers" />
-          <NavigationProperty Name="users_payers" Relationship="billsappDataModel.users_payers_payer_id_FK" FromRole="payer" ToRole="users_payers" />
-          <Property Name="payer_property_001" Type="Int32" />
-          <Property Name="payer_property_002" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="payer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="payer_property_01" Type="Int32" />
+          <Property Name="payer_property_02" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="billsappDataModel.FK_payer_AspNetUsers" FromRole="payer" ToRole="AspNetUsers" />
+          <NavigationProperty Name="bill_type" Relationship="billsappDataModel.FK_bill_type_payer_id_FK" FromRole="payer" ToRole="bill_type" />
+          <NavigationProperty Name="bills_payers" Relationship="billsappDataModel.FK_bills_payers_payer_id_FK" FromRole="payer" ToRole="bills_payers" />
+          <NavigationProperty Name="payers_permissions" Relationship="billsappDataModel.FK_payers_permissions_payer" FromRole="payer" ToRole="payers_permissions" />
+          <NavigationProperty Name="payment_method" Relationship="billsappDataModel.FK_payment_method_payer_id_FK" FromRole="payer" ToRole="payment_method" />
+          <NavigationProperty Name="payment" Relationship="billsappDataModel.FK_payment_payer_id_FK" FromRole="payer" ToRole="payment" />
+          <NavigationProperty Name="session_deposit" Relationship="billsappDataModel.FK_session_deposit_payer_id_FK" FromRole="payer" ToRole="session_deposit" />
+          <NavigationProperty Name="sessions_payers" Relationship="billsappDataModel.FK_sessions_payers_payer_id_FK" FromRole="payer" ToRole="sessions_payers" />
+        </EntityType>
+        <EntityType Name="payers_permissions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="source_payer_id" Type="Int32" Nullable="false" />
+          <Property Name="target_payer_id" Type="Int32" Nullable="false" />
+          <Property Name="permission_id" Type="Int32" Nullable="false" />
+          <Property Name="permission_level_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="payer" Relationship="billsappDataModel.FK_payers_permissions_payer" FromRole="payers_permissions" ToRole="payer" />
+          <NavigationProperty Name="permission" Relationship="billsappDataModel.FK_payers_permissions_permission" FromRole="payers_permissions" ToRole="permission" />
+          <NavigationProperty Name="permission_level" Relationship="billsappDataModel.FK_payers_permissions_permission_level" FromRole="payers_permissions" ToRole="permission_level" />
         </EntityType>
         <EntityType Name="payment">
           <Key>
             <PropertyRef Name="payment_id" />
           </Key>
-          <Property Name="payment_id" Type="Int32" Nullable="false" />
+          <Property Name="payment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="payment_method_id" Type="Int32" Nullable="false" />
           <Property Name="payment_amount" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="payment_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="payment_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="payer_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="bills_payments" Relationship="billsappDataModel.bills_payments_payment_id_FK" FromRole="payment" ToRole="bills_payments" />
-          <NavigationProperty Name="payer" Relationship="billsappDataModel.payment_payer_id_FK" FromRole="payment" ToRole="payer" />
-          <NavigationProperty Name="payment_method" Relationship="billsappDataModel.payment_payment_method_id_FK" FromRole="payment" ToRole="payment_method" />
+          <NavigationProperty Name="bills_payments" Relationship="billsappDataModel.FK_bills_payments_payment_id_FK" FromRole="payment" ToRole="bills_payments" />
+          <NavigationProperty Name="payer" Relationship="billsappDataModel.FK_payment_payer_id_FK" FromRole="payment" ToRole="payer" />
+          <NavigationProperty Name="payment_method" Relationship="billsappDataModel.FK_payment_payment_method_id_FK" FromRole="payment" ToRole="payment_method" />
         </EntityType>
         <EntityType Name="payment_method">
           <Key>
             <PropertyRef Name="payment_method_id" />
           </Key>
-          <Property Name="payment_method_id" Type="Int32" Nullable="false" />
+          <Property Name="payment_method_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="payer_id" Type="Int32" Nullable="false" />
           <Property Name="payment_method_name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
           <Property Name="payment_method_abbreviation" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
           <Property Name="status_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="bill_type" Relationship="billsappDataModel.bill_type_payment_method_id_FK" FromRole="payment_method" ToRole="bill_type" />
-          <NavigationProperty Name="payer" Relationship="billsappDataModel.payment_method_payer_id_FK" FromRole="payment_method" ToRole="payer" />
-          <NavigationProperty Name="payment" Relationship="billsappDataModel.payment_payment_method_id_FK" FromRole="payment_method" ToRole="payment" />
-          <NavigationProperty Name="status" Relationship="billsappDataModel.payment_method_status_id_FK" FromRole="payment_method" ToRole="status" />
+          <NavigationProperty Name="bill_type" Relationship="billsappDataModel.FK_bill_type_payment_method_id_FK" FromRole="payment_method" ToRole="bill_type" />
+          <NavigationProperty Name="payer" Relationship="billsappDataModel.FK_payment_method_payer_id_FK" FromRole="payment_method" ToRole="payer" />
+          <NavigationProperty Name="payment" Relationship="billsappDataModel.FK_payment_payment_method_id_FK" FromRole="payment_method" ToRole="payment" />
+          <NavigationProperty Name="status" Relationship="billsappDataModel.FK_payment_method_status_id_FK" FromRole="payment_method" ToRole="status" />
+        </EntityType>
+        <EntityType Name="permission">
+          <Key>
+            <PropertyRef Name="permission_id" />
+          </Key>
+          <Property Name="permission_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="permission_description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="payers_permissions" Relationship="billsappDataModel.FK_payers_permissions_permission" FromRole="permission" ToRole="payers_permissions" />
+        </EntityType>
+        <EntityType Name="permission_level">
+          <Key>
+            <PropertyRef Name="permission_level_id" />
+          </Key>
+          <Property Name="permission_level_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="permission_level_description" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="payers_permissions" Relationship="billsappDataModel.FK_payers_permissions_permission_level" FromRole="permission_level" ToRole="payers_permissions" />
         </EntityType>
         <EntityType Name="session">
           <Key>
             <PropertyRef Name="session_id" />
           </Key>
-          <Property Name="session_id" Type="Int32" Nullable="false" />
-          <Property Name="session_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="session_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="session_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="session_total_spent" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="session_status" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="bills_sessions" Relationship="billsappDataModel.bills_sessions_session_id_FK" FromRole="session" ToRole="bills_sessions" />
-          <NavigationProperty Name="session_deposit" Relationship="billsappDataModel.session_deposit_session_id_FK" FromRole="session" ToRole="session_deposit" />
-          <NavigationProperty Name="sessions_payers" Relationship="billsappDataModel.sessions_payers_session_id_FK" FromRole="session" ToRole="sessions_payers" />
+          <NavigationProperty Name="bills_sessions" Relationship="billsappDataModel.FK_bills_sessions_session_id_FK" FromRole="session" ToRole="bills_sessions" />
+          <NavigationProperty Name="session_deposit" Relationship="billsappDataModel.FK_session_deposit_session_id_FK" FromRole="session" ToRole="session_deposit" />
+          <NavigationProperty Name="sessions_payers" Relationship="billsappDataModel.FK_sessions_payers_session_id_FK" FromRole="session" ToRole="sessions_payers" />
         </EntityType>
         <EntityType Name="session_deposit">
           <Key>
             <PropertyRef Name="deposit_id" />
           </Key>
-          <Property Name="deposit_id" Type="Int32" Nullable="false" />
+          <Property Name="deposit_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="session_id" Type="Int32" Nullable="false" />
           <Property Name="payer_id" Type="Int32" Nullable="false" />
           <Property Name="deposit_amount" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="deposit_note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="deposit_date" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="payer" Relationship="billsappDataModel.session_deposit_payer_id_FK" FromRole="session_deposit" ToRole="payer" />
-          <NavigationProperty Name="session" Relationship="billsappDataModel.session_deposit_session_id_FK" FromRole="session_deposit" ToRole="session" />
+          <Property Name="deposit_date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="payer" Relationship="billsappDataModel.FK_session_deposit_payer_id_FK" FromRole="session_deposit" ToRole="payer" />
+          <NavigationProperty Name="session" Relationship="billsappDataModel.FK_session_deposit_session_id_FK" FromRole="session_deposit" ToRole="session" />
         </EntityType>
         <EntityType Name="sessions_payers">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="balance_starting" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="balance_remaining" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="bills_sum" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="session_id" Type="Int32" Nullable="false" />
           <Property Name="payer_id" Type="Int32" Nullable="false" />
           <Property Name="transfer_amount" Type="Decimal" Precision="10" Scale="2" />
-          <NavigationProperty Name="payer" Relationship="billsappDataModel.sessions_payers_payer_id_FK" FromRole="sessions_payers" ToRole="payer" />
-          <NavigationProperty Name="session" Relationship="billsappDataModel.sessions_payers_session_id_FK" FromRole="sessions_payers" ToRole="session" />
+          <NavigationProperty Name="payer" Relationship="billsappDataModel.FK_sessions_payers_payer_id_FK" FromRole="sessions_payers" ToRole="payer" />
+          <NavigationProperty Name="session" Relationship="billsappDataModel.FK_sessions_payers_session_id_FK" FromRole="sessions_payers" ToRole="session" />
         </EntityType>
         <EntityType Name="status">
           <Key>
             <PropertyRef Name="status_id" />
           </Key>
-          <Property Name="status_id" Type="Int32" Nullable="false" />
+          <Property Name="status_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="status_description" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="bill_type" Relationship="billsappDataModel.bill_type_status_id_FK" FromRole="status" ToRole="bill_type" />
-          <NavigationProperty Name="payment_method" Relationship="billsappDataModel.payment_method_status_id_FK" FromRole="status" ToRole="payment_method" />
-        </EntityType>
-        <EntityType Name="users_payers">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="payer_id" Type="Int32" Nullable="false" />
-          <Property Name="user_id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="billsappDataModel.users_payers_user_id_FK" FromRole="users_payers" ToRole="AspNetUsers" />
-          <NavigationProperty Name="payer" Relationship="billsappDataModel.users_payers_payer_id_FK" FromRole="users_payers" ToRole="payer" />
+          <NavigationProperty Name="AspNetUsers" Relationship="billsappDataModel.FK_AspNetUsers_status" FromRole="status" ToRole="AspNetUsers" />
+          <NavigationProperty Name="bill_type" Relationship="billsappDataModel.FK_bill_type_status_id_FK" FromRole="status" ToRole="bill_type" />
+          <NavigationProperty Name="payment_method" Relationship="billsappDataModel.FK_payment_method_status_id_FK" FromRole="status" ToRole="payment_method" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="billsappDataModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -1026,19 +1122,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="users_payers_user_id_FK">
+        <Association Name="FK_AspNetUsers_status">
+          <End Type="billsappDataModel.status" Role="status" Multiplicity="1" />
+          <End Type="billsappDataModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="status_id" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payer_AspNetUsers">
           <End Type="billsappDataModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="billsappDataModel.users_payers" Role="users_payers" Multiplicity="*" />
+          <End Type="billsappDataModel.payer" Role="payer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="users_payers">
+            <Dependent Role="payer">
               <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bill_type_id_FK">
+        <Association Name="FK_bill_type_id_FK">
           <End Type="billsappDataModel.bill_type" Role="bill_type" Multiplicity="1" />
           <End Type="billsappDataModel.bill" Role="bill" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1050,7 +1158,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bills_payers_bill_id_FK">
+        <Association Name="FK_bills_payers_bill_id_FK">
           <End Type="billsappDataModel.bill" Role="bill" Multiplicity="1" />
           <End Type="billsappDataModel.bills_payers" Role="bills_payers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1062,7 +1170,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bills_payments_bill_id_FK">
+        <Association Name="FK_bills_payments_bill_id_FK">
           <End Type="billsappDataModel.bill" Role="bill" Multiplicity="1" />
           <End Type="billsappDataModel.bills_payments" Role="bills_payments" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1074,7 +1182,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bills_sessions_bill_id_FK">
+        <Association Name="FK_bills_sessions_bill_id_FK">
           <End Type="billsappDataModel.bill" Role="bill" Multiplicity="1" />
           <End Type="billsappDataModel.bills_sessions" Role="bills_sessions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1086,7 +1194,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bill_type_frequency_id_FK">
+        <Association Name="FK_bill_type_frequency_id_FK">
           <End Type="billsappDataModel.frequency" Role="frequency" Multiplicity="1" />
           <End Type="billsappDataModel.bill_type" Role="bill_type" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1098,7 +1206,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bill_type_payer_id_FK">
+        <Association Name="FK_bill_type_payer_id_FK">
           <End Type="billsappDataModel.payer" Role="payer" Multiplicity="1" />
           <End Type="billsappDataModel.bill_type" Role="bill_type" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1110,7 +1218,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bill_type_payment_method_id_FK">
+        <Association Name="FK_bill_type_payment_method_id_FK">
           <End Type="billsappDataModel.payment_method" Role="payment_method" Multiplicity="1" />
           <End Type="billsappDataModel.bill_type" Role="bill_type" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1122,7 +1230,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bill_type_status_id_FK">
+        <Association Name="FK_bill_type_status_id_FK">
           <End Type="billsappDataModel.status" Role="status" Multiplicity="1" />
           <End Type="billsappDataModel.bill_type" Role="bill_type" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1134,7 +1242,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bills_payers_payer_id_FK">
+        <Association Name="FK_bills_payers_payer_id_FK">
           <End Type="billsappDataModel.payer" Role="payer" Multiplicity="1" />
           <End Type="billsappDataModel.bills_payers" Role="bills_payers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1146,7 +1254,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bills_payments_payment_id_FK">
+        <Association Name="FK_bills_payments_payment_id_FK">
           <End Type="billsappDataModel.payment" Role="payment" Multiplicity="1" />
           <End Type="billsappDataModel.bills_payments" Role="bills_payments" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1158,7 +1266,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="bills_sessions_session_id_FK">
+        <Association Name="FK_bills_sessions_session_id_FK">
           <End Type="billsappDataModel.session" Role="session" Multiplicity="1" />
           <End Type="billsappDataModel.bills_sessions" Role="bills_sessions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1170,7 +1278,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="payment_method_payer_id_FK">
+        <Association Name="FK_payers_permissions_payer">
+          <End Type="billsappDataModel.payer" Role="payer" Multiplicity="1" />
+          <End Type="billsappDataModel.payers_permissions" Role="payers_permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payer">
+              <PropertyRef Name="payer_id" />
+            </Principal>
+            <Dependent Role="payers_permissions">
+              <PropertyRef Name="source_payer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payment_method_payer_id_FK">
           <End Type="billsappDataModel.payer" Role="payer" Multiplicity="1" />
           <End Type="billsappDataModel.payment_method" Role="payment_method" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1182,7 +1302,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="payment_payer_id_FK">
+        <Association Name="FK_payment_payer_id_FK">
           <End Type="billsappDataModel.payer" Role="payer" Multiplicity="1" />
           <End Type="billsappDataModel.payment" Role="payment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1194,7 +1314,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="session_deposit_payer_id_FK">
+        <Association Name="FK_session_deposit_payer_id_FK">
           <End Type="billsappDataModel.payer" Role="payer" Multiplicity="1" />
           <End Type="billsappDataModel.session_deposit" Role="session_deposit" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1206,7 +1326,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="sessions_payers_payer_id_FK">
+        <Association Name="FK_sessions_payers_payer_id_FK">
           <End Type="billsappDataModel.payer" Role="payer" Multiplicity="1" />
           <End Type="billsappDataModel.sessions_payers" Role="sessions_payers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1218,19 +1338,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="users_payers_payer_id_FK">
-          <End Type="billsappDataModel.payer" Role="payer" Multiplicity="1" />
-          <End Type="billsappDataModel.users_payers" Role="users_payers" Multiplicity="*" />
+        <Association Name="FK_payers_permissions_permission">
+          <End Type="billsappDataModel.permission" Role="permission" Multiplicity="1" />
+          <End Type="billsappDataModel.payers_permissions" Role="payers_permissions" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="payer">
-              <PropertyRef Name="payer_id" />
+            <Principal Role="permission">
+              <PropertyRef Name="permission_id" />
             </Principal>
-            <Dependent Role="users_payers">
-              <PropertyRef Name="payer_id" />
+            <Dependent Role="payers_permissions">
+              <PropertyRef Name="permission_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="payment_payment_method_id_FK">
+        <Association Name="FK_payers_permissions_permission_level">
+          <End Type="billsappDataModel.permission_level" Role="permission_level" Multiplicity="1" />
+          <End Type="billsappDataModel.payers_permissions" Role="payers_permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="permission_level">
+              <PropertyRef Name="permission_level_id" />
+            </Principal>
+            <Dependent Role="payers_permissions">
+              <PropertyRef Name="permission_level_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payment_payment_method_id_FK">
           <End Type="billsappDataModel.payment_method" Role="payment_method" Multiplicity="1" />
           <End Type="billsappDataModel.payment" Role="payment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1242,7 +1374,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="payment_method_status_id_FK">
+        <Association Name="FK_payment_method_status_id_FK">
           <End Type="billsappDataModel.status" Role="status" Multiplicity="1" />
           <End Type="billsappDataModel.payment_method" Role="payment_method" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1254,7 +1386,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="session_deposit_session_id_FK">
+        <Association Name="FK_session_deposit_session_id_FK">
           <End Type="billsappDataModel.session" Role="session" Multiplicity="1" />
           <End Type="billsappDataModel.session_deposit" Role="session_deposit" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1266,7 +1398,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="sessions_payers_session_id_FK">
+        <Association Name="FK_sessions_payers_session_id_FK">
           <End Type="billsappDataModel.session" Role="session" Multiplicity="1" />
           <End Type="billsappDataModel.sessions_payers" Role="sessions_payers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1288,16 +1420,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="billsappDataModelStoreContainer" CdmEntityContainer="billsappdbEntities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="billsappDataModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="billsappDataModel.AspNetRoles">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -1328,9 +1450,9 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="billsappDataModel.AspNetUsers">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
                 <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />
-                <ScalarProperty Name="primary_payer_id" ColumnName="primary_payer_id" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
@@ -1404,6 +1526,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="billsappDataModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="C__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="frequency">
             <EntityTypeMapping TypeName="billsappDataModel.frequency">
               <MappingFragment StoreEntitySet="frequency">
@@ -1415,9 +1547,21 @@
           <EntitySetMapping Name="payer">
             <EntityTypeMapping TypeName="billsappDataModel.payer">
               <MappingFragment StoreEntitySet="payer">
-                <ScalarProperty Name="payer_property_002" ColumnName="payer_property_002" />
-                <ScalarProperty Name="payer_property_001" ColumnName="payer_property_001" />
+                <ScalarProperty Name="payer_property_02" ColumnName="payer_property_02" />
+                <ScalarProperty Name="payer_property_01" ColumnName="payer_property_01" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="payer_id" ColumnName="payer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="payers_permissions">
+            <EntityTypeMapping TypeName="billsappDataModel.payers_permissions">
+              <MappingFragment StoreEntitySet="payers_permissions">
+                <ScalarProperty Name="permission_level_id" ColumnName="permission_level_id" />
+                <ScalarProperty Name="permission_id" ColumnName="permission_id" />
+                <ScalarProperty Name="target_payer_id" ColumnName="target_payer_id" />
+                <ScalarProperty Name="source_payer_id" ColumnName="source_payer_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1440,6 +1584,22 @@
                 <ScalarProperty Name="payment_method_name" ColumnName="payment_method_name" />
                 <ScalarProperty Name="payer_id" ColumnName="payer_id" />
                 <ScalarProperty Name="payment_method_id" ColumnName="payment_method_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="permission">
+            <EntityTypeMapping TypeName="billsappDataModel.permission">
+              <MappingFragment StoreEntitySet="permission">
+                <ScalarProperty Name="permission_description" ColumnName="permission_description" />
+                <ScalarProperty Name="permission_id" ColumnName="permission_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="permission_level">
+            <EntityTypeMapping TypeName="billsappDataModel.permission_level">
+              <MappingFragment StoreEntitySet="permission_level">
+                <ScalarProperty Name="permission_level_description" ColumnName="permission_level_description" />
+                <ScalarProperty Name="permission_level_id" ColumnName="permission_level_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1483,15 +1643,6 @@
               <MappingFragment StoreEntitySet="status">
                 <ScalarProperty Name="status_description" ColumnName="status_description" />
                 <ScalarProperty Name="status_id" ColumnName="status_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="users_payers">
-            <EntityTypeMapping TypeName="billsappDataModel.users_payers">
-              <MappingFragment StoreEntitySet="users_payers">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="payer_id" ColumnName="payer_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

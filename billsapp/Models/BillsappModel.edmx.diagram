@@ -5,48 +5,53 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="8d8b7fdbf9e74bda86794d21c58caa1e" Name="Diagram1">
-        <EntityTypeShape EntityType="billsappDataModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="billsappDataModel.AspNetRoles" Width="1.5" PointX="1.5" PointY="23.25" />
-        <EntityTypeShape EntityType="billsappDataModel.AspNetUserClaims" Width="1.5" PointX="6" PointY="24.375" />
-        <EntityTypeShape EntityType="billsappDataModel.AspNetUserLogins" Width="1.5" PointX="6" PointY="21.875" />
-        <EntityTypeShape EntityType="billsappDataModel.AspNetUsers" Width="1.5" PointX="3.75" PointY="22" />
-        <EntityTypeShape EntityType="billsappDataModel.bill" Width="1.5" PointX="5.25" PointY="17.75" />
-        <EntityTypeShape EntityType="billsappDataModel.bill_type" Width="1.5" PointX="3" PointY="9.75" />
-        <EntityTypeShape EntityType="billsappDataModel.bills_payers" Width="1.5" PointX="10.5" PointY="16.5" />
-        <EntityTypeShape EntityType="billsappDataModel.bills_payments" Width="1.5" PointX="10.5" PointY="13.375" />
-        <EntityTypeShape EntityType="billsappDataModel.bills_sessions" Width="1.5" PointX="7.5" PointY="18.125" />
-        <EntityTypeShape EntityType="billsappDataModel.frequency" Width="1.5" PointX="0.75" PointY="15.25" />
-        <EntityTypeShape EntityType="billsappDataModel.payer" Width="1.5" PointX="0.75" PointY="10.625" />
-        <EntityTypeShape EntityType="billsappDataModel.payment" Width="1.5" PointX="8.25" PointY="8.375" />
-        <EntityTypeShape EntityType="billsappDataModel.payment_method" Width="1.5" PointX="3" PointY="5.75" />
-        <EntityTypeShape EntityType="billsappDataModel.session" Width="1.5" PointX="3.75" PointY="1.875" />
-        <EntityTypeShape EntityType="billsappDataModel.session_deposit" Width="1.5" PointX="6" PointY="13.75" />
-        <EntityTypeShape EntityType="billsappDataModel.sessions_payers" Width="1.5" PointX="6" PointY="6.75" />
-        <EntityTypeShape EntityType="billsappDataModel.status" Width="1.5" PointX="0.75" PointY="6.25" />
-        <EntityTypeShape EntityType="billsappDataModel.users_payers" Width="1.5" PointX="6" PointY="11.125" />
+        <EntityTypeShape EntityType="billsappDataModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="11.5" />
+        <EntityTypeShape EntityType="billsappDataModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="11" />
+        <EntityTypeShape EntityType="billsappDataModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="17.75" />
+        <EntityTypeShape EntityType="billsappDataModel.AspNetUsers" Width="1.5" PointX="3" PointY="12.875" />
+        <EntityTypeShape EntityType="billsappDataModel.bill" Width="1.5" PointX="12.75" PointY="14" />
+        <EntityTypeShape EntityType="billsappDataModel.bill_type" Width="1.5" PointX="10.5" PointY="13" />
+        <EntityTypeShape EntityType="billsappDataModel.bills_payers" Width="1.5" PointX="15" PointY="14.375" />
+        <EntityTypeShape EntityType="billsappDataModel.bills_payments" Width="1.5" PointX="18" PointY="12.5" />
+        <EntityTypeShape EntityType="billsappDataModel.bills_sessions" Width="1.5" PointX="15" PointY="11.375" />
+        <EntityTypeShape EntityType="billsappDataModel.C__MigrationHistory" Width="1.5" PointX="2.875" PointY="8.625" />
+        <EntityTypeShape EntityType="billsappDataModel.frequency" Width="1.5" PointX="8.25" PointY="21.625" />
+        <EntityTypeShape EntityType="billsappDataModel.payer" Width="1.5" PointX="5.25" PointY="13.75" />
+        <EntityTypeShape EntityType="billsappDataModel.payers_permissions" Width="1.5" PointX="10.5" PointY="9.125" />
+        <EntityTypeShape EntityType="billsappDataModel.payment" Width="1.5" PointX="12.75" PointY="10.25" />
+        <EntityTypeShape EntityType="billsappDataModel.payment_method" Width="1.5" PointX="7.5" PointY="10" />
+        <EntityTypeShape EntityType="billsappDataModel.permission" Width="1.5" PointX="8.25" PointY="7.375" />
+        <EntityTypeShape EntityType="billsappDataModel.permission_level" Width="1.5" PointX="8.25" PointY="4.75" />
+        <EntityTypeShape EntityType="billsappDataModel.session" Width="1.5" PointX="12.75" PointY="6.25" />
+        <EntityTypeShape EntityType="billsappDataModel.session_deposit" Width="1.5" PointX="7.5" PointY="18.125" />
+        <EntityTypeShape EntityType="billsappDataModel.sessions_payers" Width="1.5" PointX="7.5" PointY="14" />
+        <EntityTypeShape EntityType="billsappDataModel.status" Width="1.5" PointX="0.75" PointY="14.25" />
         <AssociationConnector Association="billsappDataModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="billsappDataModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="billsappDataModel.users_payers_user_id_FK" />
-        <AssociationConnector Association="billsappDataModel.bill_type_id_FK" />
-        <AssociationConnector Association="billsappDataModel.bills_payers_bill_id_FK" />
-        <AssociationConnector Association="billsappDataModel.bills_payments_bill_id_FK" />
-        <AssociationConnector Association="billsappDataModel.bills_sessions_bill_id_FK" />
-        <AssociationConnector Association="billsappDataModel.bill_type_frequency_id_FK" />
-        <AssociationConnector Association="billsappDataModel.bill_type_payer_id_FK" />
-        <AssociationConnector Association="billsappDataModel.bill_type_payment_method_id_FK" />
-        <AssociationConnector Association="billsappDataModel.bill_type_status_id_FK" />
-        <AssociationConnector Association="billsappDataModel.bills_payers_payer_id_FK" />
-        <AssociationConnector Association="billsappDataModel.bills_payments_payment_id_FK" />
-        <AssociationConnector Association="billsappDataModel.bills_sessions_session_id_FK" />
-        <AssociationConnector Association="billsappDataModel.payment_method_payer_id_FK" />
-        <AssociationConnector Association="billsappDataModel.payment_payer_id_FK" />
-        <AssociationConnector Association="billsappDataModel.session_deposit_payer_id_FK" />
-        <AssociationConnector Association="billsappDataModel.sessions_payers_payer_id_FK" />
-        <AssociationConnector Association="billsappDataModel.users_payers_payer_id_FK" />
-        <AssociationConnector Association="billsappDataModel.payment_payment_method_id_FK" />
-        <AssociationConnector Association="billsappDataModel.payment_method_status_id_FK" />
-        <AssociationConnector Association="billsappDataModel.session_deposit_session_id_FK" />
-        <AssociationConnector Association="billsappDataModel.sessions_payers_session_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_AspNetUsers_status" />
+        <AssociationConnector Association="billsappDataModel.FK_payer_AspNetUsers" />
+        <AssociationConnector Association="billsappDataModel.FK_bill_type_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_bills_payers_bill_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_bills_payments_bill_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_bills_sessions_bill_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_bill_type_frequency_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_bill_type_payer_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_bill_type_payment_method_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_bill_type_status_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_bills_payers_payer_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_bills_payments_payment_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_bills_sessions_session_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_payers_permissions_payer" />
+        <AssociationConnector Association="billsappDataModel.FK_payment_method_payer_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_payment_payer_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_session_deposit_payer_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_sessions_payers_payer_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_payers_permissions_permission" />
+        <AssociationConnector Association="billsappDataModel.FK_payers_permissions_permission_level" />
+        <AssociationConnector Association="billsappDataModel.FK_payment_payment_method_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_payment_method_status_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_session_deposit_session_id_FK" />
+        <AssociationConnector Association="billsappDataModel.FK_sessions_payers_session_id_FK" />
         <AssociationConnector Association="billsappDataModel.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>

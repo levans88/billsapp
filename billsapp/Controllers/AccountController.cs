@@ -151,7 +151,7 @@ namespace billsapp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, first_name = model.FirstName, last_name = model.LastName };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, first_name = model.FirstName, last_name = model.LastName, status_id = 1 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

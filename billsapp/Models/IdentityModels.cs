@@ -20,7 +20,7 @@ namespace billsapp.Models
         //Added custom columns to AspNetUsers table in DB
         public string first_name { get; set; }
         public string last_name { get; set; }
-        public int primary_payer_id { get; }
+        public int status_id { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
