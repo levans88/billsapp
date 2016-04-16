@@ -4,7 +4,7 @@
 # Custom
 ConnectionStringsDebug.config
 ConnectionStringsRelease.config
-/ThemeDemo
+billsapp/ThemeDemo/*
 
 # User-specific files
 *.suo
