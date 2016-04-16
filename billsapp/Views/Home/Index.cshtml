@@ -8,10 +8,11 @@
     <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-@if (Request.IsAuthenticated) {
+@if (Request.IsAuthenticated && User.IsInRole("Admin")) {
     <div>
-        <p>Displayed for debugging/testing, only if logged in / authenticated...</p>
+        <p>Displayed for debugging/testing, only if authenticated and admin...</p>
         <ul>
+            <li><a href="~/ThemeDemo/theme.html">Theme Examples</a></li>
             <li>@Html.ActionLink("Actual bills", "Index", "Bills")</li>
             <li>@Html.ActionLink("List of bill template types", "Index", "BillTypes")</li>
             <li>@Html.ActionLink("Payers currently in the system", "Index", "Payers")</li>
