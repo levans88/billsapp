@@ -1606,6 +1606,7 @@
     <Content Include="ThemeDemo\forms-layouts.html" />
     <Content Include="ThemeDemo\forms-validation.html" />
     <Content Include="ThemeDemo\forms-wizard.html" />
+    <Content Include="ThemeDemo\index.html" />
     <Content Include="ThemeDemo\layouts-boxed-fixed-header.html" />
     <Content Include="ThemeDemo\layouts-boxed.html" />
     <Content Include="ThemeDemo\layouts-dark-header.html" />
@@ -1648,7 +1649,6 @@
     <Content Include="ThemeDemo\tables-editable.html" />
     <Content Include="ThemeDemo\tables-pricing.html" />
     <Content Include="ThemeDemo\tables-responsive.html" />
-    <Content Include="ThemeDemo\theme.html" />
     <Content Include="ThemeDemo\ui-elements-accordions.html" />
     <Content Include="ThemeDemo\ui-elements-alerts.html" />
     <Content Include="ThemeDemo\ui-elements-animations-appear.html" />
