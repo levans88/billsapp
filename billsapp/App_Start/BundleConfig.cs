@@ -42,25 +42,29 @@ namespace billsapp {
 
             // Bootstrap
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
-                      "~/assets/vendor/bootstrap/js/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                        "~/assets/vendor/bootstrap/js/bootstrap.js",
+                        "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/bundles/bootstrapcss").Include(
                         "~/assets/vendor/bootstrap/css/bootstrap.css",
                         "~/assets/vendor/bootstrap/css/bootstrap-theme.css"));
-
+            
+            // Font Awesome
+            bundles.Add(new StyleBundle("~/bundles/fontawesomecss").Include(
+                        "~/assets/vendor/font-awesome/css/font-awesome.css"));
+            
             // Theme
             bundles.Add(new StyleBundle("~/bundles/themecss").Include(
-                      "~/assets/stylesheets/theme.css",                     // Basic layout structure styles
-                      "~/assets/stylesheets/theme-custom.css",              // Customize the theme in this file
-                      "~/assets/stylesheets/skins/default.css",             // Skin
-                      "~/assets/stylesheets/skins/extension.css",
-                      "~/assets/stylesheets/skins/square-borders.css"));
+                        "~/assets/stylesheets/theme.css",                     // Basic layout structure styles
+                        "~/assets/stylesheets/theme-custom.css",              // Customize the theme in this file
+                        "~/assets/stylesheets/skins/default.css",             // Skin
+                        "~/assets/stylesheets/skins/extension.css",
+                        "~/assets/stylesheets/skins/square-borders.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/themejs").Include(
-                      "~/assets/javascripts/theme.js",
-                      "~/assets/javascripts/theme.custom.js",
-                      "~/assets/javascripts/theme.init.js"));
+                        "~/assets/javascripts/theme.js",
+                        "~/assets/javascripts/theme.custom.js",
+                        "~/assets/javascripts/theme.init.js"));
         }
     }
 }

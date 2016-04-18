@@ -1,12 +1,16 @@
 ﻿<!DOCTYPE html>
-<html>
+<html class="dark">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+    
     @Styles.Render("~/bundles/jqueryuicss")
     @Styles.Render("~/bundles/nanoscrollercss")
     @Styles.Render("~/bundles/bootstrapcss")
+    @Styles.Render("~/bundles/fontawesomecss")
     @Styles.Render("~/bundles/themecss")
     @Scripts.Render("~/bundles/modernizrjs")
 </head>
@@ -38,14 +42,14 @@
             <p>&copy; @DateTime.Now.Year - Lenny Evans - All rights reserved.</p>
         </footer>
     </div>
-
-    
+        
     @Scripts.Render("~/bundles/jqueryjs")
     @Scripts.Render("~/bundles/jqueryvaljs")
     @Scripts.Render("~/bundles/jqueryuijs")
     @Scripts.Render("~/bundles/nanoscrollerjs")
     @Scripts.Render("~/bundles/bootstrapjs")
     @Scripts.Render("~/bundles/themejs")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
