@@ -46,8 +46,9 @@ namespace billsapp {
                         "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/bundles/bootstrapcss").Include(
-                        "~/assets/vendor/bootstrap/css/bootstrap.css",
-                        "~/assets/vendor/bootstrap/css/bootstrap-theme.css"));
+                        "~/assets/vendor/bootstrap/css/bootstrap.css"
+                        //"~/assets/vendor/bootstrap/css/bootstrap-theme.css"       // default bootstrap theme, DO NOT USE
+                        ));
             
             // Font Awesome
             bundles.Add(new StyleBundle("~/bundles/fontawesomecss").Include(
@@ -55,11 +56,11 @@ namespace billsapp {
             
             // Theme
             bundles.Add(new StyleBundle("~/bundles/themecss").Include(
-                        "~/assets/stylesheets/theme.css",                     // Basic layout structure styles
-                        "~/assets/stylesheets/theme-custom.css",              // Customize the theme in this file
-                        "~/assets/stylesheets/skins/default.css",             // Skin
+                        "~/assets/stylesheets/theme.css",                           // Basic layout structure styles
+                        "~/assets/stylesheets/skins/default.css",                   // Skin
                         "~/assets/stylesheets/skins/extension.css",
-                        "~/assets/stylesheets/skins/square-borders.css"));
+                        "~/assets/stylesheets/skins/square-borders.css",
+                        "~/assets/stylesheets/theme-custom.css"));                  // Customize the theme in this file
 
             bundles.Add(new ScriptBundle("~/bundles/themejs").Include(
                         "~/assets/javascripts/theme.js",
