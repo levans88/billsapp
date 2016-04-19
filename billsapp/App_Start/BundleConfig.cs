@@ -11,8 +11,17 @@ namespace billsapp {
 
             // Example (true = include sub folders)
             // bundles.Add(new ScriptBundle("~/bundles/scripts").IncludeDirectory(
-                        //"~/Scripts", "*.js", true));
-            
+            //"~/Scripts", "*.js", true));
+
+            // GitHub Activity Stream
+            bundles.Add(new ScriptBundle("~/bundles/githubactivityjs").Include(
+            "~/assets/vendor/github-activity/mustache.js/mustache.js",
+            "~/assets/vendor/github-activity/github-activity.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/githubactivitycss").Include(
+                        "~/assets/vendor/github-activity/github-activity.css",
+                        "~/assets/vendor/github-activity/octicons/octicons.css"));
+
             // jQuery
             bundles.Add(new ScriptBundle("~/bundles/jqueryjs").Include(
                         "~/assets/vendor/jquery/jquery.js"));

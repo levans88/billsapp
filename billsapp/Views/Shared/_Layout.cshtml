@@ -6,7 +6,8 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
-    
+
+    @Styles.Render("~/bundles/githubactivitycss")
     @Styles.Render("~/bundles/jqueryuicss")
     @Styles.Render("~/bundles/bootstrapcss")
     @Styles.Render("~/bundles/fontawesomecss")
@@ -41,8 +42,8 @@
     <!-- start: header -->
     <header class="header">
         <div class="logo-container">
-            <a href="../" class="logo">
-                <img src="assets/images/logo.png" height="35" alt="Porto Admin" />
+            <a href="#" class="logo">
+                <img src="~/assets/images/logo.png" height="35" />
             </a>
             <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
                 <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -222,37 +223,67 @@
                         </div>
                     </div>
                 </li>
-            </ul>
+            </ul>*@
 
-            <span class="separator"></span>*@
+            <span class="separator"></span>
 
             <div id="userbox" class="userbox">
-                <a href="#" data-toggle="dropdown">
-                    <figure class="profile-picture">
-                        <img src="assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg" />
-                    </figure>
-                    <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-                        <span class="name">John Doe Junior</span>
-                        <span class="role">administrator</span>
+                @if (Request.IsAuthenticated) {
+                    <a href="#" data-toggle="dropdown">
+                        <figure class="profile-picture">
+                            <img src="assets/images/!logged-user.jpg" class="img-circle" />
+                        </figure>
+                        <div class="profile-info">
+                            <span class="name">@(User.Identity.Name)</span>
+                            <span class="role">@(User.IsInRole("Admin") ? "Admin" : "User")</span>
+                        </div>
+
+                        <i class="fa custom-caret"></i>
+                    </a>
+
+                    <div class="dropdown-menu">
+                        <ul class="list-unstyled">
+                            <li class="divider"></li>
+                            <li>
+                                <a role="menuitem" tabindex="-1" href=@Url.Action("Index", "Manage")><i class="fa fa-user"></i> My Profile</a>
+                            </li>
+                            @*<li>
+                                <a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
+                            </li>*@
+                            <li>
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+                                    @Html.AntiForgeryToken()
+                                    <a role="menuitem" tabindex="-1" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Logout</a>
+                                }
+                            </li>
+                        </ul>
                     </div>
+                }
+                else {
+                    <a href="#" data-toggle="dropdown">
+                        @*<figure class="profile-picture">
+                            <img src="assets/images/!logged-user.jpg" class="img-circle" />
+                        </figure>*@
+                        <div class="profile-info">
+                            <span class="name">Account</span>
+                        </div>
 
-                    <i class="fa custom-caret"></i>
-                </a>
+                        <i class="fa custom-caret"></i>
+                    </a>
 
-                <div class="dropdown-menu">
-                    <ul class="list-unstyled">
-                        <li class="divider"></li>
-                        <li>
-                            <a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> My Profile</a>
-                        </li>
-                        <li>
-                            <a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
-                        </li>
-                        <li>
-                            <a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Logout</a>
-                        </li>
-                    </ul>
-                </div>
+                    <div class="dropdown-menu">
+                        <ul class="list-unstyled">
+                            <li class="divider"></li>
+                            <li>
+                                <a role="menuitem" tabindex="-1" href=@Url.Action("Login", "Account")><i class="fa fa-user"></i> &nbsp;&nbsp;Sign In</a>
+                            </li>
+                            <li>
+                                <a role="menuitem" tabindex="-1" href=@Url.Action("Register", "Account")><i class="fa fa-user-plus"></i> Register</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                }
             </div>
         </div>
         <!-- end: search & user box -->
@@ -277,7 +308,7 @@
                     <nav id="menu" class="nav-main" role="navigation">
                         <ul class="nav nav-main">
                             <li class="nav-active">
-                                <a href="index.html">
+                                <a href=@Url.Action("Index", "Home")>
                                     <i class="fa fa-home" aria-hidden="true"></i>
                                     <span>Dashboard</span>
                                 </a>
@@ -868,7 +899,7 @@
                 <div class="right-wrapper pull-right">
                     <ol class="breadcrumbs">
                         <li>
-                            <a href="index.html">
+                            <a href=@Url.Action("Index", "Home")>
                                 <i class="fa fa-home"></i>
                             </a>
                         </li>
@@ -1647,13 +1678,11 @@
         </section>
     </div>
 
-    @*Original location of @RenderBody*@
-        
     @Scripts.Render("~/bundles/jqueryjs")
+    @Scripts.Render("~/bundles/githubactivityjs")
     @Scripts.Render("~/bundles/jquerybrowsermobilejs")
     @Scripts.Render("~/bundles/jqueryvaljs")
     @Scripts.Render("~/bundles/jqueryuijs")
-    @*@Scripts.Render("~/bundles/nanoscrollerjs")*@
     @Scripts.Render("~/bundles/bootstrapjs")
     @Scripts.Render("~/bundles/bootstrapdatepickerjs")
     @Scripts.Render("~/bundles/magnificjs")

@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -8,11 +10,14 @@
     <p><a href="http://asp.net" class="btn btn-primary btn-lg">Start demo &raquo;</a></p>
 </div>
 
+<div id="feed" style=@(Request.IsAuthenticated ? "display:none;" : "display:block;")></div>
+
 @if (Request.IsAuthenticated && User.IsInRole("Admin")) {
     <div>
         <p>Displayed for debugging/testing, only if authenticated and admin...</p>
         <ul>
             <li><a href="~/ThemeDemo/index.html">Theme Examples</a></li>
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
             <li>@Html.ActionLink("Actual bills", "Index", "Bills")</li>
             <li>@Html.ActionLink("List of bill template types", "Index", "BillTypes")</li>
             <li>@Html.ActionLink("Payers currently in the system", "Index", "Payers")</li>
@@ -22,6 +27,15 @@
             <li>@Html.ActionLink("Bill pay session details", "Index", "SessionDetails")</li>
             <li>@Html.ActionLink("Bill payer session details", "Index", "SessionPayerDetails")</li>
             <li>@Html.ActionLink("Users and Payers", "Index", "Manage")</li>
+            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+            <li>
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+                    @Html.AntiForgeryToken()
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                }
+            </li>
         </ul>
     </div>
 }

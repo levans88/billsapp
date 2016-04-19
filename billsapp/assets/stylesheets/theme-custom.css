@@ -17,3 +17,20 @@ textarea {
 .nano {
 	position: absolute !important;
 }
+
+/* Disable right-side-menu (retain spacing) */
+/*.page-header .sidebar-right-disabled {
+	position: relative;
+	display: inline-block;
+	font-size: 17px;
+	margin: 0 0 0 10px;
+	height: 50px;
+	width: 0px;
+	vertical-align: top;
+	text-align: center;
+}
+
+.page-header .sidebar-right-disabled i {
+	line-height: 53px;
+	vertical-align: middle;
+}*/

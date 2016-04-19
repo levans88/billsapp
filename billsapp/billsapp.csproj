@@ -268,6 +268,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\images\!logged-user.jpg" />
+    <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\patterns\az_subtle.png" />
     <Content Include="assets\images\patterns\blizzard.png" />
     <Content Include="assets\images\patterns\bright_squares.png" />
@@ -1121,6 +1123,15 @@
     <Content Include="assets\vendor\fullcalendar\lang\zh-tw.js" />
     <Content Include="assets\vendor\gauge\gauge.js" />
     <Content Include="assets\vendor\gauge\gauge.min.js" />
+    <Content Include="assets\vendor\github-activity\github-activity-0.1.4.min.css" />
+    <Content Include="assets\vendor\github-activity\github-activity-0.1.4.min.js" />
+    <Content Include="assets\vendor\github-activity\github-activity.css" />
+    <Content Include="assets\vendor\github-activity\github-activity.js" />
+    <Content Include="assets\vendor\github-activity\mustache.js\mustache.js" />
+    <Content Include="assets\vendor\github-activity\mustache.js\mustache.min.js" />
+    <Content Include="assets\vendor\github-activity\octicons\LICENSE.txt" />
+    <Content Include="assets\vendor\github-activity\octicons\octicons.css" />
+    <Content Include="assets\vendor\github-activity\octicons\octicons.svg" />
     <Content Include="assets\vendor\gmaps\gmaps.js" />
     <Content Include="assets\vendor\hover\hover.css" />
     <Content Include="assets\vendor\intercooler-js\intercooler-js.js" />
@@ -1477,6 +1488,16 @@
     <Content Include="assets\vendor\summernote\summernote.css" />
     <Content Include="assets\vendor\summernote\summernote.js" />
     <Content Include="assets\vendor\summernote\summernote.min.js" />
+    <Content Include="assets\vendor\github-activity\LICENSE.md" />
+    <Content Include="assets\vendor\github-activity\mustache.js\LICENSE" />
+    <Content Include="assets\vendor\github-activity\octicons\octicons-local.ttf" />
+    <Content Include="assets\vendor\github-activity\octicons\octicons.eot" />
+    <Content Include="assets\vendor\github-activity\octicons\octicons.less" />
+    <Content Include="assets\vendor\github-activity\octicons\octicons.scss" />
+    <Content Include="assets\vendor\github-activity\octicons\octicons.ttf" />
+    <Content Include="assets\vendor\github-activity\octicons\octicons.woff" />
+    <Content Include="assets\vendor\github-activity\octicons\README.md" />
+    <Content Include="assets\vendor\github-activity\octicons\sprockets-octicons.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -3090,7 +3111,6 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Bills\Create.cshtml" />
     <Content Include="Views\Bills\Delete.cshtml" />
     <Content Include="Views\Bills\Details.cshtml" />
