@@ -231,7 +231,7 @@
                 @if (Request.IsAuthenticated) {
                     <a href="#" data-toggle="dropdown">
                         <figure class="profile-picture">
-                            <img src="assets/images/!logged-user.jpg" class="img-circle" />
+                            <img src="~/assets/images/!logged-user.jpg" class="img-circle" />
                         </figure>
                         <div class="profile-info">
                             <span class="name">@(User.Identity.Name)</span>
@@ -264,7 +264,7 @@
                         @*<figure class="profile-picture">
                             <img src="assets/images/!logged-user.jpg" class="img-circle" />
                         </figure>*@
-                        <div class="profile-info">
+                        <div class="profile-info profile-info-wide">
                             <span class="name">Account</span>
                         </div>
 

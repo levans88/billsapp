@@ -7,15 +7,39 @@ textarea {
     max-width: 280px;
 }
 
-/*.jumbotron {
+.jumbotron {
 	background-color: transparent !important;
-}*/
+	padding-left: 0px !important;
+	padding-top: 0px;
+	margin-bottom: 0px;
+}
 
 /* Fix Nanoscroller by setting .nano to absolute (like .nano-content)
    !important is required or theme.css will win with position: relative;
    even though load order is correct. */
 .nano {
 	position: absolute !important;
+}
+
+/* GitHub Activity Feed */
+#feed .gha-header {
+	width: 100%;
+	margin-left: -1px;
+}
+
+#feed .gha-footer {
+	width: 100%;
+	margin-left: -1px;
+	padding-bottom: 30px;
+}
+
+#feed .gha-push-small {
+	padding-bottom: 33px;
+}
+
+ /* More consistent width for #userbox while logged in/out */
+.profile-info-wide {
+	width: 120px;
 }
 
 /* Disable right-side-menu (retain spacing) */
@@ -28,9 +52,9 @@ textarea {
 	width: 0px;
 	vertical-align: top;
 	text-align: center;
-}
+} */
 
-.page-header .sidebar-right-disabled i {
+/* .page-header .sidebar-right-disabled i {
 	line-height: 53px;
 	vertical-align: middle;
-}*/
+} */
