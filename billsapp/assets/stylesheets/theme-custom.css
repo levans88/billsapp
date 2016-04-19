@@ -6,3 +6,14 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*.jumbotron {
+	background-color: transparent !important;
+}*/
+
+/* Fix Nanoscroller by setting .nano to absolute (like .nano-content)
+   !important is required or theme.css will win with position: relative;
+   even though load order is correct. */
+.nano {
+	position: absolute !important;
+}
