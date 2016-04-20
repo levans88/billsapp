@@ -1,44 +1,385 @@
 ﻿<!DOCTYPE html>
-<html>
+<html class="dark">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+    @Styles.Render("~/bundles/githubactivitycss")
+    @Styles.Render("~/bundles/jqueryuicss")
+    @Styles.Render("~/bundles/bootstrapcss")
+    @Styles.Render("~/bundles/fontawesomecss")
+    @Styles.Render("~/bundles/magnificcss")
+    @Styles.Render("~/bundles/bootstrapdatepickercss")
+    @Styles.Render("~/bundles/bootstrapmultiselectcss")
+    @Styles.Render("~/bundles/themecss")
+    @Scripts.Render("~/bundles/modernizrjs")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+    <!-- start: header -->
+    <header class="header">
+        <div class="logo-container">
+            <a href="#" class="logo">
+                <img src="~/assets/images/ducks4.png" height="35" />
+            </a>
+            <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+                <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Lenny Evans - All rights reserved.</p>
-        </footer>
+
+        <!-- start: search & user box -->
+        <div class="header-right">
+
+            <span class="separator"></span>
+
+            <ul class="notifications">
+                <li>
+                    <a href="#" class="notification-icon">
+                        <i class="fa fa-info"></i>
+                        @*<span class="badge">3</span>*@
+                    </a>
+                </li>
+            </ul>
+
+            <span class="separator"></span>
+
+            <div id="userbox" class="userbox">
+                @if (Request.IsAuthenticated) {
+                    <a href="#" data-toggle="dropdown">
+                        <figure class="profile-picture">
+                            <img src="~/assets/images/!logged-user.jpg" class="img-circle" />
+                        </figure>
+                        <div class="profile-info">
+                            <span class="name">@(User.Identity.Name)</span>
+                            <span class="role">@(User.IsInRole("Admin") ? "Admin" : "User")</span>
+                        </div>
+
+                        <i class="fa custom-caret"></i>
+                    </a>
+
+                    <div class="dropdown-menu">
+                        <ul class="list-unstyled">
+                            <li class="divider"></li>
+                            <li>
+                                <a role="menuitem" tabindex="-1" href=@Url.Action("Index", "Manage")><i class="fa fa-user"></i> My Profile</a>
+                            </li>
+                            @*<li>
+                                <a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
+                            </li>*@
+                            <li>
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+                                    @Html.AntiForgeryToken()
+                                    <a role="menuitem" tabindex="-1" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Logout</a>
+                                }
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else {
+                    <a href="#" data-toggle="dropdown">
+                        @*<figure class="profile-picture">
+                            <img src="assets/images/!logged-user.jpg" class="img-circle" />
+                        </figure>*@
+                        <div class="profile-info profile-info-wide">
+                            <span class="name">Account</span>
+                        </div>
+
+                        <i class="fa custom-caret"></i>
+                    </a>
+
+                    <div class="dropdown-menu">
+                        <ul class="list-unstyled">
+                            <li class="divider"></li>
+                            <li>
+                                <a role="menuitem" tabindex="-1" href=@Url.Action("Login", "Account")><i class="fa fa-user"></i> &nbsp;&nbsp;Log In</a>
+                            </li>
+                            <li>
+                                <a role="menuitem" tabindex="-1" href=@Url.Action("Register", "Account")><i class="fa fa-user-plus"></i> Register</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- end: search & user box -->
+    </header>
+    <!-- end: header -->
+
+    <div class="inner-wrapper">
+        <!-- start: sidebar -->
+        <aside id="sidebar-left" class="sidebar-left">
+
+            <div class="sidebar-header">
+                <div class="sidebar-title">
+                    Navigation
+                </div>
+                <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+                    <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+                </div>
+            </div>
+
+            <div class="nano">
+                <div class="nano-content">
+                    <nav id="menu" class="nav-main" role="navigation">
+                        <ul class="nav nav-main">
+                            <li class="nav-active">
+                                <a href=@Url.Action("Index", "Home")>
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Home</span>
+                                </a>
+                            </li>
+                        @if (HttpContext.Current.IsDebuggingEnabled) {
+                            <li class="nav-parent">
+                                <a>
+                                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                                    <span>Nano/Menu Examples</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            ...
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="#">
+                                                    ...
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    ...
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    ...
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    ...
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    ...
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            ...
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="#">
+                                                    ...
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    ...
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            ...
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="#">
+                                                    ...
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    ...
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            ...
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        </ul>
+                    </nav>
+                </div>
+                <script>
+				    // Preserve Scroll Position
+				    if (typeof localStorage !== 'undefined') {
+					    if (localStorage.getItem('sidebar-left-position') !== null) {
+						    var initialPosition = localStorage.getItem('sidebar-left-position'),
+							    sidebarLeft = document.querySelector('#sidebar-left .nano-content');
+
+						    sidebarLeft.scrollTop = initialPosition;
+					    }
+				    }
+                </script>
+            </div>
+        </aside>
+        <!-- end: sidebar -->
+
+        <section role="main" class="content-body">
+            <header class="page-header">
+                <h2>@ViewBag.Title</h2>
+
+                <div class="right-wrapper pull-right">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href=@Url.Action("Index", "Home")>
+                                <i class="fa fa-home"></i>
+                            </a>
+                        </li>
+                        <li><span>@ViewBag.Title</span></li>
+                        
+                        @if (ViewBag.SubTitleOne != null) {
+                            <li><span>@ViewBag.SubTitleOne</span></li>
+                        }
+
+                        @if (ViewBag.SubTitleTwo != null) {
+                            <li><span>@ViewBag.SubTitleTwo</span></li>
+                        }
+
+                    </ol>
+                    @*<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>*@
+                </div>
+            </header>
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+            <div class="container-fluid">
+                    <div class="col-md-12">
+                        <footer>
+                            <hr />
+                            <p>&copy; @DateTime.Now.Year - Lenny Evans - All rights reserved.</p>
+                        </footer>
+                    </div>
+                </div>
+        </section>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryjs")
+    @Scripts.Render("~/bundles/githubactivityjs")
+    @Scripts.Render("~/bundles/jquerybrowsermobilejs")
+    @Scripts.Render("~/bundles/jqueryvaljs")
+    @Scripts.Render("~/bundles/jqueryuijs")
+    @Scripts.Render("~/bundles/bootstrapjs")
+    @Scripts.Render("~/bundles/bootstrapdatepickerjs")
+    @Scripts.Render("~/bundles/magnificjs")
+    @Scripts.Render("~/bundles/jqueryplaceholderjs")
+    @Scripts.Render("~/bundles/jqueryuitouchpunchjs")
+    @Scripts.Render("~/bundles/jqueryappearjs")
+    @Scripts.Render("~/bundles/bootstrapmultiselectjs")
+    @Scripts.Render("~/bundles/snapsvgjs")
+    @Scripts.Render("~/bundles/nanoscrollerjs")
+    @Scripts.Render("~/bundles/themejs")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
