@@ -38,23 +38,11 @@ textarea {
 }
 
  /* More consistent width for #userbox while logged in/out */
-.profile-info-wide {
+/*.profile-info-wide {
 	width: 120px;
+}*/
+
+/* Fix padding when chevron to open right side menu is disabled */
+.breadcrumbs li:last-of-type span {
+	padding-right: 15px;
 }
-
-/* Disable right-side-menu (retain spacing) */
-/*.page-header .sidebar-right-disabled {
-	position: relative;
-	display: inline-block;
-	font-size: 17px;
-	margin: 0 0 0 10px;
-	height: 50px;
-	width: 0px;
-	vertical-align: top;
-	text-align: center;
-} */
-
-/* .page-header .sidebar-right-disabled i {
-	line-height: 53px;
-	vertical-align: middle;
-} */
