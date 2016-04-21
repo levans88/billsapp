@@ -13,7 +13,7 @@ $(document).ready(function () {
     }
 
 	// GitHub activity stream
-    if (urlPath == "/") {
+    if (urlPath == "/" || urlPath == "/Home/Index") {
     	GitHubActivity.feed({
 	        username: "levans88",
 	        //repository: "your-repo", // optional
@@ -34,7 +34,7 @@ $(document).ready(function () {
     if (urlPath == "/Account/Register") $('#nav-register').addClass('nav-active');
 
     // Set home nav item as nav-active if no menu items are highlighted or path is "/"
-    if ( !$('nav > ul.nav > li.nav-active' ).length || urlPath == "/") {
+    if ( !$('nav > ul.nav > li.nav-active' ).length || urlPath == "/" || urlPath == "/Home/Index") {
     	$('#nav-home').addClass('nav-active');
     }
 });
