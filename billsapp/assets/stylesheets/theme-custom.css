@@ -46,3 +46,27 @@ textarea {
 .breadcrumbs li:last-of-type span {
 	padding-right: 15px;
 }
+
+/* Override location of octicons fonts in octicons.css 
+	and font-awesome fonts in font-awesome.css */
+@font-face {
+  font-family: 'octicons';
+  src: url('/assets/vendor/github-activity/octicons/octicons.eot?#iefix') format('embedded-opentype'),
+       url('/assets/vendor/github-activity/octicons/octicons.woff') format('woff'),
+       url('/assets/vendor/github-activity/octicons/octicons.ttf') format('truetype'),
+       url('/assets/vendor/github-activity/octicons/octicons.svg#octicons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('/assets/vendor/font-awesome/fonts/fontawesome-webfont.eot?v=4.5.0');
+  src: url('/assets/vendor/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.5.0') format('embedded-opentype'), 
+       url('/assets/vendor/font-awesome/fonts/fontawesome-webfont.woff2?v=4.5.0') format('woff2'), 
+       url('/assets/vendor/font-awesome/fonts/fontawesome-webfont.woff?v=4.5.0') format('woff'), 
+       url('/assets/vendor/font-awesome/fonts/fontawesome-webfont.ttf?v=4.5.0') format('truetype'), 
+       url('/assets/vendor/font-awesome/fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

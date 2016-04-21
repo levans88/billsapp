@@ -3102,12 +3102,15 @@
     <Content Include="ThemeDemo\ui-elements-tree-view.html" />
     <Content Include="ThemeDemo\ui-elements-typography.html" />
     <Content Include="ThemeDemo\ui-elements-widgets.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
