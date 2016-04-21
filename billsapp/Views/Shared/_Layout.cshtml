@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - BillsApp</title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
 
@@ -125,22 +125,22 @@
                 <div class="nano-content">
                     <nav id="menu" class="nav-main" role="navigation">
                         <ul class="nav nav-main">
-                            <li class="nav-active">
+                            <li id="nav-home">
                                 <a href=@Url.Action("Index", "Home")>
                                     <i class="fa fa-home" aria-hidden="true"></i>
                                     <span>Home</span>
                                 </a>
                             </li>
                         @if (HttpContext.Current.IsDebuggingEnabled) {
-                            <li class="nav-parent">
+                            <li id="nav-examples" class="nav-parent">
                                 <a>
                                     <i class="fa fa-tasks" aria-hidden="true"></i>
                                     <span>Nano/Menu Examples</span>
                                 </a>
                                 <ul class="nav nav-children">
-                                    <li>
-                                        <a href="#">
-                                            ...
+                                    <li id="nav-manage">
+                                        <a href=@Url.Action("Index", "Manage")>
+                                            My Profile
                                         </a>
                                     </li>
                                     <li class="nav-parent">
@@ -306,21 +306,22 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li id="nav-login">
+                                <a href=@Url.Action("Login", "Account")>
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Test_Login</span>
+                                </a>
+                            </li>
+                            <li id="nav-register">
+                                <a href=@Url.Action("Register", "Account")>
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Test_Register</span>
+                                </a>
+                            </li>
                         }
                         </ul>
                     </nav>
                 </div>
-                <script>
-				    // Preserve Scroll Position
-				    if (typeof localStorage !== 'undefined') {
-					    if (localStorage.getItem('sidebar-left-position') !== null) {
-						    var initialPosition = localStorage.getItem('sidebar-left-position'),
-							    sidebarLeft = document.querySelector('#sidebar-left .nano-content');
-
-						    sidebarLeft.scrollTop = initialPosition;
-					    }
-				    }
-                </script>
             </div>
         </aside>
         <!-- end: sidebar -->
@@ -364,8 +365,13 @@
         </section>
     </div>
 
+    @*Scripts that pass server side data*@
+    <script>
+        // Provide path portion of URL only to javascript (exclude domain)
+        var urlPath = '@(Request.RawUrl.ToString())';
+    </script>
+
     @Scripts.Render("~/bundles/jqueryjs")
-    @Scripts.Render("~/bundles/githubactivityjs")
     @Scripts.Render("~/bundles/jquerybrowsermobilejs")
     @Scripts.Render("~/bundles/jqueryvaljs")
     @Scripts.Render("~/bundles/jqueryuijs")
