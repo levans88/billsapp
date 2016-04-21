@@ -15,32 +15,50 @@ textarea {
 }
 
 /* Fix Nanoscroller by setting .nano to absolute (like .nano-content)
-   !important is required or theme.css will win with position: relative;
-   even though load order is correct. */
+  !important is required or theme.css will win with position: relative;
+  even though load order is correct. */
 .nano {
 	position: absolute !important;
 }
 
-/* GitHub Activity Feed */
-#feed .gha-header {
+/* GitHub Activity Feed layout clean-up and response */
+.gha-header {
 	width: 100%;
 	margin-left: -1px;
+  height: 83px;
 }
 
-#feed .gha-footer {
+.gha-footer {
 	width: 100%;
 	margin-left: -1px;
 	padding-bottom: 30px;
 }
 
-#feed .gha-push-small {
+.gha-push-small {
 	padding-bottom: 33px;
 }
 
- /* More consistent width for #userbox while logged in/out */
-/*.profile-info-wide {
-	width: 120px;
-}*/
+.gha-activity {
+  padding-right: 15px;
+}
+
+@media only screen and (max-width: 415px) {
+  .gha-gravatar, .octicon, .gha-activity-icon {
+    display: none;
+  }
+  
+  .gha-activity {
+    padding-left: 15px;
+  }
+}
+
+@media only screen and (max-width: 345px) {
+  .gha-user-info, .gha-header, .gha-push {
+    display: none;
+  }
+
+
+}
 
 /* Fix padding when chevron to open right side menu is disabled */
 .breadcrumbs li:last-of-type span {
