@@ -11,6 +11,7 @@
     @Styles.Render("~/bundles/jqueryuicss")
     @Styles.Render("~/bundles/bootstrapcss")
     @Styles.Render("~/bundles/fontawesomecss")
+    @Styles.Render("~/bundles/pnotifycss")
     @Styles.Render("~/bundles/magnificcss")
     @Styles.Render("~/bundles/bootstrapdatepickercss")
     @Styles.Render("~/bundles/bootstrapmultiselectcss")
@@ -36,10 +37,25 @@
 
             <ul class="notifications">
                 <li>
-                    <a href="#" class="notification-icon">
+                    <a id="app-info" href="#modalAnim" class="modal-with-zoom-anim notification-icon">
                         <i class="fa fa-info"></i>
-                        @*<span class="badge">3</span>*@
                     </a>
+                    @* Main Information Modal Construction *@
+                    @{
+                        //ViewBag.modalColorLevel = "";
+                        //ViewBag.modalColorLevel = "modal-full-color";
+                        ViewBag.modalColorLevel = "modal-header-color";
+                        ViewBag.modalContext = "info";
+                        ViewBag.modalTitle = "Information";
+                        //ViewBag.modalSubTitle = "<h4>Info</h4>";
+                        ViewBag.modalIcon = "\"fa fa-info-circle\"";
+                        ViewBag.modalContent =
+                                "<p>BillsApp is a sample ASP.NET MVC application and a work in progress. Its purpose is to help share and track the payment of family bills.</p>" +
+                                "<p>Try out the app using the built in demo account __here__. Please let me know if you have any questions or encounter any issues.</p>" + "<p>Thanks for visiting!</br>" +
+                                "&#8211; Lenny</p>";
+                        //ViewBag.modalShowConfirm = true;
+                        //ViewBag.modalConfirmText = "Ok";
+                    }
                 </li>
             </ul>
 
@@ -353,6 +369,7 @@
             </header>
             <div class="container-fluid">
                 @RenderBody()
+                @{Html.RenderPartial("_ModalAnim");}
             </div>
             <div class="container-fluid">
                     <div class="col-md-12">
@@ -377,6 +394,7 @@
     @Scripts.Render("~/bundles/jqueryuijs")
     @Scripts.Render("~/bundles/bootstrapjs")
     @Scripts.Render("~/bundles/bootstrapdatepickerjs")
+    @Scripts.Render("~/bundles/pnotifyjs")
     @Scripts.Render("~/bundles/magnificjs")
     @Scripts.Render("~/bundles/jqueryplaceholderjs")
     @Scripts.Render("~/bundles/jqueryuitouchpunchjs")

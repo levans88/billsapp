@@ -19,8 +19,11 @@ namespace billsapp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //Added to resolved this error: "The model backing the 'ApplicationDbContext' context has changed 
-            //since the database was created. Consider using Code First Migrations to update the database"
+            // Custom view engine for rendering partials from folders specified in CustomViewEngine.cs
+            ViewEngines.Engines.Add(new CustomViewEngine());
+
+            // Added to resolved this error: "The model backing the 'ApplicationDbContext' context has changed 
+            // since the database was created. Consider using Code First Migrations to update the database"
             Database.SetInitializer<ApplicationDbContext>(null);
         }
     }

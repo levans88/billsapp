@@ -1,0 +1,36 @@
+﻿@*<a class="mb-xs mt-xs mr-xs modal-with-zoom-anim btn btn-default" href="#modalAnim">Open with fade-zoom animation</a>*@
+<div id="modalAnim" class="zoom-anim-dialog modal-block @ViewBag.modalColorLevel modal-block-@ViewBag.modalContext mfp-hide">
+    <section class="panel">
+        <header class="panel-heading">
+            <h2 class="panel-title">@ViewBag.modalTitle</h2>
+        </header>
+        <div class="panel-body">
+            <div class="modal-wrapper">
+                <div class="modal-icon">
+                    <i class=@Html.Raw((String)ViewBag.modalIcon)></i>
+                </div>
+                <div class="modal-text">
+                    @Html.Raw((String)ViewBag.modalSubTitle)
+                    @Html.Raw((String)ViewBag.modalContent)
+                </div>
+            </div>
+        </div>
+        <footer class="panel-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    @{
+                        var confirmText = ViewBag.modalConfirmText == null ? "Ok" : ViewBag.modalConfirmText;
+                        var dismissText = ViewBag.modalDismissText == null ? "Cancel" : ViewBag.modalDismissText;
+
+                        var btnConfirm = ViewBag.modalShowConfirm ?? true ? "<button class=\"btn btn-" + ViewBag.modalContext + " modal-confirm\">" + confirmText + "</button>" : "";
+                        var btnDismiss = ViewBag.modalShowDismiss ?? false ? "<button class=\"btn btn-default modal-dismiss\">" + dismissText + "</button>" : "";
+                    }
+
+                    @Html.Raw(btnConfirm)
+                    @Html.Raw(btnDismiss)
+
+                </div>
+            </div>
+        </footer>
+    </section>
+</div>
