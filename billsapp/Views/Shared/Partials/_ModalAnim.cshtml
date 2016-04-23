@@ -1,17 +1,17 @@
 ﻿@*<a class="mb-xs mt-xs mr-xs modal-with-zoom-anim btn btn-default" href="#modalAnim">Open with fade-zoom animation</a>*@
-<div id="modalAnim" class="zoom-anim-dialog modal-block @ViewBag.modalColorLevel modal-block-@ViewBag.modalContext mfp-hide">
+<div id="modalAnim" class="zoom-anim-dialog modal-block @ViewBag.modal.ColorLevel modal-block-@ViewBag.modal.Context mfp-hide">
     <section class="panel">
         <header class="panel-heading">
-            <h2 class="panel-title">@ViewBag.modalTitle</h2>
+            <h2 class="panel-title">@ViewBag.modal.Title</h2>
         </header>
         <div class="panel-body">
             <div class="modal-wrapper">
                 <div class="modal-icon">
-                    <i class=@Html.Raw((String)ViewBag.modalIcon)></i>
+                    <i class=@Html.Raw((String)ViewBag.modal.Icon)></i>
                 </div>
                 <div class="modal-text">
-                    @Html.Raw((String)ViewBag.modalSubTitle)
-                    @Html.Raw((String)ViewBag.modalContent)
+                    @(ViewBag.modal.ShowSubTitle ? Html.Raw((String)ViewBag.modal.SubTitle) : Html.Raw(""))
+                    @Html.Raw((String)ViewBag.modal.Content)
                 </div>
             </div>
         </div>
@@ -19,11 +19,9 @@
             <div class="row">
                 <div class="col-md-12 text-right">
                     @{
-                        var confirmText = ViewBag.modalConfirmText == null ? "Ok" : ViewBag.modalConfirmText;
-                        var dismissText = ViewBag.modalDismissText == null ? "Cancel" : ViewBag.modalDismissText;
+                        var btnConfirm = ViewBag.modal.ShowConfirmButton ? "<button class=\"btn btn-" + ViewBag.modal.Context + " modal-confirm\">" + ViewBag.modal.ConfirmButtonText + "</button>" : "";
 
-                        var btnConfirm = ViewBag.modalShowConfirm ?? true ? "<button class=\"btn btn-" + ViewBag.modalContext + " modal-confirm\">" + confirmText + "</button>" : "";
-                        var btnDismiss = ViewBag.modalShowDismiss ?? false ? "<button class=\"btn btn-default modal-dismiss\">" + dismissText + "</button>" : "";
+                        var btnDismiss = ViewBag.modal.ShowDismissButton ? "<button class=\"btn btn-default modal-dismiss\">" + ViewBag.modal.DismissButtonText + "</button>" : "";
                     }
 
                     @Html.Raw(btnConfirm)

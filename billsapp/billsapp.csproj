@@ -201,6 +201,8 @@
     <Compile Include="Controllers\SessionDepositsController.cs" />
     <Compile Include="Controllers\SessionDetailsController.cs" />
     <Compile Include="Controllers\SessionPayerDetailsController.cs" />
+    <Compile Include="Enum\ModalColorLevel.cs" />
+    <Compile Include="Enum\ModalContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

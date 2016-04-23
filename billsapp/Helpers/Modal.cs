@@ -2,35 +2,83 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using billsapp.Enum;
+using System.Reflection;
+using System.ComponentModel;
 
-namespace billsapp.Helpers {
+namespace System.Web.Mvc {
     public class Modal {
 
-        // Create Modal class instead of piece-mealing variables. Work in progress...
+        // Properties and default values
+        public string ColorLevel = "header";
+        public string Context = "primary";
+        public string Title = "Are you sure?";
+        public bool ShowSubTitle = false;
+        public string SubTitle = "<h4>Primary</h4>";
+        public string Icon = "\"fa fa-question-circle\"";
+        public string Content = "";
+        public bool ShowConfirmButton = true;
+        public bool ShowDismissButton = true;
+        public string ConfirmButtonText = "Confirm";
+        public string DismissButtonText = "Cancel";
+        public bool ShowNotification = false;
+        public string NotificationText = "";
 
-        //public Dictionary<string, string>
+        // Modal class Constructor, color level is optional because it has a default value
+        public Modal (ModalContext modalContext, ModalColorLevel modalColorLevel = ModalColorLevel.Header) {
 
-        //private static List<ColorLevel> _ColorLevel = new List<ColorLevel>();
+            // Set Color Level
+            if (modalColorLevel == ModalColorLevel.Default) {
+                ColorLevel = "";
+            }
+            else if (modalColorLevel == ModalColorLevel.Full) {
+                ColorLevel = "modal-full-color";
+            }
+            else {
+                ColorLevel = "modal-header-color";
+            }
 
-        //public static readonly ColorLevel 1 = new ColorLevel("Default");
+            // Set context specific properties
+            //
+            // Primary
+            if (modalContext == ModalContext.Primary) {
+                Context = "primary";
+                Title = "Are you sure?";
+                SubTitle = "<h4>Primary</h4>";
+                Icon = "\"fa fa-question-circle\"";
+            }
 
+            // Success
+            if (modalContext == ModalContext.Success) {
+                Context = "success";
+                Title = "Success!";
+                SubTitle = "<h4>Success</h4>";
+                Icon = "\"fa fa-check\"";
+            }
 
-        //private static 
-        ////ViewBag.modalColorLevel = "";
-        ////ViewBag.modalColorLevel = "modal-full-color";
-        //ViewBag.modalColorLevel = "modal-header-color";
-        //            ViewBag.modalContext = "info";
-        //            ViewBag.modalTitle = "Information";
-        //            //ViewBag.modalSubTitle = "<h4>Info</h4>";
-        //            ViewBag.modalIcon = "\"fa fa-info-circle\"";
-        //            ViewBag.modalContent =
-        //                    "<p>BillsApp is a sample ASP.NET MVC application and a work in progress. Its purpose is to help share and track the payment of family bills.</p>" +
-        //                    "<p>Try out the app using the built in demo account __here__. Please let me know if you have any questions or encounter any issues.</p>" + "<p>Thanks for visiting!</br>" +
-        //                    "&#8211; Lenny</p>";
-        //            //ViewBag.modalShowConfirm = true;
-        //            //ViewBag.modalConfirmText = "Yep";
-        //            //ViewBag.modalShowDismiss = true;
-        //            //ViewBag.modalDismissText = "Uh... nope";
-        //            Html.RenderPartial("_ModalAnim");
+            // Info
+            if (modalContext == ModalContext.Info) {
+                Context = "info";
+                Title = "Information";
+                SubTitle = "<h4>Info</h4>";
+                Icon = "\"fa fa-info-circle\"";
+            }
+
+            // Warning
+            if (modalContext == ModalContext.Warning) {
+                Context = "warning";
+                Title = "Warning!";
+                SubTitle = "<h4>Warning</h4>";
+                Icon = "\"fa fa-warning\"";
+            }
+
+            // Danger
+            if (modalContext == ModalContext.Danger) {
+                Context = "danger";
+                Title = "Danger!";
+                SubTitle = "<h4>Danger</h4>";
+                Icon = "\"fa fa-times-circle\"";
+            }
+        }
     }
 }

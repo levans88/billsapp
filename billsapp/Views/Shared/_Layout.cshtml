@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using billsapp.Enum;
+<!DOCTYPE html>
 <html class="dark">
 <head>
     <meta charset="utf-8" />
@@ -353,23 +354,14 @@
             </header>
             <div class="container-fluid">
                 @RenderBody()
-                @* Main Information Modal Construction *@
+                @* Build main information modal *@
                 @{
-                    //ViewBag.modalColorLevel = "";
-                    //ViewBag.modalColorLevel = "modal-full-color";
-                    ViewBag.modalColorLevel = "modal-header-color";
-                    ViewBag.modalContext = "info";
-                    ViewBag.modalTitle = "Information";
-                    //ViewBag.modalSubTitle = "<h4>Info</h4>";
-                    ViewBag.modalIcon = "\"fa fa-info-circle\"";
-                    ViewBag.modalContent =
-                            "<p>BillsApp is a sample ASP.NET MVC application and a work in progress. Its purpose is to help share and track the payment of family bills.</p>" +
-                            "<p>Try out the app using the built in demo account __here__. Please let me know if you have any questions or encounter any issues.</p>" + "<p>Thanks for visiting!</br>" +
-                            "&#8211; Lenny</p>";
-                    //ViewBag.modalShowConfirm = true;
-                    //ViewBag.modalConfirmText = "Yep";
-                    //ViewBag.modalShowDismiss = true;
-                    //ViewBag.modalDismissText = "Uh... nope";
+                    Modal modal = new Modal(ModalContext.Info);
+                    modal.Content =
+                                    "<p>BillsApp is a sample ASP.NET MVC application and a work in progress. Its purpose is to help share and track the payment of family bills.</p>" +
+                                    "<p>Try out the app using the built in demo account __here__. Please let me know if you have any questions or encounter any issues.</p>" + "<p>Thanks for visiting!</br>" +
+                                    "&#8211; Lenny</p>";
+                    ViewBag.modal = modal;
                     Html.RenderPartial("_ModalAnim");
                 }
             </div>
