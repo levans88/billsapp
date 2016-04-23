@@ -25,7 +25,7 @@
             </header>
             <div class="panel-body">
                 <div class="scrollable" data-plugin-scrollable style="height: 350px;">
-                    <div class="scrollable-content">
+                    <div id="gha-scrollable-content" class="scrollable-content">
                         <div id="feed"></div>
                     </div>
                 </div>
@@ -60,8 +60,4 @@
             </li>
         </ul>
     </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/githubactivityjs")
 }

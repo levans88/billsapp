@@ -19,9 +19,18 @@ $(document).ready(function () {
 	        //repository: "your-repo", // optional
 	        selector: "#feed"
 	        //limit: 20 // optional
-
     	});
     }
+
+    // GHA Stream Nanoscroller fix
+    //
+    // Wait 2 seconds and re-initialize Nanoscroller... This is a poor workaround 
+    // to redraw the nano scrollbar after github-activity.js creates new DOM content.
+    $(window).load(function () {
+        function resetNano(){
+            $('.scrollable').nanoScroller(); }
+        window.setTimeout( resetNano, 2000 );
+    });
 
     // Clear nav-active class from nav menu
     if ( $('nav > ul.nav > li.nav-active').length ) {
