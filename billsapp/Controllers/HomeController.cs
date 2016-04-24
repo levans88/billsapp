@@ -30,6 +30,12 @@ namespace billsapp.Controllers {
             // Create new modal with passed in name, content, etc.
             Modal m = new Modal(modalName, modalContent, modalContext, modalColorLevel);
 
+            // Named modal overrides (pass as parameters for constructor in the future)
+            if (modalName == "siteInfoModal") {
+                m.ShowDismissButton = false;
+                m.ConfirmButtonText = "Ok";
+            }
+
             // Supply the new modal to the ViewModel
             ModalViewModel modalViewModel = new ModalViewModel() { modal = m };
 
