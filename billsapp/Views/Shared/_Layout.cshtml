@@ -1,4 +1,6 @@
-﻿@using billsapp.Enum;
+﻿@using billsapp.Models;
+@using billsapp.Enum;
+
 <!DOCTYPE html>
 <html class="dark">
 <head>
@@ -38,7 +40,7 @@
 
             <ul class="notifications">
                 <li>
-                    <a id="app-info" href="#modalAnim" class="modal-with-zoom-anim notification-icon">
+                    <a id="app-info" href="#siteInfoModal" class="modal-with-zoom-anim notification-icon">
                         <i class="fa fa-info"></i>
                     </a>
                 </li>
@@ -354,15 +356,14 @@
             </header>
             <div class="container-fluid">
                 @RenderBody()
-                @* Build main information modal *@
                 @{
-                    Modal modal = new Modal(ModalContext.Info);
-                    modal.Content =
-                                    "<p>BillsApp is a sample ASP.NET MVC application and a work in progress. Its purpose is to help share and track the payment of family bills.</p>" +
-                                    "<p>Try out the app using the built in demo account __here__. Please let me know if you have any questions or encounter any issues.</p>" + "<p>Thanks for visiting!</br>" +
-                                    "&#8211; Lenny</p>";
-                    ViewBag.modal = modal;
-                    Html.RenderPartial("_ModalAnim");
+                    // Build main site information modal
+                    var modalContentString =
+                        "<p>BillsApp is a sample ASP.NET MVC application and a work in progress. Its purpose is to help share and track the payment of family bills.</p>" +
+                        "<p>Try out the app using the built in demo account __here__. Please let me know if you have any questions or encounter any issues.</p>" + "<p>Thanks for visiting!</br>" +
+                        "&#8211; Lenny</p>";
+
+                    Html.RenderAction("CreateModal", "Home", new { modalName = "siteInfoModal", modalContent = modalContentString, modalContext = ModalContext.Info});
                 }
             </div>
             <div class="container-fluid">

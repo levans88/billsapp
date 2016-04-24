@@ -65,6 +65,10 @@ textarea {
 	padding-right: 15px;
 }
 
+.modal-text {
+  padding-right: 25px;
+}
+
 /* Override location of octicons fonts in octicons.css 
 	and font-awesome fonts in font-awesome.css */
 @font-face {

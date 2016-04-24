@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using billsapp.Enum;
-using System.Reflection;
 using System.ComponentModel;
 
 namespace System.Web.Mvc {
     public class Modal {
 
         // Properties and default values
-        public string ColorLevel = "header";
+        public string Name = "";
+        public string ColorLevel = "modal-header-color";
         public string Context = "primary";
         public string Title = "Are you sure?";
         public bool ShowSubTitle = false;
@@ -25,7 +25,11 @@ namespace System.Web.Mvc {
         public string NotificationText = "";
 
         // Modal class Constructor, color level is optional because it has a default value
-        public Modal (ModalContext modalContext, ModalColorLevel modalColorLevel = ModalColorLevel.Header) {
+        public Modal (string modalName, string modalContent, ModalContext modalContext, ModalColorLevel modalColorLevel = ModalColorLevel.Header) {
+            
+            // Modal name and content
+            this.Name = modalName;
+            this.Content = modalContent;
 
             // Set Color Level
             if (modalColorLevel == ModalColorLevel.Default) {
