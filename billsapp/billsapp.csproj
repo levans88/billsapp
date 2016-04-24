@@ -201,9 +201,12 @@
     <Compile Include="Controllers\SessionDepositsController.cs" />
     <Compile Include="Controllers\SessionDetailsController.cs" />
     <Compile Include="Controllers\SessionPayerDetailsController.cs" />
+    <Compile Include="Enum\ModalColorLevel.cs" />
+    <Compile Include="Enum\ModalContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Modal.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRoles.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
@@ -247,6 +250,7 @@
     <Compile Include="Models\bill_type.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomViewEngine.cs" />
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
@@ -255,6 +259,7 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ModalViewModel.cs" />
     <Compile Include="Models\payer.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
@@ -3522,6 +3527,7 @@
     <Content Include="ThemeDemo\assets\ajax\ajax-treeview-children.json" />
     <Content Include="ThemeDemo\assets\ajax\ajax-treeview-roots.json" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="Views\Shared\Partials\_ModalAnim.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

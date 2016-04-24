@@ -67,6 +67,13 @@ namespace billsapp {
                         //"~/assets/vendor/bootstrap/css/bootstrap-theme.css"       // default bootstrap theme, DO NOT USE
                         ));
 
+            // pnotify
+            bundles.Add(new ScriptBundle("~/bundles/pnotifyjs").Include(
+                        "~/assets/vendor/pnotify/pnotify.custom.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/pnotifycss").Include(
+                        "~/assets/vendor/pnotify/pnotify.custom.css"));
+
             // Magnific Popup
             bundles.Add(new ScriptBundle("~/bundles/magnificjs").Include(
                         "~/assets/vendor/magnific-popup/jquery.magnific-popup.js"));
