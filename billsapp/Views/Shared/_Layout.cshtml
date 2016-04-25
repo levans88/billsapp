@@ -2,7 +2,7 @@
 @using billsapp.Enum;
 
 <!DOCTYPE html>
-<html class="dark">
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +26,7 @@
     <header class="header">
         <div class="logo-container">
             <a href="#" class="logo">
-                <img src="~/assets/images/ducks4.png" height="35" />
+                <img src="~/assets/images/ducks4light.png" height="35" />
             </a>
             <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
                 <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -85,8 +85,9 @@
                         @*<figure class="profile-picture">
                             <img src="assets/images/!logged-user.jpg" class="img-circle" />
                         </figure>*@
-                        <div class="profile-info profile-info-wide">
-                            <span class="name">Account</span>
+                        
+                        <div class="profile-info">
+                            <span id="name-logged-out" class="name">Account</span>
                         </div>
 
                         <i class="fa custom-caret"></i>
@@ -101,12 +102,12 @@
                             <li>
                                 <a role="menuitem" tabindex="-1" href=@Url.Action("Register", "Account")><i class="fa fa-user-plus"></i> Register</a>
                             </li>
-
                         </ul>
                     </div>
                 }
             </div>
         </div>
+        
         <!-- end: search & user box -->
     </header>
     <!-- end: header -->
@@ -363,10 +364,11 @@
                         "<p>Try out the app using the built in demo account __here__. Please let me know if you have any questions or encounter any issues.</p>" + "<p>Thanks for visiting!</br>" +
                         "&#8211; Lenny</p>";
 
-                    Html.RenderAction("CreateModal", "Home", new { modalName = "siteInfoModal", modalContent = modalContentString, modalContext = ModalContext.Info});
+                    Html.RenderAction("CreateModal", "Home", new { modalName = "siteInfoModal", modalContent = modalContentString, modalContext = ModalContext.Info, modalColorLevel = ModalColorLevel.Header });
                 }
             </div>
             <div class="container-fluid">
+                <div class="row">
                     <div class="col-md-12">
                         <footer>
                             <hr />
@@ -374,6 +376,7 @@
                         </footer>
                     </div>
                 </div>
+            </div>
         </section>
     </div>
 

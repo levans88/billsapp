@@ -297,6 +297,7 @@
     <Content Include="assets\images\!logged-user.jpg" />
     <Content Include="assets\images\ducks3.png" />
     <Content Include="assets\images\ducks4.png" />
+    <Content Include="assets\images\ducks4light.png" />
     <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\patterns\az_subtle.png" />
     <Content Include="assets\images\patterns\blizzard.png" />
@@ -1528,9 +1529,6 @@
     <Content Include="assets\vendor\github-activity\octicons\sprockets-octicons.scss" />
     <Content Include="ApplicationInsights.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

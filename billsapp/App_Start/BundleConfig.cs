@@ -32,9 +32,7 @@ namespace billsapp {
 
             // jQuery Validate
             bundles.Add(new ScriptBundle("~/bundles/jqueryvaljs").Include(
-                        "~/assets/vendor/jquery-validation/jquery.validate.js",
-                        "~/assets/vendor/jquery-validation/additional-methods.js",
-                        "~/Scripts/jquery.validate.unobtrusive.js"));
+                        "~/assets/vendor/jquery-validation/jquery.validate.js"));
 
             // jQuery UI
             bundles.Add(new ScriptBundle("~/bundles/jqueryuijs").Include(
