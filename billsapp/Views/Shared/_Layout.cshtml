@@ -1,5 +1,7 @@
 ﻿@using billsapp.Models;
 @using billsapp.Enum;
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
 
 <!DOCTYPE html>
 <html>
@@ -56,7 +58,14 @@
                             <img src="~/assets/images/!logged-user.jpg" class="img-circle" />
                         </figure>
                         <div class="profile-info">
-                            <span class="name">@(User.Identity.Name)</span>
+                            @{ 
+                                //HttpContext.Current.User.Identity.GetUserId()
+                                //var currentUserId = User.Identity.GetUserId();
+                                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                                var currentUser = manager.FindById(User.Identity.GetUserId());
+                                var firstName = currentUser.first_name;
+                            }
+                            <span class="name">@firstName</span>
                             <span class="role">@(User.IsInRole("Admin") ? "Admin" : "User")</span>
                         </div>
 
