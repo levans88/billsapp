@@ -7,10 +7,10 @@
         <div class="panel-body">
             <div class="modal-wrapper">
                 <div class="modal-icon">
-                    <i class=@Html.Raw((String)Model.modal.Icon)></i>
+                    <i class="@Html.Raw("fa " + (String)Model.modal.Icon)"></i>
                 </div>
                 <div class="modal-text">
-                    @(Model.modal.ShowSubTitle ? Html.Raw((String)Model.modal.SubTitle) : Html.Raw(""))
+                    @(Model.modal.ShowSubTitle ? Html.Raw("<h4>" + Model.modal.SubTitle + "</h4>") : "")
                     @Html.Raw((String)Model.modal.Content)
                 </div>
             </div>

@@ -19,7 +19,6 @@
             <header class="panel-heading">
                 <div class="panel-actions">
                     <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                    <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                 </div>
                 <h2 class="panel-title">Project Activity Feed</h2>
             </header>
@@ -39,6 +38,7 @@
         <p>Displayed for debugging/testing, only if authenticated and admin...</p>
         <ul>
             <li><a href="~/ThemeDemo/index.html">Theme Examples</a></li>
+            <li>@Html.ActionLink("Wizard", "Wizard", "BillTypes")</li>
             <li>@Html.ActionLink("Home", "Index", "Home")</li>
             <li>@Html.ActionLink("Actual bills", "Index", "Bills")</li>
             <li>@Html.ActionLink("List of bill template types", "Index", "BillTypes")</li>

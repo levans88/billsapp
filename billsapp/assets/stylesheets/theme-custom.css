@@ -56,8 +56,6 @@ textarea {
   .gha-user-info, .gha-header, .gha-push {
     display: none;
   }
-
-
 }
 
 /* Fix padding when chevron to open right side menu is disabled */
@@ -65,12 +63,41 @@ textarea {
 	padding-right: 15px;
 }
 
+/* Adjust modals */
 .modal-text {
   padding-right: 25px;
 }
 
+/* Validation class name override from "validation-message" to "validation-summary-errors"
+  (because .NET writes different error divs than the theme) */
+div.validation-summary-errors ul {
+  /*display: none;*/
+  list-style: none;
+  margin: -15px -15px 15px -15px;
+  padding: 15px;
+  border-bottom: 1px solid #FFCBCB;
+  background: #FFEFEF;
+}
+
+div.validation-summary-errors ul label.error {
+  display: block;
+  padding-left: 22px;
+  position: relative;
+}
+
+div.validation-summary-errors ul label.error:before {
+  font-family: 'FontAwesome';
+  content: '\f00d';
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 16px;
+  color: #D9534F;
+  display: inline-block;
+}
+
 /* Override location of octicons fonts in octicons.css 
-	and font-awesome fonts in font-awesome.css */
+  and font-awesome fonts in font-awesome.css */
 @font-face {
   font-family: 'octicons';
   src: url('/assets/vendor/github-activity/octicons/octicons.eot?#iefix') format('embedded-opentype'),

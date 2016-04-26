@@ -21,6 +21,12 @@ namespace billsapp.Controllers
             return View(bill_type.ToList());
         }
 
+        // GET: Wizard
+        public ActionResult Wizard() {
+            var bill_type = db.bill_type.Include(b => b.frequency).Include(b => b.payer).Include(b => b.payment_method).Include(b => b.status);
+            return View(bill_type.ToList());
+        }
+
         // GET: BillTypes/Details/5
         public ActionResult Details(int? id)
         {

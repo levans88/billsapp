@@ -1,8 +1,11 @@
 ﻿@using billsapp.Models;
 @using billsapp.Enum;
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
 
 <!DOCTYPE html>
-<html class="dark">
+<html>
+@* <html class="dark"> *@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +29,7 @@
     <header class="header">
         <div class="logo-container">
             <a href="#" class="logo">
-                <img src="~/assets/images/ducks4.png" height="35" />
+                <img src="~/assets/images/ducks4light.png" height="35" />
             </a>
             <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
                 <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -55,7 +58,14 @@
                             <img src="~/assets/images/!logged-user.jpg" class="img-circle" />
                         </figure>
                         <div class="profile-info">
-                            <span class="name">@(User.Identity.Name)</span>
+                            @{ 
+                                //HttpContext.Current.User.Identity.GetUserId()
+                                var currentUserId = User.Identity.GetUserId();
+                                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                                var currentUser = manager.FindById(User.Identity.GetUserId());
+                                var firstName = Html.Raw(currentUser.first_name.FixLength(15));
+                            }
+                            <span class="name">@firstName</span>
                             <span class="role">@(User.IsInRole("Admin") ? "Admin" : "User")</span>
                         </div>
 
@@ -82,11 +92,13 @@
                 }
                 else {
                     <a href="#" data-toggle="dropdown">
-                        @*<figure class="profile-picture">
+                        <figure class="profile-picture" style="visibility: hidden;">
                             <img src="assets/images/!logged-user.jpg" class="img-circle" />
-                        </figure>*@
-                        <div class="profile-info profile-info-wide">
-                            <span class="name">Account</span>
+                        </figure>
+                        
+                        <div class="profile-info">
+                            @{ var userBoxText = "Account";}
+                            <span id="name-logged-out" class="name">@(Html.Raw(userBoxText.FixLength(15)))</span>
                         </div>
 
                         <i class="fa custom-caret"></i>
@@ -101,12 +113,12 @@
                             <li>
                                 <a role="menuitem" tabindex="-1" href=@Url.Action("Register", "Account")><i class="fa fa-user-plus"></i> Register</a>
                             </li>
-
                         </ul>
                     </div>
                 }
             </div>
         </div>
+        
         <!-- end: search & user box -->
     </header>
     <!-- end: header -->
@@ -359,14 +371,15 @@
                 @{
                     // Build main site information modal
                     var modalContentString =
-                        "<p>BillsApp is a sample ASP.NET MVC application and a work in progress. Its purpose is to help share and track the payment of family bills.</p>" +
-                        "<p>Try out the app using the built in demo account __here__. Please let me know if you have any questions or encounter any issues.</p>" + "<p>Thanks for visiting!</br>" +
+                        "<p>BillsApp is a sample ASP.NET MVC application and a work in progress. Its purpose is to help share and track the payment of family bills. " +
+                        "Try out the app using the built in demo account __here__. Please let me know if you have any questions or encounter any issues.</p>" + "<p>Thanks for visiting!</br>" +
                         "&#8211; Lenny</p>";
 
-                    Html.RenderAction("CreateModal", "Home", new { modalName = "siteInfoModal", modalContent = modalContentString, modalContext = ModalContext.Info});
+                    Html.RenderAction("CreateModal", "Home", new { modalName = "siteInfoModal", modalContent = modalContentString, modalContext = ModalContext.Info, modalColorLevel = ModalColorLevel.Header });
                 }
             </div>
             <div class="container-fluid">
+                <div class="row">
                     <div class="col-md-12">
                         <footer>
                             <hr />
@@ -374,6 +387,7 @@
                         </footer>
                     </div>
                 </div>
+            </div>
         </section>
     </div>
 
