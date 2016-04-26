@@ -66,6 +66,7 @@ textarea {
 /* Adjust modals */
 .modal-text {
   padding-right: 25px;
+/*  text-align: justify;*/
 }
 
 /* Fix drop down menu going off screen when not logged in */

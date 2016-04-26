@@ -361,8 +361,8 @@
                 @{
                     // Build main site information modal
                     var modalContentString =
-                        "<p>BillsApp is a sample ASP.NET MVC application and a work in progress. Its purpose is to help share and track the payment of family bills.</p>" +
-                        "<p>Try out the app using the built in demo account __here__. Please let me know if you have any questions or encounter any issues.</p>" + "<p>Thanks for visiting!</br>" +
+                        "<p>BillsApp is a sample ASP.NET MVC application and a work in progress. Its purpose is to help share and track the payment of family bills. " +
+                        "Try out the app using the built in demo account __here__. Please let me know if you have any questions or encounter any issues.</p>" + "<p>Thanks for visiting!</br>" +
                         "&#8211; Lenny</p>";
 
                     Html.RenderAction("CreateModal", "Home", new { modalName = "siteInfoModal", modalContent = modalContentString, modalContext = ModalContext.Info, modalColorLevel = ModalColorLevel.Header });
