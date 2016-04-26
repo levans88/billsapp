@@ -60,10 +60,10 @@
                         <div class="profile-info">
                             @{ 
                                 //HttpContext.Current.User.Identity.GetUserId()
-                                //var currentUserId = User.Identity.GetUserId();
+                                var currentUserId = User.Identity.GetUserId();
                                 var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                                 var currentUser = manager.FindById(User.Identity.GetUserId());
-                                var firstName = currentUser.first_name;
+                                var firstName = Html.Raw(currentUser.first_name.FixLength(15));
                             }
                             <span class="name">@firstName</span>
                             <span class="role">@(User.IsInRole("Admin") ? "Admin" : "User")</span>
@@ -92,12 +92,13 @@
                 }
                 else {
                     <a href="#" data-toggle="dropdown">
-                        @*<figure class="profile-picture">
+                        <figure class="profile-picture" style="visibility: hidden;">
                             <img src="assets/images/!logged-user.jpg" class="img-circle" />
-                        </figure>*@
+                        </figure>
                         
                         <div class="profile-info">
-                            <span id="name-logged-out" class="name">Account</span>
+                            @{ var userBoxText = "Account";}
+                            <span id="name-logged-out" class="name">@(Html.Raw(userBoxText.FixLength(15)))</span>
                         </div>
 
                         <i class="fa custom-caret"></i>

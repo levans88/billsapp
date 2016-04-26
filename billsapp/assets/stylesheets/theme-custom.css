@@ -68,12 +68,6 @@ textarea {
   padding-right: 25px;
 }
 
-/* Fix drop down menu going off screen when not logged in */
-#userbox a .profile-info #name-logged-out {
-  padding-left: 65px;
-  text-align: right;
-}
-
 /* Validation class name override from "validation-message" to "validation-summary-errors"
   (because .NET writes different error divs than the theme) */
 div.validation-summary-errors ul {

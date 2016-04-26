@@ -203,6 +203,7 @@
     <Compile Include="Controllers\SessionPayerDetailsController.cs" />
     <Compile Include="Enum\ModalColorLevel.cs" />
     <Compile Include="Enum\ModalContext.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
