@@ -3527,6 +3527,7 @@
     <Content Include="ThemeDemo\assets\ajax\ajax-treeview-roots.json" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Views\Shared\Partials\_ModalAnim.cshtml" />
+    <Content Include="Views\BillTypes\Wizard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
