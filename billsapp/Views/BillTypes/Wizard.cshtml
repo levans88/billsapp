@@ -1,4 +1,4 @@
-﻿@model IEnumerable<billsapp.Models.bill_type>
+﻿@model billsapp.Models.BillTypesViewModel
 
 @{
     ViewBag.Title = "Setup Wizard";
@@ -44,7 +44,7 @@
                                 <div class="col-sm-12">
                                     <div class="mb-md">
                                         @*<div class="well well-sm" style="border:none;">*@
-                                        <div class="alert alert-info">
+                                        <div class="alert alert-info" style="text-align:center;">
                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                             To get started, enter the types of accounts you use to pay your bills. <strong>Do not include account numbers.</strong>
                                         </div>
@@ -79,39 +79,62 @@
                                     </table>
                                 </div>
                             </div>
-
-                                    @*<div class="form-group">
-                        <label class="col-sm-3 control-label" for="w4-username">Username</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="username" id="w4-username" required>
                         </div>
-                    </div>*@
+                        <!-- End Step 1 -->
 
-                                    @*<div class="form-group">
-                        <label class="col-sm-3 control-label" for="w4-password">Password</label>
-                        <div class="col-sm-9">
-                            <input type="password" class="form-control" name="password" id="w4-password" required minlength="6">
+                        <!-- Start Step 2 -->
+                        <div id="w4-profile" class="tab-pane">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m., new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        @*<div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" class="btn btn-primary" value="Register" />
+                                            </div>
+                                        </div>*@
+                                    }
+                                </div>
+                            </div>
                         </div>
-                    </div>*@
+                        <!-- End Step 2 -->
 
-                                </div>
-                                <!-- End Step 1 -->
-                                <!-- Start Step 2 -->
-                                <div id="w4-profile" class="tab-pane">
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="w4-first-name">First Name</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="first-name" id="w4-first-name" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="w4-last-name">Last Name</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="last-name" id="w4-last-name" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Step 2 -->
                                 <!-- Start Step 3 -->
                                 <div id="w4-billing" class="tab-pane">
                                     <div class="form-group">
