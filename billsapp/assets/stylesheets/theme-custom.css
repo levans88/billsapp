@@ -96,6 +96,11 @@ div.validation-summary-errors ul label.error:before {
   display: inline-block;
 }
 
+#setup-wizard-tab-content {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 /* Override location of octicons fonts in octicons.css 
   and font-awesome fonts in font-awesome.css */
 @font-face {

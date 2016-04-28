@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using billsapp.Models;
+using Microsoft.AspNet.Identity;
 
 namespace billsapp.Controllers
 {
@@ -17,16 +18,29 @@ namespace billsapp.Controllers
         // GET: BillTypes
         public ActionResult Index()
         {
-            var model = new BillTypesViewModel();
-            var billTypes = db.bill_type.Include(b => b.frequency).Include(b => b.payer).Include(b => b.payment_method).Include(b => b.status).ToList();
-            return View(billTypes);
-            
+            var bill_type = db.bill_type.Include(b => b.frequency).Include(b => b.payer).Include(b => b.payment_method).Include(b => b.status);
+            return View(bill_type.ToList());
         }
 
         // GET: Wizard
         public ActionResult Wizard() {
-            var bill_type = db.bill_type.Include(b => b.frequency).Include(b => b.payer).Include(b => b.payment_method).Include(b => b.status);
-            return View(bill_type.ToList());
+            var model = new BillTypesViewModel();
+
+            // Get the current user's payer_id
+            var userID = User.Identity.GetUserId();
+            var payer = db.payer.Single(p => p.user_id == userID);
+            var payerID = payer.payer_id;
+                       
+            // Get payment methods
+            List<SelectListItem> pmth = new List<SelectListItem>();
+
+            pmth = db.payment_method.Where(x => x.payer_id == payerID).ToList().Select(x => new SelectListItem {
+                Text = x.payment_method_name,
+                Value = x.payment_method_id.ToString() }).ToList();
+
+            model.paymentMethods = pmth;
+
+            return View(model);
         }
 
         // GET: BillTypes/Details/5

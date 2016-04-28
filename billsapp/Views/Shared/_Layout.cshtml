@@ -60,7 +60,7 @@
                         <div class="profile-info">
                             @{ 
                                 //HttpContext.Current.User.Identity.GetUserId()
-                                var currentUserId = User.Identity.GetUserId();
+                                //var currentUserId = User.Identity.GetUserId();
                                 var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                                 var currentUser = manager.FindById(User.Identity.GetUserId());
                                 var firstName = Html.Raw(currentUser.first_name.FixLength(15));
@@ -93,7 +93,7 @@
                 else {
                     <a href="#" data-toggle="dropdown">
                         <figure class="profile-picture" style="visibility: hidden;">
-                            <img src="assets/images/!logged-user.jpg" class="img-circle" />
+                            <img src="~/assets/images/!logged-user.jpg" class="img-circle" />
                         </figure>
                         
                         <div class="profile-info">
