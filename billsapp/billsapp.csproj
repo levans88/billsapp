@@ -198,9 +198,7 @@
     <Compile Include="Controllers\PayersController.cs" />
     <Compile Include="Controllers\PaymentMethodsController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
-    <Compile Include="Controllers\SessionDepositsController.cs" />
-    <Compile Include="Controllers\SessionDetailsController.cs" />
-    <Compile Include="Controllers\SessionPayerDetailsController.cs" />
+    <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Enum\Permission.cs" />
     <Compile Include="Enum\PermissionLevel.cs" />
     <Compile Include="Enum\Status.cs" />
@@ -265,6 +263,7 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SessionPayersViewModel.cs" />
     <Compile Include="Models\ModalViewModel.cs" />
     <Compile Include="Models\payer.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
@@ -3172,21 +3171,11 @@
     <Content Include="Views\PaymentMethods\Details.cshtml" />
     <Content Include="Views\PaymentMethods\Edit.cshtml" />
     <Content Include="Views\PaymentMethods\Index.cshtml" />
-    <Content Include="Views\SessionDetails\Create.cshtml" />
-    <Content Include="Views\SessionDetails\Delete.cshtml" />
-    <Content Include="Views\SessionDetails\Details.cshtml" />
-    <Content Include="Views\SessionDetails\Edit.cshtml" />
-    <Content Include="Views\SessionDetails\Index.cshtml" />
-    <Content Include="Views\SessionPayerDetails\Create.cshtml" />
-    <Content Include="Views\SessionPayerDetails\Delete.cshtml" />
-    <Content Include="Views\SessionPayerDetails\Details.cshtml" />
-    <Content Include="Views\SessionPayerDetails\Edit.cshtml" />
-    <Content Include="Views\SessionPayerDetails\Index.cshtml" />
-    <Content Include="Views\SessionDeposits\Create.cshtml" />
-    <Content Include="Views\SessionDeposits\Delete.cshtml" />
-    <Content Include="Views\SessionDeposits\Details.cshtml" />
-    <Content Include="Views\SessionDeposits\Edit.cshtml" />
-    <Content Include="Views\SessionDeposits\Index.cshtml" />
+    <Content Include="Views\Session\Create.cshtml" />
+    <Content Include="Views\Session\Delete.cshtml" />
+    <Content Include="Views\Session\Details.cshtml" />
+    <Content Include="Views\Session\Edit.cshtml" />
+    <Content Include="Views\Session\Index.cshtml" />
     <Content Include="ThemeDemo\assets\vendor\bootstrap-datepicker\css\bootstrap-datepicker.css.map" />
     <Content Include="ThemeDemo\assets\vendor\bootstrap-datepicker\css\bootstrap-datepicker.min.css.map" />
     <Content Include="ThemeDemo\assets\vendor\bootstrap-datepicker\css\bootstrap-datepicker.standalone.css.map" />

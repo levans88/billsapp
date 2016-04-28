@@ -38,6 +38,8 @@
         <p>Displayed for debugging/testing, only if authenticated and admin...</p>
         <ul>
             <li><a href="~/ThemeDemo/index.html">Theme Examples</a></li>
+            <li>@Html.ActionLink("Specific Session", "Details", "Session", new { id = "1" }, null)</li>
+            <li>@Html.ActionLink("Sessions", "Index", "Session")</li>
             <li>@Html.ActionLink("Wizard", "Wizard", "BillTypes")</li>
             <li>@Html.ActionLink("Home", "Index", "Home")</li>
             <li>@Html.ActionLink("Actual bills", "Index", "Bills")</li>

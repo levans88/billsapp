@@ -1,0 +1,66 @@
+﻿@model billsapp.Models.SessionPayersViewModel
+
+@{
+    ViewBag.Title = "Sessions";
+}
+
+@*<p>@Html.ActionLink("Create New", "Create")</p>*@
+
+<div class="row">
+    <div class="col-md-12">
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle=""></a>
+                </div>
+                <h2 class="panel-title">Continue or Review a Bill Pay Session</h2>
+            </header>
+            <div class="panel-body">
+                <table class="table table-no-more table-bordered table-striped mb-none">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th class="hidden-xs hidden-sm">Company</th>
+                            <th class="text-right">Price</th>
+                            <th class="text-right hidden-xs hidden-sm">Change</th>
+                            <th class="text-right">Change %</th>
+                            <th class="text-right">Open</th>
+                            <th class="text-right hidden-xs hidden-sm">High</th>
+                            <th class="text-right hidden-xs hidden-sm">Low</th>
+                            <th class="text-right">Volume</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-title="Code">AAC</td>
+                            <td data-title="Company" class="hidden-xs hidden-sm">AUSTRALIAN AGRICULTURAL COMPANY LIMITED.</td>
+                            <td data-title="Price" class="text-right">$1.38</td>
+                            <td data-title="Change" class="text-right hidden-xs hidden-sm">-0.01</td>
+                            <td data-title="Change %" class="text-right">-0.36%</td>
+                            <td data-title="Open" class="text-right">$1.39</td>
+                            <td data-title="High" class="text-right hidden-xs hidden-sm">$1.39</td>
+                            <td data-title="Low" class="text-right hidden-xs hidden-sm">$1.38</td>
+                            <td data-title="Volume" class="text-right">9,395</td>
+                        </tr>
+                        <tr>
+                            <td data-title="Code">AAD</td>
+                            <td data-title="Company" class="hidden-xs hidden-sm">ARDENT LEISURE GROUP</td>
+                            <td data-title="Price" class="text-right">$1.15</td>
+                            <td data-title="Change" class="text-right hidden-xs hidden-sm">  +0.02</td>
+                            <td data-title="Change %" class="text-right">1.32%</td>
+                            <td data-title="Open" class="text-right">$1.14</td>
+                            <td data-title="High" class="text-right hidden-xs hidden-sm">$1.15</td>
+                            <td data-title="Low" class="text-right hidden-xs hidden-sm">$1.13</td>
+                            <td data-title="Volume" class="text-right">56,431</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+@section Scripts {
+
+}

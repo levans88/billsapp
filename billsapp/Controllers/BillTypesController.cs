@@ -46,7 +46,7 @@ namespace billsapp.Controllers
             }).ToList();
 
             // Get permission settings
-            var permissions = db.payers_permissions.Include(x => x.permission).Include(x => x.permission_level).ToList();
+            var permissions = db.payers_permissions.Include(x => x.permission).Include(x => x.permission_level).Where(x => x.source_payer_id == payerID).ToList();
 
             // Create and populate ViewModel
             var model = new BillTypesViewModel();

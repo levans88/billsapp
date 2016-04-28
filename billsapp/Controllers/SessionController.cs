@@ -7,41 +7,65 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using billsapp.Models;
+using Microsoft.AspNet.Identity;
 
 namespace billsapp.Controllers
 {
-    public class SessionDetailsController : Controller
+    public class SessionController : Controller
     {
         private billsappdbEntities db = new billsappdbEntities();
 
-        // GET: SessionDetails
+        // GET: Session
         public ActionResult Index()
         {
-            return View(db.session.ToList());
+            // Get the current user's payer_id
+            var userID = User.Identity.GetUserId();
+            var payer = db.payer.Single(p => p.user_id == userID);
+            var payerID = payer.payer_id;
+
+            // Retrieve session data from database for the payer
+            var sessions = db.sessions_payers.Include(x => x.session).Where(x => x.payer_id == payerID).ToList();
+            
+            // Assign data to ViewModel
+            SessionPayersViewModel model = new SessionPayersViewModel();
+            model.sessions = sessions;
+            
+            return View(model);
         }
 
-        // GET: SessionDetails/Details/5
+        // GET: Session/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            session session = db.session.Find(id);
+
+            // Get the current user's payer_id
+            var userID = User.Identity.GetUserId();
+            var payer = db.payer.Single(p => p.user_id == userID);
+            var payerID = payer.payer_id;
+
+            // Retrieve session data from database for the payer
+            var session = db.sessions_payers.Include(x => x.session).Single(x => x.payer_id == payerID && x.session_id == id);
+
             if (session == null)
             {
                 return HttpNotFound();
             }
-            return View(session);
+
+            SessionPayersViewModel model = new SessionPayersViewModel();
+            model.session = session;
+            return View(model);
         }
 
-        // GET: SessionDetails/Create
+        // GET: Session/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: SessionDetails/Create
+        // POST: Session/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -58,7 +82,7 @@ namespace billsapp.Controllers
             return View(session);
         }
 
-        // GET: SessionDetails/Edit/5
+        // GET: Session/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -73,7 +97,7 @@ namespace billsapp.Controllers
             return View(session);
         }
 
-        // POST: SessionDetails/Edit/5
+        // POST: Session/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -89,7 +113,7 @@ namespace billsapp.Controllers
             return View(session);
         }
 
-        // GET: SessionDetails/Delete/5
+        // GET: Session/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -104,7 +128,7 @@ namespace billsapp.Controllers
             return View(session);
         }
 
-        // POST: SessionDetails/Delete/5
+        // POST: Session/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
