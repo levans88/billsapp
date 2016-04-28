@@ -24,7 +24,6 @@ namespace billsapp.Controllers
 
         // GET: Wizard
         public ActionResult Wizard() {
-            var model = new BillTypesViewModel();
 
             // Get the current user's payer_id
             var userID = User.Identity.GetUserId();
@@ -32,13 +31,28 @@ namespace billsapp.Controllers
             var payerID = payer.payer_id;
                        
             // Get payment methods
-            List<SelectListItem> pmth = new List<SelectListItem>();
+            List<SelectListItem> paymentMethods = new List<SelectListItem>();
 
-            pmth = db.payment_method.Where(x => x.payer_id == payerID).ToList().Select(x => new SelectListItem {
+            paymentMethods = db.payment_method.Where(x => x.payer_id == payerID).ToList().Select(x => new SelectListItem {
                 Text = x.payment_method_name,
                 Value = x.payment_method_id.ToString() }).ToList();
 
-            model.paymentMethods = pmth;
+            // Get bill types for list box
+            List<SelectListItem> billTypes = new List<SelectListItem>();
+
+            billTypes = db.bill_type.Where(x => x.payer_id == payerID).ToList().Select(x => new SelectListItem {
+                Text = x.type_name,
+                Value = x.type_id.ToString()
+            }).ToList();
+
+            // Get permission settings
+            var permissions = db.payers_permissions.Include(x => x.permission).Include(x => x.permission_level).ToList();
+
+            // Create and populate ViewModel
+            var model = new BillTypesViewModel();
+            model.paymentMethods = paymentMethods;
+            model.billTypes = billTypes;
+            model.permissions = permissions;
 
             return View(model);
         }

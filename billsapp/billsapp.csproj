@@ -201,6 +201,8 @@
     <Compile Include="Controllers\SessionDepositsController.cs" />
     <Compile Include="Controllers\SessionDetailsController.cs" />
     <Compile Include="Controllers\SessionPayerDetailsController.cs" />
+    <Compile Include="Enum\Permission.cs" />
+    <Compile Include="Enum\PermissionLevel.cs" />
     <Compile Include="Enum\Status.cs" />
     <Compile Include="Enum\BillTypeFrequency.cs" />
     <Compile Include="Enum\ModalColorLevel.cs" />

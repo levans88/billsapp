@@ -112,7 +112,11 @@ namespace billsapp {
             // Font Awesome
             bundles.Add(new StyleBundle("~/bundles/fontawesomecss").Include(
                         "~/assets/vendor/font-awesome/css/font-awesome.css"));
-            
+
+            // Elusive Icons
+            bundles.Add(new StyleBundle("~/bundles/elusivecss").Include(
+                        "~/assets/vendor/elusive-icons/css/elusive-icons.css"));
+
             // Theme
             bundles.Add(new StyleBundle("~/bundles/themecss").Include(
                         "~/assets/stylesheets/theme.css",                           // Basic layout structure styles

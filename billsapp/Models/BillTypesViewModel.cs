@@ -9,10 +9,17 @@ using System.Web.Mvc;
 namespace billsapp.Models {
     public class BillTypesViewModel {
 
-        public int payer_id { get; set; }
-        public int type_id { get; set; }
-   
+        public string shareTargetEmail { get; set; }
+        public List<payers_permissions> permissions { get; set; }
+        public Permission permission { get; set; }
+        public PermissionLevel permissionLevel { get; set; }
+        
+        public string notes { get; set; }
+
         public List<SelectListItem> paymentMethods { get; set; }
+        public List<SelectListItem> billTypes { get; set; }
+
+        public decimal startingBalance { get; set; }
 
         // not [Required]
         [Display(Name = "Payment Method")]
@@ -30,22 +37,22 @@ namespace billsapp.Models {
         // [Required] but we will default to active
         [Display(Name = "Status")]
         [EnumDataType(typeof(Enum.Status), ErrorMessage = "Invalid status selection.")]
-        public int status_id { get; set; }
+        public int statusID { get; set; }
 
         [Required]
         [Display(Name = "Payment Method Name")]
         [StringLength(45, ErrorMessage = "Payment method name must be between {2} and {1} characters long.", MinimumLength = 1)]
-        public string payment_method_name { get; set; }
+        public string paymentMethodName { get; set; }
 
         [Required]
         [Display(Name = "Payment Method Abbreviation")]
         [StringLength(45, ErrorMessage = "Payment method abbreviation must be between {2} and {1} characters long.", MinimumLength = 4)]
-        public string payment_method_abbreviation { get; set; }
+        public string paymentMethodAbbreviation { get; set; }
 
         [Required]
         [Display(Name = "Template Name")]
         [StringLength(45, ErrorMessage = "Template name must be between {2} and {1} characters long.", MinimumLength = 1)]
-        public string type_name { get; set; }
+        public string typeName { get; set; }
 
         // not [Required]
         [Display(Name = "URL")]
@@ -55,7 +62,7 @@ namespace billsapp.Models {
         // [Required] but we will just insert $0 if it's missing
         [Display(Name = "Amount Due")]
         [DataType(DataType.Currency)]
-        public string amount_due { get; set; }
+        public string amountDue { get; set; }
 
         [Required]
         [DataType(DataType.Date)]

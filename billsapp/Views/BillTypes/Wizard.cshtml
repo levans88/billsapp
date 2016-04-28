@@ -27,193 +27,236 @@
                             <a href="#w4-profile" data-toggle="tab"><span>2</span>Bill<br />Templates</a>
                         </li>
                         <li>
-                            <a href="#w4-billing" data-toggle="tab"><span>3</span>Sharing</a>
+                            <a href="#w4-billing" data-toggle="tab"><span>3</span>Sharing &<br />Permissions</a>
                         </li>
                         <li>
-                            <a href="#w4-confirm" data-toggle="tab"><span>4</span>Confirmation</a>
+                            <a href="#w4-confirm" data-toggle="tab"><span>4</span>Session <br />Setup</a>
                         </li>
                     </ul>
                 </div>
 
-                @*<form class="form-horizontal" novalidate="novalidate">*@
-                    <div id="setup-wizard-tab-content" class="tab-content">
+                <div id="setup-wizard-tab-content" class="tab-content">
 
-                        <!-- Start Step 1 -->
-                        <div id="w4-account" class="tab-pane active">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="mb-md">
-                                        @*<div class="well well-sm" style="border:none;">*@
-                                        <div class="alert alert-info" style="text-align:center;">
-                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                            To get started, enter the types of accounts you use to pay your bills. <strong>Do not include account numbers.</strong>
+                    <!-- Start Step 1 -->
+                    <div id="w4-account" class="tab-pane active">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p>To get started, enter the types of accounts you use to pay your bills. <strong>Do not include account numbers.</strong></p>
+                                <div class="mb-md">
+                                    @*<div class="alert alert-info" style="text-align:center;">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        To get started, enter the types of accounts you use to pay your bills. <strong>Do not include account numbers.</strong>
+                                    </div>*@
+                                    <button id="addToTable" class="btn btn-primary">Add <i class="fa fa-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-striped mb-none" id="datatable-editable">
+                                    <thead>
+                                        <tr>
+                                            <th>Payment Method Name</th>
+                                            <th>Abbreviation</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="gradeX">
+                                            <td>Ex: First Convenience Bank Checking</td>
+                                            <td>Ex: FCBC</td>
+                                            <td>Active</td>
+                                            <td class="actions">
+                                                <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
+                                                <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
+                                                <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                                <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Step 1 -->
+
+                    <!-- Start Step 2 -->
+                    <div id="w4-profile" class="tab-pane">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal form-bordered", role = "form" })) {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.typeName, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.typeName, new { @class = "form-control" })
                                         </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.url, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.url, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.amountDue, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.amountDue, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.frequency, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.EnumDropDownListFor(m => m.frequency, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.dateDue, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.dateDue, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.paymentMethod, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownListFor(m => m.paymentMethod, Model.paymentMethods, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.auto, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.CheckBoxFor(m => m.auto, new { @checked = "checked", @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.task, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.CheckBoxFor(m => m.task, new { @checked = "checked", @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.notes, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextAreaFor(m => m.notes, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.notes, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextAreaFor(m => m.notes, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.billTypes, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.ListBoxFor(m => m.billTypes, Model.billTypes, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    @*<div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" class="btn btn-primary" value="Register" />
+                                        </div>
+                                    </div>*@
+                                    <div class="mb-md">
+                                        <button id="addBillType" class="btn btn-primary">New <i class="fa fa-plus"></i></button>
+                                        <button id="deleteBillType" class="btn btn-primary">Delete </button>
+                                        <button id="deleteBillType" class="btn btn-primary">Save </button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Step 2 -->
+
+                    <!-- Start Step 3 -->
+                    <div id="w4-billing" class="tab-pane">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal form-bordered", role = "form" })) {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.shareTargetEmail, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.shareTargetEmail, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-md">
                                         <button id="addToTable" class="btn btn-primary">Add <i class="fa fa-plus"></i></button>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped mb-none" id="datatable-editable">
-                                        <thead>
-                                            <tr>
-                                                <th>Payment Method Name</th>
-                                                <th>Abbreviation</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="gradeX">
-                                                <td>Ex: First Convenience Bank Checking</td>
-                                                <td>Ex: FCBC</td>
-                                                <td>Active</td>
-                                                <td class="actions">
-                                                    <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                                                    <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                                                    <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                                    <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+
+                                }
                             </div>
                         </div>
-                        <!-- End Step 1 -->
-
-                        <!-- Start Step 2 -->
-                        <div id="w4-profile" class="tab-pane">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal form-bordered", role = "form" })) {
-                                        @Html.AntiForgeryToken()
-                                        @Html.ValidationSummary("", new { @class = "text-danger" })
-
-                                        <div class="form-group">
-                                            @Html.LabelFor(m => m.type_name, new { @class = "col-md-2 control-label" })
-                                            <div class="col-md-10">
-                                                @Html.TextBoxFor(m => m.type_name, new { @class = "form-control" })
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            @Html.LabelFor(m => m.url, new { @class = "col-md-2 control-label" })
-                                            <div class="col-md-10">
-                                                @Html.TextBoxFor(m => m.url, new { @class = "form-control" })
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            @Html.LabelFor(m => m.amount_due, new { @class = "col-md-2 control-label" })
-                                            <div class="col-md-10">
-                                                @Html.TextBoxFor(m => m.amount_due, new { @class = "form-control" })
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            @Html.LabelFor(m => m.frequency, new { @class = "col-md-2 control-label" })
-                                            <div class="col-md-10">
-                                                @Html.EnumDropDownListFor(m => m.frequency, new { @class = "form-control" })
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            @Html.LabelFor(m => m.dateDue, new { @class = "col-md-2 control-label" })
-                                            <div class="col-md-10">
-                                                @Html.TextBoxFor(m => m.dateDue, new { @class = "form-control" })
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            @Html.LabelFor(m => m.paymentMethod, new { @class = "col-md-2 control-label" })
-                                            <div class="col-md-10">
-                                                @Html.DropDownListFor(m => m.paymentMethod, Model.paymentMethods, new { @class = "form-control" })
-                                            </div>
-                                        </div>
-
-                                        @*<div class="form-group">
-                                            @Html.LabelFor(m => m., new { @class = "col-md-2 control-label" })
-                                            <div class="col-md-10">
-                                                @Html.TextBoxFor(m => m., new { @class = "form-control" })
-                                            </div>
-                                        </div>*@
-
-                                        @*<div class="form-group">
-                                            <div class="col-md-offset-2 col-md-10">
-                                                <input type="submit" class="btn btn-primary" value="Register" />
-                                            </div>
-                                        </div>*@
-                                    }
-                                </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-striped mb-none" id="datatable-editable">
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Permission</th>
+                                            <th>Permission Level</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="gradeX">
+                                            <td>email@sharetarget.bla</td>
+                                            <td>@Html.EnumDropDownListFor(m => m.permission, new { @class = "form-control" })</td>
+                                            <td>@Html.EnumDropDownListFor(m => m.permissionLevel, new { @class = "form-control" })</td>
+                                            <td class="actions">
+                                                <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
+                                                <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
+                                                <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                                <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <!-- End Step 2 -->
+                    </div>
+                    <!-- End Step 3 -->
 
-                                <!-- Start Step 3 -->
-                                <div id="w4-billing" class="tab-pane">
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="w4-cc">Card Number</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="cc-number" id="w4-cc" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="inputSuccess">Expiration</label>
-                                        <div class="col-sm-5">
-                                            <select class="form-control" name="exp-month" required>
-                                                <option>January</option>
-                                                <option>February</option>
-                                                <option>March</option>
-                                                <option>April</option>
-                                                <option>May</option>
-                                                <option>June</option>
-                                                <option>July</option>
-                                                <option>August</option>
-                                                <option>September</option>
-                                                <option>October</option>
-                                                <option>November</option>
-                                                <option>December</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <select class="form-control" name="exp-year" required>
-                                                <option>2014</option>
-                                                <option>2015</option>
-                                                <option>2016</option>
-                                                <option>2017</option>
-                                                <option>2018</option>
-                                                <option>2019</option>
-                                                <option>2020</option>
-                                                <option>2021</option>
-                                                <option>2022</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Step 3 -->
-                                <!-- Start Step 4 -->
-                                <div id="w4-confirm" class="tab-pane">
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="w4-email">Email</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="email" id="w4-email" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-9">
-                                            <div class="checkbox-custom">
-                                                <input type="checkbox" name="terms" id="w4-terms" required>
-                                                <label for="w4-terms">I agree to the terms of service</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Step 4 -->
+                    <!-- Start Step 4 -->
+                    <div id="w4-confirm" class="tab-pane">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal form-bordered", role = "form" })) {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary("", new { @class = "text-danger" })
 
+                                    <p>What is the current balance of the account you use to pay bills?</p>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.startingBalance, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.startingBalance, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                }
                             </div>
-                @*</form>*@
+                        </div>
+                    </div>
+                    <!-- End Step 4 -->
+
+                </div>
             </div>
             <div class="panel-footer">
                 <ul class="pager">

@@ -17,6 +17,7 @@
     @Styles.Render("~/bundles/jqueryuicss")
     @Styles.Render("~/bundles/bootstrapcss")
     @Styles.Render("~/bundles/fontawesomecss")
+    @Styles.Render("~/bundles/elusivecss")
     @Styles.Render("~/bundles/pnotifycss")
     @Styles.Render("~/bundles/magnificcss")
     @Styles.Render("~/bundles/bootstrapdatepickercss")
@@ -59,8 +60,6 @@
                         </figure>
                         <div class="profile-info">
                             @{ 
-                                //HttpContext.Current.User.Identity.GetUserId()
-                                //var currentUserId = User.Identity.GetUserId();
                                 var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                                 var currentUser = manager.FindById(User.Identity.GetUserId());
                                 var firstName = Html.Raw(currentUser.first_name.FixLength(15));
@@ -375,7 +374,7 @@
                         "Try out the app using the built in demo account __here__. Please let me know if you have any questions or encounter any issues.</p>" + "<p>Thanks for visiting!</br>" +
                         "&#8211; Lenny</p>";
 
-                    Html.RenderAction("CreateModal", "Home", new { modalName = "siteInfoModal", modalContent = modalContentString, modalContext = ModalContext.Info, modalColorLevel = ModalColorLevel.Header });
+                    Html.RenderAction("CreateModal", "Home", new { modalName = "siteInfoModal", modalContent = modalContentString, modalContext = ModalContext.Info, modalColorLevel = ModalColorLevel.Default });
                 }
             </div>
             <div class="container-fluid">
