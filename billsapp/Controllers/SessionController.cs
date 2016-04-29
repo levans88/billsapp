@@ -54,8 +54,17 @@ namespace billsapp.Controllers
                 return HttpNotFound();
             }
 
+            // Get payers for list box
+            List<SelectListItem> payers = new List<SelectListItem>();
+
+            var userIDs = session.Select(x => x.payer.user_id).ToList();
+
+            // Get user details from user table where user.Id == payer.user_id (for userID's in this session, excluding current user)
+            payers = db.AspNetUsers.Select(x => new { x.Id, x.first_name, x.last_name, x.Email }).Where(x => userIDs.Contains(x.Id) && x.Id != userID).ToList().Select(x => new SelectListItem { Text = x.first_name + " " + x.last_name.Truncate(1) + ".", Value = x.Id}).ToList();
+
             SessionPayersViewModel model = new SessionPayersViewModel();
             model.session = session;
+            model.payers = payers;
             return View(model);
         }
 

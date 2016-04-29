@@ -13,6 +13,8 @@ namespace billsapp.Models {
         // List of sessions for a specific payer
         public List<sessions_payers> sessions { get; set; }
 
+        public List<SelectListItem> payers { get; set; }
+
         private int _payerCount;
         public int payerCount {
             get {

@@ -99,53 +99,33 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <table class="table table-no-more table-bordered table-striped mb-none">
+                            <table class="table table-no-more table-bordered table-striped mb-none session-user-table">
                                 <thead>
                                     <tr>
-                                        <th>Code</th>
-                                        <th class="hidden-xs hidden-sm">Company</th>
-                                        <th class="text-right">Price</th>
-                                        <th class="text-right hidden-xs hidden-sm">Change</th>
-                                        <th class="text-right">Change %</th>
-                                        <th class="text-right">Open</th>
-                                        <th class="text-right hidden-xs hidden-sm">High</th>
-                                        <th class="text-right hidden-xs hidden-sm">Low</th>
-                                        <th class="text-right">Volume</th>
+                                        <th>URL</th>
+                                        <th>Bill</th>
+                                        <th>Payers</th>
+                                        <th class="text-right">Typical $ Due</th>
+                                        <th class="text-right">Current $ Due</th>
+                                        <th class="text-right">$ Paid</th>
+                                        <th>Payment Method</th>
+                                        <th>Paid?</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td data-title="Code">AGG</td>
-                                        <td data-title="Company" class="hidden-xs hidden-sm">ANGLOGOLD ASHANTI LIMITED</td>
-                                        <td data-title="Price" class="text-right">$7.81</td>
-                                        <td data-title="Change" class="text-right hidden-xs hidden-sm">-0.22</td>
-                                        <td data-title="Change %" class="text-right">-2.74%</td>
-                                        <td data-title="Open" class="text-right">$7.82</td>
-                                        <td data-title="High" class="text-right hidden-xs hidden-sm">$7.82</td>
-                                        <td data-title="Low" class="text-right hidden-xs hidden-sm">$7.81</td>
-                                        <td data-title="Volume" class="text-right">148</td>
-                                    </tr>
-                                    <tr>
-                                        <td data-title="Code">AGK</td>
-                                        <td data-title="Company" class="hidden-xs hidden-sm">AGL ENERGY LIMITED</td>
-                                        <td data-title="Price" class="text-right">$13.82</td>
-                                        <td data-title="Change" class="text-right hidden-xs hidden-sm">  +0.02</td>
-                                        <td data-title="Change %" class="text-right">0.14%</td>
-                                        <td data-title="Open" class="text-right">$13.83</td>
-                                        <td data-title="High" class="text-right hidden-xs hidden-sm">$13.83</td>
-                                        <td data-title="Low" class="text-right hidden-xs hidden-sm">$13.67</td>
-                                        <td data-title="Volume" class="text-right">846,403</td>
-                                    </tr>
-                                    <tr>
-                                        <td data-title="Code">AGO</td>
-                                        <td data-title="Company" class="hidden-xs hidden-sm">ATLAS IRON LIMITED</td>
-                                        <td data-title="Price" class="text-right">$3.17</td>
-                                        <td data-title="Change" class="text-right hidden-xs hidden-sm">-0.02</td>
-                                        <td data-title="Change %" class="text-right">-0.47%</td>
-                                        <td data-title="Open" class="text-right">$3.11</td>
-                                        <td data-title="High" class="text-right hidden-xs hidden-sm">$3.22</td>
-                                        <td data-title="Low" class="text-right hidden-xs hidden-sm">$3.10</td>
-                                        <td data-title="Volume" class="text-right">5,416,303</td>
+                                        <td data-title="URL">AGG</td>
+                                        <td data-title="Bill" class="hidden-xs hidden-sm">ANGLOGOLD ASHANTI LIMITED</td>
+                                        <td data-title="Sharing" class="text-right">
+                                            <div class="btn-group">
+                                                @Html.ListBoxFor(m => m.payers, Model.payers, new { @class = "form-control", @multiple = "multiple", data_plugin_multiselect = "", data_plugin_options = "{ \"maxHeight\": 200, \"nonSelectedText\": \"None\"}"})
+                                            </div>
+                                        </td>
+                                        <td data-title="Typical $ Due" class="text-right hidden-xs hidden-sm">-0.22</td>
+                                        <td data-title="Current $ Due" class="text-right">-2.74%</td>
+                                        <td data-title="$ Paid" class="text-right">$7.82</td>
+                                        <td data-title="Payment Method" class="text-right hidden-xs hidden-sm">$7.82</td>
+                                        <td data-title="Paid?" class="text-right hidden-xs hidden-sm">$7.81</td>
                                     </tr>
                                 </tbody>
                             </table>
