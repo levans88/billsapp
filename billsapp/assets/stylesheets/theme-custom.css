@@ -96,10 +96,31 @@ div.validation-summary-errors ul label.error:before {
   display: inline-block;
 }
 
+/* Remove extra padding from nesting in setup wizard */
 #setup-wizard-tab-content {
   padding-left: 0px;
   padding-right: 0px;
 }
+
+/* A div that looks like a panel heading */
+.panel-heading-fake {
+  background: #f6f6f6;
+  /*border-radius: 5px 5px 0 0;*/
+  border-bottom: 1px solid #DADADA;
+  padding: 18px;
+  position: relative;
+}
+
+/* Fake heading title color fix */
+.panel-heading-fake .panel-title {
+  color: #33353F !important;
+}
+
+/* An extra panel-body with no padding to hold a fake panel heading */
+.panel-body-fake {
+  padding: 0px;
+}
+
 
 /* Override location of octicons fonts in octicons.css 
   and font-awesome fonts in font-awesome.css */

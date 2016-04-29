@@ -24,7 +24,7 @@ namespace billsapp.Controllers
             var payerID = payer.payer_id;
 
             // Retrieve session data from database for the payer
-            var sessions = db.sessions_payers.Include(x => x.session).Where(x => x.payer_id == payerID).ToList();
+            var sessions = db.sessions_payers.Where(x => x.payer_id == payerID).ToList();
             
             // Assign data to ViewModel
             SessionPayersViewModel model = new SessionPayersViewModel();
@@ -47,7 +47,7 @@ namespace billsapp.Controllers
             var payerID = payer.payer_id;
 
             // Retrieve session data from database for the payer
-            var session = db.sessions_payers.Include(x => x.session).Single(x => x.payer_id == payerID && x.session_id == id);
+            var session = db.sessions_payers.Where(x => x.session_id == id).ToList();
 
             if (session == null)
             {
