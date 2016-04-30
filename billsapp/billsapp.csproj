@@ -300,6 +300,32 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\images\!logged-user.jpg" />
+    <Content Include="assets\images\avatars\cartoons\bomb.png" />
+    <Content Include="assets\images\avatars\cartoons\fish.png" />
+    <Content Include="assets\images\avatars\cartoons\frog.png" />
+    <Content Include="assets\images\avatars\cartoons\ghost.png" />
+    <Content Include="assets\images\avatars\cartoons\giraffe.png" />
+    <Content Include="assets\images\avatars\cartoons\hippo.png" />
+    <Content Include="assets\images\avatars\cartoons\ladybug.png" />
+    <Content Include="assets\images\avatars\cartoons\leopard1.png" />
+    <Content Include="assets\images\avatars\cartoons\leopard2.png" />
+    <Content Include="assets\images\avatars\cartoons\monkey.png" />
+    <Content Include="assets\images\avatars\cartoons\penguin.png" />
+    <Content Include="assets\images\avatars\cartoons\thing.png" />
+    <Content Include="assets\images\avatars\cartoons\turtle.png" />
+    <Content Include="assets\images\avatars\cartoons\zebra1.png" />
+    <Content Include="assets\images\avatars\cartoons\zebra2.png" />
+    <Content Include="assets\images\avatars\landscapes\aoraki.jpg" />
+    <Content Include="assets\images\avatars\landscapes\aurora.jpg" />
+    <Content Include="assets\images\avatars\landscapes\autumn.jpg" />
+    <Content Include="assets\images\avatars\landscapes\creek.jpg" />
+    <Content Include="assets\images\avatars\landscapes\fallfoliage.jpg" />
+    <Content Include="assets\images\avatars\landscapes\gentian.jpg" />
+    <Content Include="assets\images\avatars\landscapes\landscape.jpg" />
+    <Content Include="assets\images\avatars\landscapes\mountain-landscape.jpg" />
+    <Content Include="assets\images\avatars\landscapes\mountain.jpg" />
+    <Content Include="assets\images\avatars\landscapes\sunset.jpg" />
+    <Content Include="assets\images\avatars\landscapes\torresdelpaine.jpg" />
     <Content Include="assets\images\ducks3.png" />
     <Content Include="assets\images\ducks4.png" />
     <Content Include="assets\images\ducks4light.png" />

@@ -22,6 +22,7 @@
     @Styles.Render("~/bundles/magnificcss")
     @Styles.Render("~/bundles/bootstrapdatepickercss")
     @Styles.Render("~/bundles/bootstrapmultiselectcss")
+    @Styles.Render("~/bundles/bootstrapcolorpickercss")
     @Styles.Render("~/bundles/themecss")
     @Scripts.Render("~/bundles/modernizrjs")
 </head>
@@ -54,16 +55,17 @@
 
             <div id="userbox" class="userbox">
                 @if (Request.IsAuthenticated) {
+                    
+                    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                    var currentUser = manager.FindById(User.Identity.GetUserId());
+                    var firstName = Html.Raw(currentUser.first_name.FixLength(15));
+                    var avatar = currentUser.avatar;
+                    
                     <a href="#" data-toggle="dropdown">
                         <figure class="profile-picture">
-                            <img src="~/assets/images/!logged-user.jpg" class="img-circle" />
+                            <img src="~/assets/images/avatars/cartoons/@avatar" class="img-circle" />
                         </figure>
                         <div class="profile-info">
-                            @{ 
-                                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-                                var currentUser = manager.FindById(User.Identity.GetUserId());
-                                var firstName = Html.Raw(currentUser.first_name.FixLength(15));
-                            }
                             <span class="name">@firstName</span>
                             <span class="role">@(User.IsInRole("Admin") ? "Admin" : "User")</span>
                         </div>
@@ -408,6 +410,7 @@
     @Scripts.Render("~/bundles/jqueryuitouchpunchjs")
     @Scripts.Render("~/bundles/jqueryappearjs")
     @Scripts.Render("~/bundles/bootstrapmultiselectjs")
+    @Scripts.Render("~/bundles/bootstrapcolorpickerjs")
     @Scripts.Render("~/bundles/snapsvgjs")
     @Scripts.Render("~/bundles/githubactivityjs")
     @Scripts.Render("~/bundles/nanoscrollerjs")

@@ -77,10 +77,10 @@
                 var u = Model.users.Single(x => x.Id == p.user_id);
                 <div class="col-md-@(12 / Model.payerCount)">
                     <section class="panel panel-primary">
-                        <header class="panel-heading">
+                        <header class="panel-heading" style="background-color:@p.AspNetUsers.theme_color">
                             <div class="widget-profile-info">
                                 <div class="profile-picture">
-                                    <img src="~/assets/images/!logged-user.jpg">
+                                    <img src="~/assets/images/avatars/cartoons/@p.AspNetUsers.avatar">
                                 </div>
                                 <div class="profile-info">
                                     <div class="session-user-header">

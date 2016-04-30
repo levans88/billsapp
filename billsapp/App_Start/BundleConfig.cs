@@ -105,6 +105,13 @@ namespace billsapp {
             bundles.Add(new StyleBundle("~/bundles/bootstrapmultiselectcss").Include(
                         "~/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css"));
 
+            // Bootstrap Color Picker
+            bundles.Add(new ScriptBundle("~/bundles/bootstrapcolorpickerjs").Include(
+                        "~/assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/bootstrapcolorpickercss").Include(
+                        "~/assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css"));
+
             // Snap SVG
             bundles.Add(new ScriptBundle("~/bundles/snapsvgjs").Include(
                         "~/assets/vendor/snap.svg/snap.svg.js"));

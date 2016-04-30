@@ -194,6 +194,12 @@ button .caret {
 
 .profile-footer {
   clear: both;
+  border-top: 1px solid darkgray !important;
+}
+
+/* Misc */
+.dd-padded {
+  padding-bottom: 20px;
 }
 
 /* Duplicate styling from theme.css for manual application 

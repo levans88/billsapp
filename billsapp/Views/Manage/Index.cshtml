@@ -17,7 +17,7 @@
                 <div>
                     <dl class="dl-horizontal">
                         <dt>Password:</dt>
-                        <dd>
+                        <dd class="dd-padded">
                             [
                             @if (Model.HasPassword) {
                                 @Html.ActionLink("Change your password", "ChangePassword")
@@ -27,6 +27,17 @@
                             }
                             ]
                         </dd>
+                        <dt>Theme Color:</dt>
+                        <dd>
+                            @*<label class="col-md-3 control-label">Component</label>*@
+                            <div class="col-md-6" style="padding-left:0px;">
+                                <div class="input-group color" data-plugin-colorpicker>
+                                    <span class="input-group-addon"><i></i></span>
+                                    <input type="text" class="form-control" value="@Model.ThemeColor">
+                                </div>
+                            </div>
+                        </dd>
+
                         @*<dt>External Logins:</dt>
                     <dd>
                         @Model.Logins.Count [
@@ -86,6 +97,7 @@
                     </dd>*@
                     </dl>
                 </div>
+
             </div>
         </section>
     </div>

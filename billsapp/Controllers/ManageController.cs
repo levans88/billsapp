@@ -72,6 +72,11 @@ namespace billsapp.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
+
+            // Get user's theme color from database
+            var themeColor = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId()).theme_color;
+            model.ThemeColor = themeColor;
+
             return View(model);
         }
 
