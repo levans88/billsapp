@@ -126,6 +126,10 @@ div.validation-summary-errors ul label.error:before {
   vertical-align: top;
 }
 
+.session-user-table tbody tr td {
+  vertical-align: middle;
+}
+
 #payment-method-cell {
   text-align: center; 
   min-width: 105px;
@@ -145,6 +149,14 @@ button .caret {
 
 #paid-amount {
   width: 90px;
+}
+
+.checkbox-custom {
+  text-align: center;
+  margin-right: 0px;
+  vertical-align: middle;
+  margin-top: 5px;
+  margin-left: 33%;
 }
 
 #paymentMethod {

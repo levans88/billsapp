@@ -11,7 +11,7 @@
                 <div class="panel-actions">
                     <a href="#" class="panel-action panel-action-toggle" data-panel-toggle=""></a>
                 </div>
-                <h2 class="panel-title">...group session square up table...</h2>
+                <h2 class="panel-title">Shared Bills</h2>
             </header>
             <div class="panel-body">
                 <section>
@@ -137,8 +137,12 @@
                                             }
                                             </select>
                                         </td>
-                                        <td data-title="Paid ?" class="text-right">
-                                            @Html.CheckBoxFor(m => m.paid, new { @checked = "checked", @class = "form-control" })
+                                        <td data-title="Paid ?">
+                                                @*@Html.CheckBoxFor(m => m.paid, new { @checked = "checked" })*@
+                                            <div class="checkbox-custom checkbox-default">
+                                                <input type="checkbox" checked="" id="paid" name="paid">
+                                                <label for="paid"></label>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
