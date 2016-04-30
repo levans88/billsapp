@@ -73,7 +73,8 @@
 
 <div class="row">
         @{
-            foreach (billsapp.Models.sessions_payers p in Model.session) {
+            foreach (var p in Model.payers) {
+                var u = Model.users.Single(x => x.Id == p.user_id);
                 <div class="col-md-@(12 / Model.payerCount)">
                     <section class="panel panel-primary">
                         <header class="panel-heading">
@@ -82,8 +83,8 @@
                                     <img src="~/assets/images/!logged-user.jpg">
                                 </div>
                                 <div class="profile-info">
-                                    <h4 class="name text-weight-semibold">John Doe</h4>
-                                    <h5 class="role">Administrator</h5>
+                                    <h4 class="name text-weight-semibold">@u.first_name @u.last_name</h4>
+                                    <h5 class="role">@u.Email</h5>
                                     <div class="profile-footer">
                                         <a href="#" style="visibility:hidden;">(edit profile)</a>
                                     </div>
@@ -95,37 +96,50 @@
                         </header>
                         <div class="panel-body panel-body-fake">
                             <div class="panel-heading-fake">
-                                <h2 class="panel-title">...individual payer bills table...</h2>
+                                <h2 class="panel-title">@(u.first_name + "'s Bills")</h2>
                             </div>
                         </div>
                         <div class="panel-body">
                             <table class="table table-no-more table-bordered table-striped mb-none session-user-table">
                                 <thead>
                                     <tr>
-                                        <th>URL</th>
                                         <th>Bill</th>
-                                        <th>Payers</th>
-                                        <th class="text-right">Typical $ Due</th>
-                                        <th class="text-right">Current $ Due</th>
-                                        <th class="text-right">$ Paid</th>
-                                        <th>Payment Method</th>
-                                        <th>Paid?</th>
+                                        <th>Sharing</th>
+                                        <th class="text-center">Typical<br />($)</th>
+                                        <th class="text-center">Current<br />($)</th>
+                                        <th class="text-center">Paid<br />($)</th>
+                                        <th class="text-center">Payment<br />Method</th>
+                                        <th>Paid&nbsp;?</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td data-title="URL">AGG</td>
-                                        <td data-title="Bill" class="hidden-xs hidden-sm">ANGLOGOLD ASHANTI LIMITED</td>
-                                        <td data-title="Sharing" class="text-right">
+                                        <td data-title="Bill">Some Fake Long Company Name Co.</td>
+                                        <td data-title="Sharing" id="payer-sharing-cell">
                                             <div class="btn-group">
-                                                @Html.ListBoxFor(m => m.payers, Model.payers, new { @class = "form-control", @multiple = "multiple", data_plugin_multiselect = "", data_plugin_options = "{ \"maxHeight\": 200, \"nonSelectedText\": \"None\"}"})
+                                                @Html.ListBoxFor(m => m.users, Model.multiSelectPayers.Where(x => x.Value != u.Id), new { @class = "form-control", @multiple = "multiple", data_plugin_multiselect = "", data_plugin_options = "{ \"maxHeight\": 200, \"nonSelectedText\": \"None\"}" })
                                             </div>
                                         </td>
-                                        <td data-title="Typical $ Due" class="text-right hidden-xs hidden-sm">-0.22</td>
-                                        <td data-title="Current $ Due" class="text-right">-2.74%</td>
-                                        <td data-title="$ Paid" class="text-right">$7.82</td>
-                                        <td data-title="Payment Method" class="text-right hidden-xs hidden-sm">$7.82</td>
-                                        <td data-title="Paid?" class="text-right hidden-xs hidden-sm">$7.81</td>
+                                        <td data-title="Typical ($)" class="text-right">$500.58</td>
+                                        <td data-title="Current ($)" class="text-right">$675.04</td>
+                                        <td data-title="Paid ($)" class="text-right">
+                                            @Html.TextBoxFor(m => m.paidAmount, new { @class = "form-control", @id = "paid-amount" })
+                                        </td>
+                                        <td data-title="Payment Method" id="payment-method-cell">
+                                            @*@Html.DropDownListFor(m => m.paymentMethod, Model.paymentMethods.Where(us), new { @class = "form-control" })*@
+                                            
+                                            <select class="form-control" id="paymentMethod" name="paymentMethod">
+                                            @{ 
+                                                var pm = Model.paymentMethods.Where(x => x.payer_id == p.payer_id).ToList();
+                                                foreach (var m in pm) {
+                                                    <option value="@m.payment_method_id">@m.payment_method_abbreviation</option>
+                                                }
+                                            }
+                                            </select>
+                                        </td>
+                                        <td data-title="Paid ?" class="text-right">
+                                            @Html.CheckBoxFor(m => m.paid, new { @checked = "checked", @class = "form-control" })
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

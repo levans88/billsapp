@@ -121,6 +121,38 @@ div.validation-summary-errors ul label.error:before {
   padding: 0px;
 }
 
+/* User session table column style overrides */
+.session-user-table thead tr th {
+  vertical-align: top;
+}
+
+#payment-method-cell {
+  text-align: center; 
+  min-width: 105px;
+}
+
+#payer-sharing-cell {
+  min-width: 105px;
+}
+
+#payer-sharing-cell .btn-group button {
+  min-width: 90px;
+}
+
+button .caret {
+  text-align: right;
+}
+
+#paid-amount {
+  width: 90px;
+}
+
+#paymentMethod {
+  cursor: pointer;
+}
+
+
+
 /* Duplicate styling from theme.css for manual application 
   to "no-more-tables at an earlier breakpoint" */
 /*@media only screen and (max-width: 1690px) {

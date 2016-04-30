@@ -55,16 +55,38 @@ namespace billsapp.Controllers
             }
 
             // Get payers for list box
-            List<SelectListItem> payers = new List<SelectListItem>();
+            //List<SelectListItem> multiSelectPayers = new List<SelectListItem>();
 
             var userIDs = session.Select(x => x.payer.user_id).ToList();
 
-            // Get user details from user table where user.Id == payer.user_id (for userID's in this session, excluding current user)
-            payers = db.AspNetUsers.Select(x => new { x.Id, x.first_name, x.last_name, x.Email }).Where(x => userIDs.Contains(x.Id) && x.Id != userID).ToList().Select(x => new SelectListItem { Text = x.first_name + " " + x.last_name.Truncate(1) + ".", Value = x.Id}).ToList();
+            // Get user details from user table where user.Id == payer.user_id (for userID's in this session)
+            var multiSelectPayers = db.AspNetUsers.Select(x => new { x.Id, x.first_name, x.last_name, x.Email }).Where(x => userIDs.Contains(x.Id)).ToList().Select(x => new SelectListItem { Text = x.first_name + " " + x.last_name.Truncate(1) + ".", Value = x.Id}).ToList();
+
+            // Get user info for payers in session
+            var users = db.AspNetUsers.Where(x => userIDs.Contains(x.Id)).ToList();
+
+            var payerIDs = session.Select(x => x.payer_id).ToList();
+            var payers = db.payer.Where(x => payerIDs.Contains(x.payer_id)).ToList();
+
+            // Get payment methods for all users in session for list box
+            //List<SelectListItem> paymentMethods = new List<SelectListItem>();
+
+            //var pmtMth = db.sessions_payers.Join(db.payment_method, sp => sp.payer_id, pm => pm.payer_id, (sp, pm) => new { paymentMethodID = pm.payment_method_id, paymentMethodName = pm.payment_method_name, payerID = sp.payer_id, sessionID = sp.session_id}).Where(x => x.sessionID == id).ToList();
+
+            //var paymentMethods = pmtMth.Select(x => new SelectListItem { Text = x.paymentMethodName, Value = x.paymentMethodID.ToString()}).ToList();
+
+            //var pmtsum = db.payment.Include(x => x.bills_payments).Where(x => x.payme) //Where(x => x.bills_payments.).Sum(x => x.payment_amount)
+
+            var paymentMethods = db.payment_method.Where(x => payerIDs.Contains(x.payer_id)).ToList();
 
             SessionPayersViewModel model = new SessionPayersViewModel();
+            model.userID = userID;
             model.session = session;
+            model.multiSelectPayers = multiSelectPayers;
+            model.users = users;
             model.payers = payers;
+            model.paymentMethods = paymentMethods;
+
             return View(model);
         }
 
