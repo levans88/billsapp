@@ -83,8 +83,29 @@
                                     <img src="~/assets/images/!logged-user.jpg">
                                 </div>
                                 <div class="profile-info">
-                                    <h4 class="name text-weight-semibold">@u.first_name @u.last_name</h4>
-                                    <h5 class="role">@u.Email</h5>
+                                    <div class="session-user-header">
+                                        <h4 class="name text-weight-semibold">@u.first_name @u.last_name</h4>
+                                        <h5 class="role">@u.Email</h5>
+                                    </div>
+                                    <ul class="profile-stats">
+                                        <li>
+                                            @{ 
+                                                //var balanceStarting = p.sessions_payers.Select(x => x.balance_starting);
+                                                //var balanceRemaining = p.sessions_payers.Select(x => x.balance_remaining);
+                                                //var amountSpent = balanceStarting - balanceRemaining;
+                                            }
+                                            <h5 class="stat text-uppercase">Starting</h5>
+                                            <h4 class="count">$0000</h4>
+                                        </li>
+                                        <li>
+                                            <h5 class="stat text-uppercase">Spent</h5>
+                                            <h4 class="count">$000</h4>
+                                        </li>
+                                        <li>
+                                            <h5 class="stat text-uppercase">Remaining</h5>
+                                            <h4 class="count">$000</h4>
+                                        </li>
+                                    </ul>
                                     <div class="profile-footer">
                                         <a href="#" style="visibility:hidden;">(edit profile)</a>
                                     </div>
@@ -140,8 +161,8 @@
                                         <td data-title="Paid ?">
                                                 @*@Html.CheckBoxFor(m => m.paid, new { @checked = "checked" })*@
                                             <div class="checkbox-custom checkbox-default">
-                                                <input type="checkbox" checked="" id="paid" name="paid">
-                                                <label for="paid"></label>
+                                                <input type="checkbox" checked="" id="paid-@p.payer_id" name="paid-@p.payer_id">
+                                                <label for="paid-@p.payer_id"></label>
                                             </div>
                                         </td>
                                     </tr>
