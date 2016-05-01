@@ -163,7 +163,7 @@ button .caret {
   cursor: pointer;
 }
 
-/* User payer table header stats style overrides */
+/* User payer table header style overrides */
 .widget-profile-info .profile-info .profile-stats {
   float: right;
   list-style: none;
@@ -194,7 +194,11 @@ button .caret {
 
 .profile-footer {
   clear: both;
-  border-top: 1px solid darkgray !important;
+  /*border-top: 1px solid darkgray !important;*/
+}
+
+.widget-profile-info .profile-picture img {
+  border: 2px solid #fff; 
 }
 
 /* Misc */

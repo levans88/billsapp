@@ -77,10 +77,11 @@
                 var u = Model.users.Single(x => x.Id == p.user_id);
                 <div class="col-md-@(12 / Model.payerCount)">
                     <section class="panel panel-primary">
-                        <header class="panel-heading" style="background-color:@p.AspNetUsers.theme_color">
+                        @*<header class="panel-heading" style="background-color:@p.AspNetUsers.theme_color">*@
+                        <header class="panel-heading">
                             <div class="widget-profile-info">
                                 <div class="profile-picture">
-                                    <img src="~/assets/images/avatars/cartoons/@p.AspNetUsers.avatar">
+                                    <img src="~/assets/images/avatars/@p.AspNetUsers.avatar">
                                 </div>
                                 <div class="profile-info">
                                     <div class="session-user-header">
@@ -89,7 +90,7 @@
                                     </div>
                                     <ul class="profile-stats">
                                         <li>
-                                            @{ 
+                                            @{
                                                 //var balanceStarting = p.sessions_payers.Select(x => x.balance_starting);
                                                 //var balanceRemaining = p.sessions_payers.Select(x => x.balance_remaining);
                                                 //var amountSpent = balanceStarting - balanceRemaining;
@@ -115,6 +116,7 @@
                                 <a href="#" class="panel-action panel-action-toggle" data-panel-toggle=""></a>
                             </div>
                         </header>
+
                         <div class="panel-body panel-body-fake">
                             <div class="panel-heading-fake">
                                 <h2 class="panel-title">@(u.first_name + "'s Bills")</h2>
