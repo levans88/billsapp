@@ -112,14 +112,14 @@ div.validation-summary-errors ul label.error:before {
 }
 
 /* Fake heading title color fix */
-.panel-heading-fake .panel-title {
+/*.panel-heading-fake .panel-title {
   color: #33353F !important;
-}
+}*/
 
 /* An extra panel-body with no padding to hold a fake panel heading */
-.panel-body-fake {
+/*.panel-body-fake {
   padding: 0px;
-}
+}*/
 
 /* User session table column style overrides */
 .session-user-table thead tr th {
@@ -198,7 +198,8 @@ button .caret {
 }
 
 .widget-profile-info .profile-picture img {
-  border: 2px solid #fff; 
+  /*border: 2px solid rgba(0, 170, 255, 0.7);*/ 
+  border: 2px solid #fff;
 }
 
 /* Misc */
@@ -206,60 +207,9 @@ button .caret {
   padding-bottom: 20px;
 }
 
-/* Duplicate styling from theme.css for manual application 
-  to "no-more-tables at an earlier breakpoint" */
-/*@media only screen and (max-width: 1690px) {
-  .table.session-user-table,
-  .table.session-user-table thead,
-  .table.session-user-table tbody,
-  .table.session-user-table tr,
-  .table.session-user-table th,
-  .table.session-user-table td {
-    display: block;
-  }
-
-  .table.session-user-table thead tr {
-    left: -9999px;
-    position: absolute;
-    top: -9999px;
-  }
-
-  .table.session-user-table tr {
-    border-bottom: 1px solid #DDD;
-  }
-
-  .table.session-user-table td {
-    border: none;
-    position: relative;
-    padding-left: 50%;
-    text-align: left;
-    white-space: normal;
-  }
-
-  .table.session-user-table td:before {
-    content: attr(data-title);
-    font-weight: bold;
-    left: 6px;
-    padding-right: 10px;
-    position: absolute;
-    text-align: left;
-    top: 8px;
-    white-space: nowrap;
-    width: 45%;
-  }
-
-  .table.session-user-table.table-bordered td {
-    border-bottom: 1px solid #EFEFEF;
-  }
-
-  .table.session-user-table.table-condensed td:before {
-    top: 5px;
-  }
-
-  html.dark .table.session-user-table tr, html.dark .table.session-user-table.table-bordered td {
-    border-bottom-color: #262b33;
-  }
-}*/
+#theme-color-input {
+  width: 115px;
+}
 
 /* Override location of octicons fonts in octicons.css 
   and font-awesome fonts in font-awesome.css */

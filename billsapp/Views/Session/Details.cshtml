@@ -4,6 +4,12 @@
     ViewBag.Title = "Session Details";
 }
 
+@section Styles {
+    @if (Model.payerCount == 2) {
+        <link href="@Url.Content("~/assets/stylesheets/theme-custom-session-x2.css")" rel="stylesheet" type="text/css" />
+    }
+}
+
 <div class="row">
     <div class="col-md-12">
         <section class="panel panel-primary">
@@ -117,11 +123,11 @@
                             </div>
                         </header>
 
-                        <div class="panel-body panel-body-fake">
+                        @*<div class="panel-body panel-body-fake">
                             <div class="panel-heading-fake">
                                 <h2 class="panel-title">@(u.first_name + "'s Bills")</h2>
                             </div>
-                        </div>
+                        </div>*@
                         <div class="panel-body">
                             <table class="table table-no-more table-bordered table-striped mb-none session-user-table">
                                 <thead>
@@ -130,7 +136,6 @@
                                         <th>Sharing</th>
                                         <th class="text-center">Typical<br />($)</th>
                                         <th class="text-center">Current<br />($)</th>
-                                        <th class="text-center">Paid<br />($)</th>
                                         <th class="text-center">Payment<br />Method</th>
                                         <th>Paid&nbsp;?</th>
                                     </tr>
@@ -144,8 +149,7 @@
                                             </div>
                                         </td>
                                         <td data-title="Typical ($)" class="text-right">$500.58</td>
-                                        <td data-title="Current ($)" class="text-right">$675.04</td>
-                                        <td data-title="Paid ($)" class="text-right">
+                                        <td data-title="Current ($)" class="text-right">
                                             @Html.TextBoxFor(m => m.paidAmount, new { @class = "form-control", @id = "paid-amount" })
                                         </td>
                                         <td data-title="Payment Method" id="payment-method-cell">

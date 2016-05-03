@@ -147,4 +147,8 @@ $(document).ready(function () {
 
     }).apply(this, [jQuery]);
 
+    $('#theme-color-input').change(function() {
+        console.log("yep, changed");
+    });
+
 });
