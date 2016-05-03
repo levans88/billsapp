@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using billsapp.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace billsapp.Controllers
 {
@@ -61,6 +62,7 @@ namespace billsapp.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.ChangeThemeColorSuccess ? "Your theme color has been changed."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -78,6 +80,27 @@ namespace billsapp.Controllers
             model.ThemeColor = themeColor;
 
             return View(model);
+        }
+
+        //
+        // POST: /Manage/ChangeThemeColor
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeThemeColor(string themeColor, IndexViewModel model) {
+            if (!ModelState.IsValid) {
+                return View(model);
+            }
+            else {
+                var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+                var userManager = new ApplicationUserManager(userStore);
+
+                //HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId()).theme_color = themeColor;
+                
+                userManager.FindById(User.Identity.GetUserId()).theme_color = themeColor;
+                userStore.Context.SaveChanges();
+
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeThemeColorSuccess });
+            }
         }
 
         //
@@ -384,7 +407,8 @@ namespace billsapp.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
-            Error
+            Error,
+            ChangeThemeColorSuccess
         }
 
 #endregion

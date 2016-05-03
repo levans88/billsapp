@@ -194,7 +194,7 @@ button .caret {
 
 .profile-footer {
   clear: both;
-  /*border-top: 1px solid darkgray !important;*/
+  border-top: 1px solid white !important;
 }
 
 .widget-profile-info .profile-picture img {
@@ -203,13 +203,9 @@ button .caret {
 }
 
 /* Misc */
-.dd-padded {
-  padding-bottom: 20px;
-}
-
-#theme-color-input {
-  width: 115px;
-}
+/*#theme-color-input {
+  max-width: 240px;
+}*/
 
 /* Override location of octicons fonts in octicons.css 
   and font-awesome fonts in font-awesome.css */
