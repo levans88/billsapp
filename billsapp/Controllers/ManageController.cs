@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using billsapp.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Net;
 
 namespace billsapp.Controllers
 {
@@ -83,23 +84,20 @@ namespace billsapp.Controllers
         }
 
         //
-        // POST: /Manage/ChangeThemeColor
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ChangeThemeColor(string themeColor, IndexViewModel model) {
+        public ActionResult ChangeThemeColor(IndexViewModel model) {
             if (!ModelState.IsValid) {
-                return View(model);
+                var result = Json(new { IsValid = false, errors = ModelState.Keys.Where(k => ModelState[k].Errors.Count > 0).Select(k => new { propertyName = k, errorMessage = ModelState[k].Errors[0].ErrorMessage }) });
+                return result;
             }
             else {
                 var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
                 var userManager = new ApplicationUserManager(userStore);
 
-                //HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId()).theme_color = themeColor;
-                
-                userManager.FindById(User.Identity.GetUserId()).theme_color = themeColor;
+                userManager.FindById(User.Identity.GetUserId()).theme_color = model.ThemeColor;
                 userStore.Context.SaveChanges();
 
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeThemeColorSuccess });
+                return Json(new { IsValid = true });
             }
         }
 

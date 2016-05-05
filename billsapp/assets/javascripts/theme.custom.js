@@ -147,8 +147,33 @@ $(document).ready(function () {
 
     }).apply(this, [jQuery]);
 
-    $('#theme-color-input').change(function() {
-        console.log("yep, changed");
+    $('#apply-theme-color-btn').click(function (e) {
+        e.preventDefault();
+
+        var themeColor = $('#ThemeColor').val();
+
+        $.ajax({
+            url: '/Manage/ChangeThemeColor',
+            type: "POST",
+            data: { ThemeColor: themeColor },
+            beforeSend: function () {
+                $('#apply-theme-color-btn').toggleClass('active');
+            },
+            success: function (data, textStatus, jqXHR) {
+                if (data.IsValid) {
+                    console.log('Success');
+                }
+                else {
+                    console.log(data);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log('Error');
+            },
+            complete: function (jqXHR, textStatus) {
+                $('#apply-theme-color-btn').toggleClass('active');
+            }
+        });
     });
 
 });

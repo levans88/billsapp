@@ -14,8 +14,8 @@
             </header>
             <div class="panel-body">
                 <section id="account-management">
-                    @using (Html.BeginForm("ChangeThemeColor", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", @readonly = "readonly" })) {
-                        @Html.AntiForgeryToken()
+                    @using (Html.BeginForm("ChangeThemeColor", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
                         <p class="text-success">@ViewBag.StatusMessage</p>
 
                         <div class="form-group">
@@ -32,17 +32,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="themeColor">Theme&nbsp;Color</label>
+                            <label class="col-md-2 control-label" for="ThemeColor">Theme&nbsp;Color</label>
                             <div class="col-md-10">
                                 <div class="input-group color" data-plugin-colorpicker data-format="hex">
                                     <span class="input-group-addon"><i></i></span>
-                                    <input id="themeColor" name="themeColor" type="text" class="form-control" value="@Model.ThemeColor">
+                                    <input id="ThemeColor" name="ThemeColor" type="text" class="form-control" value="@Model.ThemeColor" />
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <button id="applyThemeColorButton" class="btn btn-primary">Apply </button>
+                                <button id="apply-theme-color-btn" type="submit" class="btn btn-primary has-spinner">
+                                    <span class="spinner">
+                                        <i class="fa fa-spinner fa-spin"></i>
+                                    </span> Apply
+                                </button>
                             </div>
                         </div>
                     }

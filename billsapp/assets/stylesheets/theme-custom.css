@@ -202,10 +202,27 @@ button .caret {
   border: 2px solid #fff;
 }
 
-/* Misc */
-/*#theme-color-input {
-  max-width: 240px;
-}*/
+/* Blocked Buttons (ajax in progress) */
+.spinner {
+  display: inline-block;
+  opacity: 0;
+  width: 0;
+
+  -webkit-transition: opacity 0.25s, width 0.25s;
+  -moz-transition: opacity 0.25s, width 0.25s;
+  -o-transition: opacity 0.25s, width 0.25s;
+  transition: opacity 0.25s, width 0.25s;
+}
+
+.has-spinner.active {
+  cursor: default;
+  /*cursor: not-allowed;*/
+}
+
+.has-spinner.active .spinner {
+  opacity: 1;
+  width: auto; 
+}
 
 /* Override location of octicons fonts in octicons.css 
   and font-awesome fonts in font-awesome.css */
