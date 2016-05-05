@@ -14,8 +14,9 @@
             </header>
             <div class="panel-body">
                 <section id="account-management">
+                    @* This form does not submit, it maintains formatting only. Ajax submits the theme color input. *@
                     @using (Html.BeginForm("ChangeThemeColor", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
-                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
                         <p class="text-success">@ViewBag.StatusMessage</p>
 
                         <div class="form-group">
@@ -37,6 +38,7 @@
                                 <div class="input-group color" data-plugin-colorpicker data-format="hex">
                                     <span class="input-group-addon"><i></i></span>
                                     <input id="ThemeColor" name="ThemeColor" type="text" class="form-control" value="@Model.ThemeColor" />
+                                    @Html.ValidationMessageFor(m => m.ThemeColor, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>

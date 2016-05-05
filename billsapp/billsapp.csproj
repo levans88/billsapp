@@ -3549,6 +3549,7 @@
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Views\Shared\Partials\_ModalAnim.cshtml" />
     <Content Include="Views\BillTypes\Wizard.cshtml" />
+    <Content Include="Views\Manage\_themeColorFormGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
