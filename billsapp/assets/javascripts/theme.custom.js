@@ -147,33 +147,42 @@ $(document).ready(function () {
 
     }).apply(this, [jQuery]);
 
-    $('#apply-theme-color-btn').click(function (e) {
-        e.preventDefault();
 
-        var themeColor = $('#ThemeColor').val();
 
-        $.ajax({
-            url: '/Manage/ChangeThemeColor',
-            type: "POST",
-            data: { ThemeColor: themeColor },
-            beforeSend: function () {
-                $('#apply-theme-color-btn').toggleClass('active');
-            },
-            success: function (data, textStatus, jqXHR) {
-                if (data.IsValid) {
-                    console.log('Success');
-                }
-                else {
-                    console.log(data);
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log('Error');
-            },
-            complete: function (jqXHR, textStatus) {
-                $('#apply-theme-color-btn').toggleClass('active');
+});
+
+// Manually called functions
+
+// Apply appropriate style via 'has-error' class to form-groups that failed validation
+function StyleValidationErrors() {
+
+    $('span.field-validation-valid, span.field-validation-error').each(function () {
+        $(this).addClass('help-inline');
+    });
+
+    // Find the divs containing the form controls, find the error spans within
+    $('form').submit(function () {
+        if ($(this).valid()) {
+            $(this).find('div.form-group').each(function () {
+                if ($(this).find('span.field-validation-error').length == 0) {
+                    $(this).removeClass('has-error');
+                }                
+            });
+        }
+        else {
+            $(this).find('div.form-group').each(function () {
+                if ($(this).find('span.field-validation-error').length > 0) {
+                    $(this).addClass('has-error');
+                }                
+            });
+        }
+    });
+
+    $('form').each(function () {
+        $(this).find('div.form-group').each(function () {
+            if ($(this).find('span.field-validation-error').length > 0) {
+                $(this).addClass('has-error');
             }
         });
     });
-
-});
+}

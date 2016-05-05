@@ -32,7 +32,9 @@ namespace billsapp {
 
             // jQuery Validate
             bundles.Add(new ScriptBundle("~/bundles/jqueryvaljs").Include(
-                        "~/assets/vendor/jquery-validation/jquery.validate.js"));
+                        "~/assets/vendor/jquery-validation/jquery.validate.js",
+                        "~/scripts/jquery.validate.unobtrusive.js",
+                        "~/scripts/jquery.unobtrusive-ajax.js"));
 
             // jQuery UI
             bundles.Add(new ScriptBundle("~/bundles/jqueryuijs").Include(
@@ -106,11 +108,11 @@ namespace billsapp {
                         "~/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css"));
 
             // Bootstrap Color Picker
-            //bundles.Add(new ScriptBundle("~/bundles/bootstrapcolorpickerjs").Include(
-            //            "~/assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.js"));
+            bundles.Add(new ScriptBundle("~/bundles/bootstrapcolorpickerjs").Include(
+                        "~/assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.js"));
 
-            //bundles.Add(new StyleBundle("~/bundles/bootstrapcolorpickercss").Include(
-            //            "~/assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css"));
+            bundles.Add(new StyleBundle("~/bundles/bootstrapcolorpickercss").Include(
+                        "~/assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css"));
 
             // Snap SVG
             bundles.Add(new ScriptBundle("~/bundles/snapsvgjs").Include(

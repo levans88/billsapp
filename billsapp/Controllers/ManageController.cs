@@ -87,8 +87,9 @@ namespace billsapp.Controllers
         [HttpPost]
         public ActionResult ChangeThemeColor(IndexViewModel model) {
             if (!ModelState.IsValid) {
-                var result = Json(new { IsValid = false, errors = ModelState.Keys.Where(k => ModelState[k].Errors.Count > 0).Select(k => new { propertyName = k, errorMessage = ModelState[k].Errors[0].ErrorMessage }) });
-                return result;
+                //var result = Json(new { IsValid = false, errors = ModelState.Keys.Where(k => ModelState[k].Errors.Count > 0).Select(k => new { propertyName = k, errorMessage = ModelState[k].Errors[0].ErrorMessage }) });
+                //return result;
+                return PartialView("_themeColorFormGroup", model);
             }
             else {
                 var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
@@ -97,7 +98,8 @@ namespace billsapp.Controllers
                 userManager.FindById(User.Identity.GetUserId()).theme_color = model.ThemeColor;
                 userStore.Context.SaveChanges();
 
-                return Json(new { IsValid = true });
+                //return Json(new { IsValid = true });
+                return PartialView("_themeColorFormGroup", model);
             }
         }
 

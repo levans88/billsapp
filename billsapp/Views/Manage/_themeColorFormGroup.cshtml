@@ -1,1 +1,16 @@
-﻿
+﻿@model billsapp.Models.IndexViewModel
+
+<label class="col-md-2 control-label" for="ThemeColor">Theme&nbsp;Color</label>
+<div class="col-md-10">
+    <div class="input-group color" data-plugin-colorpicker data-format="hex">
+        <span class="input-group-addon"><i></i></span>
+        <input id="ThemeColor" name="ThemeColor" type="text" class="form-control" value="@Model.ThemeColor" />
+    </div>
+    @Html.ValidationMessageFor(m => m.ThemeColor, "", new { @class = "text-danger" })
+</div>
+
+@*<label class="col-md-2 control-label" for="ThemeColor">Theme&nbsp;Color</label>
+<div class="col-md-10">
+    <input id="ThemeColor" name="ThemeColor" type="text" data-plugin-colorpicker class="colorpicker-rgba form-control" value="@Model.ThemeColor" data-format="hex" />
+    @Html.ValidationMessageFor(m => m.ThemeColor, "", new { @class = "text-danger" })
+</div>*@

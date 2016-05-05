@@ -14,8 +14,13 @@
             </header>
             <div class="panel-body">
                 <section id="account-management">
-                    @* This form does not submit, it maintains formatting only. Ajax submits the theme color input. *@
-                    @using (Html.BeginForm("ChangeThemeColor", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
+                    @using (Ajax.BeginForm("ChangeThemeColor", null, new AjaxOptions {
+                        HttpMethod = "POST",
+                        UpdateTargetId = "theme-color-form-group",
+                        OnBegin = "$('#apply-theme-color-btn').toggleClass('active').prop('disabled', true);",
+                        OnComplete = "$('#apply-theme-color-btn').toggleClass('active').prop('disabled', false);" + "$(document).ready(function () { StyleValidationErrors(); });"
+                    }, new { id = "themeColorForm", @class = "form-horizontal" }))
+                    {
                         @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
                         <p class="text-success">@ViewBag.StatusMessage</p>
 
@@ -32,16 +37,13 @@
                                 ]
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="ThemeColor">Theme&nbsp;Color</label>
-                            <div class="col-md-10">
-                                <div class="input-group color" data-plugin-colorpicker data-format="hex">
-                                    <span class="input-group-addon"><i></i></span>
-                                    <input id="ThemeColor" name="ThemeColor" type="text" class="form-control" value="@Model.ThemeColor" />
-                                    @Html.ValidationMessageFor(m => m.ThemeColor, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
+                        
+                        <div id="theme-color-form-group" class="form-group">
+                            @{
+                                Html.RenderPartial("_themeColorFormGroup", this.Model);
+                            }
                         </div>
+
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <button id="apply-theme-color-btn" type="submit" class="btn btn-primary has-spinner">
