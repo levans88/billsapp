@@ -224,6 +224,13 @@ button .caret {
   width: auto; 
 }
 
+/* Datatables */
+
+/* Not needed since options are set on table initialization */
+/*.datatables-header, .datatables-footer {
+  display: none;
+}*/
+
 /* Override location of octicons fonts in octicons.css 
   and font-awesome fonts in font-awesome.css */
 @font-face {

@@ -23,6 +23,7 @@
         @Styles.Render("~/bundles/bootstrapdatepickercss")
         @Styles.Render("~/bundles/bootstrapmultiselectcss")
         @Styles.Render("~/bundles/bootstrapcolorpickercss")
+        @Styles.Render("~/bundles/datatablescss")
         @Styles.Render("~/bundles/themecss")
         @RenderSection("Styles", false)
         @Scripts.Render("~/bundles/modernizrjs")
@@ -413,10 +414,16 @@
             @Scripts.Render("~/bundles/jqueryappearjs")
             @Scripts.Render("~/bundles/bootstrapmultiselectjs")
             @Scripts.Render("~/bundles/bootstrapcolorpickerjs")
+            @Scripts.Render("~/bundles/bootstrapwizardjs")
             @Scripts.Render("~/bundles/snapsvgjs")
             @Scripts.Render("~/bundles/githubactivityjs")
             @Scripts.Render("~/bundles/nanoscrollerjs")
+            @Scripts.Render("~/bundles/datatablesjs")
             @Scripts.Render("~/bundles/themejs")
+
+            @* Unbundled for debugging *@
+            <script src="~/assets/javascripts/setup.wizard.js"></script>
+            <script src="~/assets/javascripts/datatables.editable.js"></script>
 
             @RenderSection("scripts", required: false)
         </section>

@@ -147,7 +147,12 @@ $(document).ready(function () {
 
     }).apply(this, [jQuery]);
 
-
+    // Datatables customization overrides
+/*    $('#w1-datatable-editable').dataTable({
+        "bPaginate": false,
+        "bFilter": false,
+        "bInfo": false
+    });*/
 
 });
 

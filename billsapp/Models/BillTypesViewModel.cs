@@ -34,6 +34,8 @@ namespace billsapp.Models {
         //[EnumDataType(typeof(Enum.BillTypeFrequency), ErrorMessage = "Invalid frequency selection.")]
         //public int frequency_id { get; set; }
         
+        public Status status { get; set; }
+
         // [Required] but we will default to active
         [Display(Name = "Status")]
         [EnumDataType(typeof(Enum.Status), ErrorMessage = "Invalid status selection.")]

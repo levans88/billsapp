@@ -114,6 +114,10 @@ namespace billsapp {
             bundles.Add(new StyleBundle("~/bundles/bootstrapcolorpickercss").Include(
                         "~/assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css"));
 
+            // Bootstrap Wizard
+            bundles.Add(new ScriptBundle("~/bundles/bootstrapwizardjs").Include(
+                        "~/assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js"));
+
             // Snap SVG
             bundles.Add(new ScriptBundle("~/bundles/snapsvgjs").Include(
                         "~/assets/vendor/snap.svg/snap.svg.js"));
@@ -125,6 +129,14 @@ namespace billsapp {
             // Elusive Icons
             bundles.Add(new StyleBundle("~/bundles/elusivecss").Include(
                         "~/assets/vendor/elusive-icons/css/elusive-icons.css"));
+
+            // Datatables
+            bundles.Add(new ScriptBundle("~/bundles/datatablesjs").Include(
+                "~/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js", 
+                "~/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/datatablescss").Include(
+                        "~/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css"));
 
             // Theme
             bundles.Add(new StyleBundle("~/bundles/themecss").Include(

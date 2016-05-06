@@ -21,16 +21,16 @@
                     </div>
                     <ul class="wizard-steps">
                         <li class="active">
-                            <a href="#w4-account" data-toggle="tab"><span>1</span>Payment<br />Methods</a>
+                            <a href="#w1-payment-methods" data-toggle="tab"><span>1</span>Payment<br />Methods</a>
                         </li>
                         <li>
-                            <a href="#w4-profile" data-toggle="tab"><span>2</span>Bill<br />Templates</a>
+                            <a href="#w2-bill-templates" data-toggle="tab"><span>2</span>Bill<br />Templates</a>
                         </li>
                         <li>
-                            <a href="#w4-billing" data-toggle="tab"><span>3</span>Sharing &<br />Permissions</a>
+                            <a href="#w3-sharing-permissions" data-toggle="tab"><span>3</span>Sharing &<br />Permissions</a>
                         </li>
                         <li>
-                            <a href="#w4-confirm" data-toggle="tab"><span>4</span>Session <br />Setup</a>
+                            <a href="#w4-session-setup" data-toggle="tab"><span>4</span>Session <br />Setup</a>
                         </li>
                     </ul>
                 </div>
@@ -38,7 +38,7 @@
                 <div id="setup-wizard-tab-content" class="tab-content">
 
                     <!-- Start Step 1 -->
-                    <div id="w4-account" class="tab-pane active">
+                    <div id="w1-payment-methods" class="tab-pane active">
                         <div class="row">
                             <div class="col-sm-12">
                                 <p>To get started, enter the types of accounts you use to pay your bills. <strong>Do not include account numbers.</strong></p>
@@ -47,13 +47,13 @@
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                         To get started, enter the types of accounts you use to pay your bills. <strong>Do not include account numbers.</strong>
                                     </div>*@
-                                    <button id="addToTable" class="btn btn-primary">Add <i class="fa fa-plus"></i></button>
+                                    <button id="w1-addToTable" class="btn btn-primary">Add <i class="fa fa-plus"></i></button>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-bordered table-striped mb-none" id="datatable-editable">
+                                <table class="table table-bordered table-striped mb-none" id="w1-datatable-editable">
                                     <thead>
                                         <tr>
                                             <th>Payment Method Name</th>
@@ -66,7 +66,7 @@
                                         <tr class="gradeX">
                                             <td>Ex: First Convenience Bank Checking</td>
                                             <td>Ex: FCBC</td>
-                                            <td>Active</td>
+                                            <td>@Html.EnumDropDownListFor(m => m.status, new { @class = "form-control" })</td>
                                             <td class="actions">
                                                 <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
                                                 <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
@@ -82,7 +82,7 @@
                     <!-- End Step 1 -->
 
                     <!-- Start Step 2 -->
-                    <div id="w4-profile" class="tab-pane">
+                    <div id="w2-bill-templates" class="tab-pane">
                         <div class="row">
                             <div class="col-sm-12">
                                 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal form-bordered", role = "form" })) {
@@ -183,7 +183,7 @@
                     <!-- End Step 2 -->
 
                     <!-- Start Step 3 -->
-                    <div id="w4-billing" class="tab-pane">
+                    <div id="w3-sharing-permissions" class="tab-pane">
                         <div class="row">
                             <div class="col-sm-12">
                                 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal form-bordered", role = "form" })) {
@@ -235,7 +235,7 @@
                     <!-- End Step 3 -->
 
                     <!-- Start Step 4 -->
-                    <div id="w4-confirm" class="tab-pane">
+                    <div id="w4-session-setup" class="tab-pane">
                         <div class="row">
                             <div class="col-sm-12">
                                 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal form-bordered", role = "form" })) {

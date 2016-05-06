@@ -350,9 +350,11 @@
     <Content Include="assets\images\patterns\textured_stripes.png" />
     <Content Include="assets\images\patterns\wild_oliva.png" />
     <Content Include="assets\images\patterns\worn_dots.png" />
+    <Content Include="assets\javascripts\datatables.editable.js" />
     <Content Include="assets\javascripts\theme.custom.js" />
     <Content Include="assets\javascripts\theme.init.js" />
     <Content Include="assets\javascripts\theme.js" />
+    <Content Include="assets\javascripts\setup.wizard.js" />
     <Content Include="assets\stylesheets\skins\default.css" />
     <Content Include="assets\stylesheets\skins\extension.css" />
     <Content Include="assets\stylesheets\skins\square-borders.css" />
