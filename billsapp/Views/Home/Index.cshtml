@@ -47,13 +47,14 @@
             <li>@Html.ActionLink("Payers currently in the system", "Index", "Payers")</li>
             <li>@Html.ActionLink("List of payment methods and abbreviations", "Index", "PaymentMethods")</li>
             <li>@Html.ActionLink("Completed payments and amounts", "Index", "Payments")</li>
-            <li>@Html.ActionLink("Deposits made during bill pay sessions", "Index", "SessionDeposits")</li>
-            <li>@Html.ActionLink("Bill pay session details", "Index", "SessionDetails")</li>
-            <li>@Html.ActionLink("Bill payer session details", "Index", "SessionPayerDetails")</li>
-            <li>@Html.ActionLink("Users and Payers", "Index", "Manage")</li>
+            @*<li>@Html.ActionLink("Deposits made during bill pay sessions", "Index", "SessionDeposits")</li>*@
+            @*<li>@Html.ActionLink("Bill pay session details", "Index", "SessionDetails")</li>*@
+            @*<li>@Html.ActionLink("Bill payer session details", "Index", "SessionPayerDetails")</li>*@
+            <li>@Html.ActionLink("Manage", "Index", "Manage")</li>
             <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
             <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-            <li>@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+
+            @*<li>@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>*@
             <li>
                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
                     @Html.AntiForgeryToken()
