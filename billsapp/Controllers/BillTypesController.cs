@@ -22,41 +22,6 @@ namespace billsapp.Controllers
             return View(bill_type.ToList());
         }
 
-        // GET: Wizard
-        public ActionResult Wizard() {
-
-            // Get the current user's payer_id
-            var userID = User.Identity.GetUserId();
-            var payer = db.payer.Single(p => p.user_id == userID);
-            var payerID = payer.payer_id;
-                       
-            // Get payment methods
-            List<SelectListItem> paymentMethods = new List<SelectListItem>();
-
-            paymentMethods = db.payment_method.Where(x => x.payer_id == payerID).ToList().Select(x => new SelectListItem {
-                Text = x.payment_method_name,
-                Value = x.payment_method_id.ToString() }).ToList();
-
-            // Get bill types for list box
-            List<SelectListItem> billTypes = new List<SelectListItem>();
-
-            billTypes = db.bill_type.Where(x => x.payer_id == payerID).ToList().Select(x => new SelectListItem {
-                Text = x.type_name,
-                Value = x.type_id.ToString()
-            }).ToList();
-
-            // Get permission settings
-            var permissions = db.payers_permissions.Include(x => x.permission).Include(x => x.permission_level).Where(x => x.source_payer_id == payerID).ToList();
-
-            // Create and populate ViewModel
-            var model = new BillTypesViewModel();
-            model.paymentMethods = paymentMethods;
-            model.billTypes = billTypes;
-            model.permissions = permissions;
-
-            return View(model);
-        }
-
         // GET: BillTypes/Details/5
         public ActionResult Details(int? id)
         {

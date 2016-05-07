@@ -8,7 +8,7 @@ namespace billsapp.Models {
     public class ModalViewModel {
         private Modal _modal;
 
-        public Modal modal {
+        public Modal Modal {
             get {
                 return _modal;
             }

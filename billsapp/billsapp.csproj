@@ -199,6 +199,7 @@
     <Compile Include="Controllers\PaymentMethodsController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
+    <Compile Include="Controllers\WizardController.cs" />
     <Compile Include="Enum\Permission.cs" />
     <Compile Include="Enum\PermissionLevel.cs" />
     <Compile Include="Enum\Status.cs" />
@@ -250,6 +251,7 @@
     <Compile Include="Models\bills_sessions.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WizardViewModel.cs" />
     <Compile Include="Models\bill_type.cs">
       <DependentUpon>BillsappModel.tt</DependentUpon>
     </Compile>
@@ -302,9 +304,6 @@
     <Content Include="assets\images\!logged-user.jpg" />
     <Content Include="assets\images\avatars\aoraki.jpg" />
     <Content Include="assets\images\avatars\aurora.jpg" />
-    <Content Include="assets\images\avatars\autumn.jpg" />
-    <Content Include="assets\images\avatars\bomb.png" />
-    <Content Include="assets\images\avatars\creek.jpg" />
     <Content Include="assets\images\avatars\fallfoliage.jpg" />
     <Content Include="assets\images\avatars\fish.png" />
     <Content Include="assets\images\avatars\frog.png" />
@@ -317,13 +316,10 @@
     <Content Include="assets\images\avatars\leopard1.png" />
     <Content Include="assets\images\avatars\leopard2.png" />
     <Content Include="assets\images\avatars\monkey.png" />
-    <Content Include="assets\images\avatars\mountain-landscape.jpg" />
     <Content Include="assets\images\avatars\mountain.jpg" />
     <Content Include="assets\images\avatars\none.jpg" />
     <Content Include="assets\images\avatars\penguin.png" />
-    <Content Include="assets\images\avatars\sunset.jpg" />
     <Content Include="assets\images\avatars\thing.png" />
-    <Content Include="assets\images\avatars\torresdelpaine.jpg" />
     <Content Include="assets\images\avatars\turtle.png" />
     <Content Include="assets\images\avatars\zebra1.png" />
     <Content Include="assets\images\avatars\zebra2.png" />
@@ -350,7 +346,6 @@
     <Content Include="assets\images\patterns\textured_stripes.png" />
     <Content Include="assets\images\patterns\wild_oliva.png" />
     <Content Include="assets\images\patterns\worn_dots.png" />
-    <Content Include="assets\javascripts\datatables.editable.js" />
     <Content Include="assets\javascripts\theme.custom.js" />
     <Content Include="assets\javascripts\theme.init.js" />
     <Content Include="assets\javascripts\theme.js" />
@@ -3556,8 +3551,9 @@
     <Content Include="ThemeDemo\assets\ajax\ajax-treeview-roots.json" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Views\Shared\Partials\_ModalAnim.cshtml" />
-    <Content Include="Views\BillTypes\Wizard.cshtml" />
-    <Content Include="Views\Manage\_themeColorFormGroup.cshtml" />
+    <Content Include="Views\Wizard\Index.cshtml" />
+    <Content Include="Views\Manage\_ThemeColorFormGroup.cshtml" />
+    <Content Include="Views\Wizard\_WizardStep1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

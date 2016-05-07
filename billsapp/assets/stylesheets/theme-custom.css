@@ -111,6 +111,16 @@ div.validation-summary-errors ul label.error:before {
   position: relative;
 }
 
+/* A fake panel heading as a table header */
+.panel-heading-fake-table {
+  /*background: #EBEBEB;*/
+  background: white;
+  /*border-radius: 5px 5px 0 0;*/
+  /*border: 1px solid #DADADA;*/
+  padding: 5px;
+  position: relative;
+}
+
 /* Fake heading title color fix */
 /*.panel-heading-fake .panel-title {
   color: #33353F !important;

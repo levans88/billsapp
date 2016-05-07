@@ -89,7 +89,7 @@ namespace billsapp.Controllers
             if (!ModelState.IsValid) {
                 //var result = Json(new { IsValid = false, errors = ModelState.Keys.Where(k => ModelState[k].Errors.Count > 0).Select(k => new { propertyName = k, errorMessage = ModelState[k].Errors[0].ErrorMessage }) });
                 //return result;
-                return PartialView("_themeColorFormGroup", model);
+                return PartialView("_ThemeColorFormGroup", model);
             }
             else {
                 var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
@@ -99,7 +99,7 @@ namespace billsapp.Controllers
                 userStore.Context.SaveChanges();
 
                 //return Json(new { IsValid = true });
-                return PartialView("_themeColorFormGroup", model);
+                return PartialView("_ThemeColorFormGroup", model);
             }
         }
 

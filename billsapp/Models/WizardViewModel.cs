@@ -7,10 +7,18 @@ using billsapp.Enum;
 using System.Web.Mvc;
 
 namespace billsapp.Models {
-    public class BillTypesViewModel {      
+    public class WizardViewModel {
+
+        public string ShareTargetEmail { get; set; }
+        public List<payers_permissions> Permissions { get; set; }
+        public Permission Permission { get; set; }
+        public PermissionLevel PermissionLevel { get; set; }
+        
         public string Note { get; set; }
         
         public List<SelectListItem> BillTypes { get; set; }
+
+        public decimal StartingBalance { get; set; }
 
         public List<SelectListItem> PaymentMethods { get; set; }
         public payment_method PaymentMethod { get; set; }

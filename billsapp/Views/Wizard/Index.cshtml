@@ -1,4 +1,4 @@
-﻿@model billsapp.Models.BillTypesViewModel
+﻿@model billsapp.Models.WizardViewModel
 
 @{
     ViewBag.Title = "Setup Wizard";
@@ -41,19 +41,46 @@
                     <div id="w1-payment-methods" class="tab-pane active">
                         <div class="row">
                             <div class="col-sm-12">
-                                <p>To get started, enter the types of accounts you use to pay your bills. <strong>Do not include account numbers.</strong></p>
+                                @*<p>To get started, enter the types of accounts you use to pay your bills. <strong>Do not include account numbers.</strong></p>*@
                                 <div class="mb-md">
-                                    @*<div class="alert alert-info" style="text-align:center;">
+                                    <div class="alert alert-info" style="text-align:center;">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                         To get started, enter the types of accounts you use to pay your bills. <strong>Do not include account numbers.</strong>
-                                    </div>*@
-                                    <button id="w1-addToTable" class="btn btn-primary">Add <i class="fa fa-plus"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-bordered table-striped mb-none" id="w1-datatable-editable">
+
+                                @*<section id="payment-method-form">
+                                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" value="Log in" class="btn btn-primary" />
+                                            </div>
+                                        </div>
+                                </section>*@
+
+                                <button id="w1-addToTable" class="btn btn-primary">Add <i class="fa fa-plus"></i></button>
+                                
+                                <table class="table table-no-more table-bordered table-striped mb-none" id="w1-datatable-editable">
                                     <thead>
                                         <tr>
                                             <th>Payment Method Name</th>
@@ -63,11 +90,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="gradeX">
-                                            <td>Ex: First Convenience Bank Checking</td>
-                                            <td>Ex: FCBC</td>
-                                            <td>@Html.EnumDropDownListFor(m => m.status, new { @class = "form-control" })</td>
-                                            <td class="actions">
+                                        <tr>
+                                            <td data-title="Payment Method Name">Ex: First Convenience Bank Checking</td>
+                                            <td data-title="Abbreviation">Ex: FCBC</td>
+                                            <td data-title="Status">Active</td>
+                                            <td data-title="Actions" class="actions">
+                                                <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
+                                                <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
+                                                <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                                <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-title="Payment Method Name">Ex: First Convenience Bank Checking</td>
+                                            <td data-title="Abbreviation">Ex: FCBC</td>
+                                            <td data-title="Status">Active</td>
+                                            <td data-title="Actions" class="actions">
                                                 <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
                                                 <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
                                                 <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
@@ -90,79 +128,72 @@
                                     @Html.ValidationSummary("", new { @class = "text-danger" })
 
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.typeName, new { @class = "col-md-2 control-label" })
+                                        @Html.LabelFor(m => m.TypeName, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.TextBoxFor(m => m.typeName, new { @class = "form-control" })
+                                            @Html.TextBoxFor(m => m.TypeName, new { @class = "form-control" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.url, new { @class = "col-md-2 control-label" })
+                                        @Html.LabelFor(m => m.Url, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.TextBoxFor(m => m.url, new { @class = "form-control" })
+                                            @Html.TextBoxFor(m => m.Url, new { @class = "form-control" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.amountDue, new { @class = "col-md-2 control-label" })
+                                        @Html.LabelFor(m => m.AmountDue, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.TextBoxFor(m => m.amountDue, new { @class = "form-control" })
+                                            @Html.TextBoxFor(m => m.AmountDue, new { @class = "form-control" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.frequency, new { @class = "col-md-2 control-label" })
+                                        @Html.LabelFor(m => m.Frequency, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.EnumDropDownListFor(m => m.frequency, new { @class = "form-control" })
+                                            @Html.EnumDropDownListFor(m => m.Frequency, new { @class = "form-control" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.dateDue, new { @class = "col-md-2 control-label" })
+                                        @Html.LabelFor(m => m.DateDue, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.TextBoxFor(m => m.dateDue, new { @class = "form-control" })
+                                            @Html.TextBoxFor(m => m.DateDue, new { @class = "form-control" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.paymentMethod, new { @class = "col-md-2 control-label" })
+                                        @Html.LabelFor(m => m.PaymentMethod, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.DropDownListFor(m => m.paymentMethod, Model.paymentMethods, new { @class = "form-control" })
+                                            @Html.DropDownListFor(m => m.PaymentMethod, Model.PaymentMethods, new { @class = "form-control" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.auto, new { @class = "col-md-2 control-label" })
+                                        @Html.LabelFor(m => m.Auto, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.CheckBoxFor(m => m.auto, new { @checked = "checked", @class = "form-control" })
+                                            @Html.CheckBoxFor(m => m.Auto, new { @checked = "checked", @class = "form-control" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.task, new { @class = "col-md-2 control-label" })
+                                        @Html.LabelFor(m => m.Task, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.CheckBoxFor(m => m.task, new { @checked = "checked", @class = "form-control" })
+                                            @Html.CheckBoxFor(m => m.Task, new { @checked = "checked", @class = "form-control" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.notes, new { @class = "col-md-2 control-label" })
+                                        @Html.LabelFor(m => m.Note, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.TextAreaFor(m => m.notes, new { @class = "form-control" })
+                                            @Html.TextAreaFor(m => m.Note, new { @class = "form-control" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.notes, new { @class = "col-md-2 control-label" })
+                                        @Html.LabelFor(m => m.BillTypes, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.TextAreaFor(m => m.notes, new { @class = "form-control" })
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.billTypes, new { @class = "col-md-2 control-label" })
-                                        <div class="col-md-10">
-                                            @Html.ListBoxFor(m => m.billTypes, Model.billTypes, new { @class = "form-control" })
+                                            @Html.ListBoxFor(m => m.BillTypes, Model.BillTypes, new { @class = "form-control" })
                                         </div>
                                     </div>
 
@@ -191,9 +222,9 @@
                                     @Html.ValidationSummary("", new { @class = "text-danger" })
 
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.shareTargetEmail, new { @class = "col-md-2 control-label" })
+                                        @Html.LabelFor(m => m.ShareTargetEmail, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.TextBoxFor(m => m.shareTargetEmail, new { @class = "form-control" })
+                                            @Html.TextBoxFor(m => m.ShareTargetEmail, new { @class = "form-control" })
                                         </div>
                                     </div>
 
@@ -218,8 +249,8 @@
                                     <tbody>
                                         <tr class="gradeX">
                                             <td>email@sharetarget.bla</td>
-                                            <td>@Html.EnumDropDownListFor(m => m.permission, new { @class = "form-control" })</td>
-                                            <td>@Html.EnumDropDownListFor(m => m.permissionLevel, new { @class = "form-control" })</td>
+                                            <td>@Html.EnumDropDownListFor(m => m.Permission, new { @class = "form-control" })</td>
+                                            <td>@Html.EnumDropDownListFor(m => m.PermissionLevel, new { @class = "form-control" })</td>
                                             <td class="actions">
                                                 <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
                                                 <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
@@ -245,9 +276,9 @@
                                     <p>What is the current balance of the account you use to pay bills?</p>
 
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.startingBalance, new { @class = "col-md-2 control-label" })
+                                        @Html.LabelFor(m => m.StartingBalance, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.TextBoxFor(m => m.startingBalance, new { @class = "form-control" })
+                                            @Html.TextBoxFor(m => m.StartingBalance, new { @class = "form-control" })
                                         </div>
                                     </div>
 
