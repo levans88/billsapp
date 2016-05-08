@@ -41,79 +41,31 @@
                     <div id="w1-payment-methods" class="tab-pane active">
                         <div class="row">
                             <div class="col-sm-12">
-                                @*<p>To get started, enter the types of accounts you use to pay your bills. <strong>Do not include account numbers.</strong></p>*@
-                                <div class="mb-md">
-                                    <div class="alert alert-info" style="text-align:center;">
-                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                        To get started, enter the types of accounts you use to pay your bills. <strong>Do not include account numbers.</strong>
-                                    </div>
+                                <div class="alert alert-info" style="text-align:center;">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    To get started, enter the types of accounts you use to pay your bills. <strong>Do not include account numbers.</strong>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
+                                <section id="payment-method-form">
+                                    @using (Ajax.BeginForm("WizardAddEditPaymentMethod", null, new AjaxOptions {
+                                        HttpMethod = "POST",
+                                        UpdateTargetId = "w1-ajax-target",
+                                        OnBegin = "$('#w1-add-btn').toggleClass('active').prop('disabled', true);",
+                                        //OnComplete = "$('#w1-add-btn').toggleClass('active').prop('disabled', false);" + "$(document).ready(function () { StyleValidationErrors(); });"
+                                        OnSuccess = "$('#w2-payment-method-form-group').load('" + @Html.Raw(Url.Action("RefreshPaymentMethods", "Wizard")) + "');",
+                                        OnComplete = "$(document).ready(function () { StyleValidationErrors(); });"
+                                    }, new { id = "paymentMethodForm", @class = "form-horizontal" })) {
 
-                                @*<section id="payment-method-form">
-                                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
-                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                        @Html.ValidationSummary("", new { @class = "text-danger" })
-                                        <div class="form-group">
-                                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                                            <div class="col-md-10">
-                                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                                            </div>
+                                        <div id="w1-ajax-target">
+                                            @{
+                                                Html.RenderPartial("_WizardStep1", this.Model);
+                                            }
                                         </div>
-                                        <div class="form-group">
-                                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                                            <div class="col-md-10">
-                                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-md-offset-2 col-md-10">
-                                                <input type="submit" value="Log in" class="btn btn-primary" />
-                                            </div>
-                                        </div>
-                                </section>*@
-
-                                <button id="w1-addToTable" class="btn btn-primary">Add <i class="fa fa-plus"></i></button>
-                                
-                                <table class="table table-no-more table-bordered table-striped mb-none" id="w1-datatable-editable">
-                                    <thead>
-                                        <tr>
-                                            <th>Payment Method Name</th>
-                                            <th>Abbreviation</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td data-title="Payment Method Name">Ex: First Convenience Bank Checking</td>
-                                            <td data-title="Abbreviation">Ex: FCBC</td>
-                                            <td data-title="Status">Active</td>
-                                            <td data-title="Actions" class="actions">
-                                                <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                                                <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                                                <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                                <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-title="Payment Method Name">Ex: First Convenience Bank Checking</td>
-                                            <td data-title="Abbreviation">Ex: FCBC</td>
-                                            <td data-title="Status">Active</td>
-                                            <td data-title="Actions" class="actions">
-                                                <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                                                <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                                                <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                                <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                    }
+                                </section>
                             </div>
                         </div>
                     </div>
@@ -162,11 +114,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.PaymentMethod, new { @class = "col-md-2 control-label" })
-                                        <div class="col-md-10">
-                                            @Html.DropDownListFor(m => m.PaymentMethod, Model.PaymentMethods, new { @class = "form-control" })
-                                        </div>
+                                    <div id="w2-payment-method-form-group">
+                                        @{ 
+                                            Html.RenderPartial("_PaymentMethodFormGroup", this.Model);
+                                        }
                                     </div>
 
                                     <div class="form-group">
@@ -313,7 +264,3 @@
         </section>
     </div>
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryvaljs")
-}

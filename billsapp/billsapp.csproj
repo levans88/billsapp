@@ -210,6 +210,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PartialValidation.cs" />
     <Compile Include="Helpers\Modal.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRoles.cs">
@@ -3554,6 +3555,7 @@
     <Content Include="Views\Wizard\Index.cshtml" />
     <Content Include="Views\Manage\_ThemeColorFormGroup.cshtml" />
     <Content Include="Views\Wizard\_WizardStep1.cshtml" />
+    <Content Include="Views\Wizard\_PaymentMethodFormGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

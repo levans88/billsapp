@@ -20,7 +20,8 @@ namespace billsapp.Models {
 
         public decimal StartingBalance { get; set; }
 
-        public List<SelectListItem> PaymentMethods { get; set; }
+        public List<SelectListItem> PaymentMethodSelectList { get; set; }
+        public List<payment_method> PaymentMethods { get; set; }
         public payment_method PaymentMethod { get; set; }
         public int PaymentMethodID { get; set; }
 
@@ -33,13 +34,14 @@ namespace billsapp.Models {
         public BillTypeFrequency Frequency { get; set; }
         //[EnumDataType(typeof(Enum.BillTypeFrequency), ErrorMessage = "Invalid frequency selection.")]
         //public int frequency_id { get; set; }
-        
-        public Status Status { get; set; }
 
-        // [Required] but we will default to active
+        //public Status Status { get; set; }
+
+        [Required]
         [Display(Name = "Status")]
         [EnumDataType(typeof(Enum.Status), ErrorMessage = "Invalid status selection.")]
-        public int StatusID { get; set; }
+        public Status Status { get; set; }
+        //public int StatusID { get; set; }
 
         [Required]
         [Display(Name = "Payment Method Name")]
@@ -48,10 +50,10 @@ namespace billsapp.Models {
 
         [Required]
         [Display(Name = "Payment Method Abbreviation")]
-        [StringLength(45, ErrorMessage = "Payment method abbreviation must be between {2} and {1} characters long.", MinimumLength = 4)]
+        [StringLength(4, ErrorMessage = "Payment method abbreviation must be fewer than {1} characters long.")]
         public string PaymentMethodAbbreviation { get; set; }
 
-        [Required]
+        ////[Required]
         [Display(Name = "Template Name")]
         [StringLength(45, ErrorMessage = "Template name must be between {2} and {1} characters long.", MinimumLength = 1)]
         public string TypeName { get; set; }
@@ -66,7 +68,7 @@ namespace billsapp.Models {
         [DataType(DataType.Currency)]
         public string AmountDue { get; set; }
 
-        [Required]
+        ////[Required]
         [DataType(DataType.Date)]
         public DateTime DateDue { get; set; }
 

@@ -1,2 +1,74 @@
 ﻿@model billsapp.Models.WizardViewModel
+@using System.Globalization
 
+<div class="form-inputs-container">
+    <div class="form-group">
+        @Html.LabelFor(m => m.PaymentMethodName, new { @class = "col-md-3 control-label" })
+        <div class="col-md-6">
+            @Html.TextBoxFor(m => m.PaymentMethodName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.PaymentMethodName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.PaymentMethodAbbreviation, new { @class = "col-md-3 control-label" })
+        <div class="col-md-6">
+            @Html.TextBoxFor(m => m.PaymentMethodAbbreviation, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.PaymentMethodAbbreviation, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Status, new { @class = "col-md-3 control-label" })
+        <div class="col-md-6">
+            @Html.EnumDropDownListFor(m => m.Status, new { @class = "form-control" })
+            @*@Html.ValidationMessageFor(m => m.Status, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-6">
+            <button id="w1-add-btn" type="submit" class="btn btn-primary has-spinner">
+                <span class="spinner">
+                    <i class="fa fa-spinner fa-spin"></i>
+                </span>Add <i class="fa fa-plus"></i>
+            </button>
+            <button id="w1-cancel-btn" type="reset" class="btn btn-default">Cancel</button>
+        </div>
+    </div>
+</div>
+<br />
+<table class="table table-no-more table-bordered table-striped mb-none" id="w1-datatable-editable">
+    <thead>
+        <tr>
+            <th>Payment Method Name</th>
+            <th>Abbreviation</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pm in Model.PaymentMethods) {
+                <tr>
+                    <td data-title="Payment Method Name">@pm.payment_method_name</td>
+                    <td data-title="Abbreviation">@pm.payment_method_abbreviation</td>
+                    <td data-title="Status">@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(pm.status.status_description)</td>
+                    <td data-title="Actions" class="actions">
+                        <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
+                        <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
+                        <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                        <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                    </td>
+                </tr>
+            }
+    </tbody>
+</table>
+@*@{ Html.RenderAction("RefreshPaymentMethods"); }*@
+@*<script>
+    // When the _WizardStep1 partial is reloaded, update available payment methods in step 2
+    $(document).ready(function () {
+        $.post('@Url.Action("RefreshPaymentMethods", "Wizard")').always(function () {
+            $('#w2-payment-method-form-group').load('/Wizard/_PaymentMethodFormGroup');
+        });
+    });
+</script>*@
