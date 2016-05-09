@@ -23,7 +23,7 @@ namespace billsapp.Models {
         public List<SelectListItem> PaymentMethodSelectList { get; set; }
         public List<payment_method> PaymentMethods { get; set; }
         public payment_method PaymentMethod { get; set; }
-        public int PaymentMethodID { get; set; }
+        public int? PaymentMethodID { get; set; }
 
         public int PayerID { get; set; }
 
@@ -37,11 +37,15 @@ namespace billsapp.Models {
 
         //public Status Status { get; set; }
 
+        public bool DuplicatePaymentMethodName { get; set; }
+        public bool DuplicatePaymentMethodAbbreviation { get; set; }
+
+        public int StatusID { get; set; }
+
         [Required]
         [Display(Name = "Status")]
         [EnumDataType(typeof(Enum.Status), ErrorMessage = "Invalid status selection.")]
         public Status Status { get; set; }
-        //public int StatusID { get; set; }
 
         [Required]
         [Display(Name = "Payment Method Name")]

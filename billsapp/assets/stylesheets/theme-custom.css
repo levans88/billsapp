@@ -140,6 +140,20 @@ div.validation-summary-errors ul label.error:before {
   /*color: #6c6c6c;*/
 }
 
+.ajax-action-link-edit-icon:before {
+  font-family: FontAwesome;
+  content: "\f040";
+}
+
+.ajax-action-link-delete-icon:before {
+  font-family: FontAwesome;
+  content: "\f014";
+}
+
+a.ajax-action-link-edit-icon, a.ajax-action-link-delete-icon {
+  text-decoration: none;
+}
+
 /* User session table column style overrides */
 .session-user-table thead tr th {
   vertical-align: top;

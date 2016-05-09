@@ -34,7 +34,8 @@ namespace billsapp {
             bundles.Add(new ScriptBundle("~/bundles/jqueryvaljs").Include(
                         "~/assets/vendor/jquery-validation/jquery.validate.js",
                         "~/scripts/jquery.validate.unobtrusive.js",
-                        "~/scripts/jquery.unobtrusive-ajax.js"));
+                        "~/scripts/jquery.unobtrusive-ajax.js",
+                        "~/assets/javascripts/jquery.validate.plugin-reset.js"));
 
             // jQuery UI
             bundles.Add(new ScriptBundle("~/bundles/jqueryuijs").Include(
