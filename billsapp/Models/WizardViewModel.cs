@@ -39,6 +39,8 @@ namespace billsapp.Models {
 
         public bool DuplicatePaymentMethodName { get; set; }
         public bool DuplicatePaymentMethodAbbreviation { get; set; }
+        public bool PaymentMethodUsedByTemplate { get; set; }
+        public bool PaymentMethodUsedByPayment { get; set; }
 
         public int StatusID { get; set; }
 

@@ -5,6 +5,8 @@
 
     <input id="payment-method-id" name="paymentMethodID" type="hidden" @(Model.PaymentMethodID.HasValue ? "Value=" + Model.PaymentMethodID.ToString() : "") />
 
+    @Html.ValidationSummary("", new { @class = "text-danger", @style = Model.PaymentMethodUsedByTemplate || Model.PaymentMethodUsedByPayment ? "visibility:visible;" : "display:none;" })
+    
     <div class="form-group">
         @Html.LabelFor(m => m.PaymentMethodName, new { @class = "col-md-3 control-label" })
         <div class="col-md-6">
@@ -37,7 +39,7 @@
                     <i class="fa fa-spinner fa-spin"></i>
                 </span>@(Model.PaymentMethodID.HasValue ? Html.Raw("Update") : Html.Raw("Add <i class='fa fa-plus'></i>"))
             </button>
-            @Ajax.ActionLink("Cancel", "WizardCancelForm", "Wizard", new { partial = "_WizardStep1" }, new AjaxOptions {
+            @Ajax.ActionLink("Cancel", "CancelForm", "Wizard", new { partial = "_WizardStep1" }, new AjaxOptions {
                 UpdateTargetId = "w1-ajax-target",
                 InsertionMode = InsertionMode.Replace,
                 HttpMethod = "GET"
@@ -62,13 +64,13 @@
                     <td data-title="Abbreviation">@pm.payment_method_abbreviation</td>
                     <td data-title="Status">@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(pm.status.status_description)</td>
                     <td data-title="Actions" class="actions">                            
-                        @Ajax.ActionLink(" ", "WizardEditPaymentMethod", "Wizard", new { paymentMethodID = pm.payment_method_id }, new AjaxOptions {
+                        @Ajax.ActionLink(" ", "EditPaymentMethod", "Wizard", new { paymentMethodID = pm.payment_method_id }, new AjaxOptions {
                            UpdateTargetId = "w1-ajax-target",
                            InsertionMode = InsertionMode.Replace,
                            HttpMethod = "GET"
                        }, new { @class = "ajax-action-link-edit-icon" })
 
-                        @Ajax.ActionLink(" ", "WizardDeletePaymentMethod", "Wizard", new { paymentMethodID = pm.payment_method_id }, new AjaxOptions {
+                        @Ajax.ActionLink(" ", "DeletePaymentMethod", "Wizard", new { paymentMethodID = pm.payment_method_id }, new AjaxOptions {
                            Confirm = "Are you sure?",
                            UpdateTargetId = "w1-ajax-target",
                            InsertionMode = InsertionMode.Replace,

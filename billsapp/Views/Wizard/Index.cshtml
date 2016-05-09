@@ -9,9 +9,7 @@
         <section class="panel form-wizard" id="w4">
             <header class="panel-heading">
                 <div class="panel-actions">
-                    @*<a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>*@
                 </div>
-
                 <h2 class="panel-title">Enter Payment Methods</h2>
             </header>
             <div class="panel-body">
@@ -50,11 +48,10 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <section id="payment-method-form">
-                                    @using (Ajax.BeginForm("WizardAddEditPaymentMethod", null, new AjaxOptions {
+                                    @using (Ajax.BeginForm("AddEditPaymentMethod", "Wizard", null, new AjaxOptions {
                                         HttpMethod = "POST",
                                         UpdateTargetId = "w1-ajax-target",
                                         OnBegin = "$('#w1-add-btn').toggleClass('active').prop('disabled', true);",
-                                        //OnComplete = "$('#w1-add-btn').toggleClass('active').prop('disabled', false);" + "$(document).ready(function () { StyleValidationErrors(); });"
                                         OnSuccess = "$('#w2-payment-method-form-group').load('" + @Html.Raw(Url.Action("RefreshPaymentMethods", "Wizard")) + "');",
                                         OnComplete = "$(document).ready(function () { StyleValidationErrors(); });"
                                     }, new { id = "paymentMethodForm", @class = "form-horizontal" })) {

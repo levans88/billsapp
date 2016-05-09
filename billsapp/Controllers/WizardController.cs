@@ -13,42 +13,20 @@ namespace billsapp.Controllers
 {
     public class WizardController : Controller {
         private billsappdbEntities db = new billsappdbEntities();
+        int payerID = new CurrentUser().PayerID;
 
         // GET: Wizard
         public ActionResult Index() {
-
-            // Get the current user's payer_id
-            var userID = User.Identity.GetUserId();
-            var payer = db.payer.Single(p => p.user_id == userID);
-            var payerID = payer.payer_id;
-
-            // Get payment methods select list
-            List<SelectListItem> paymentMethodSelectList = new List<SelectListItem>();
-            paymentMethodSelectList = db.payment_method.Where(x => x.payer_id == payerID).ToList().Select(x => new SelectListItem {
-                Text = x.payment_method_name,
-                Value = x.payment_method_id.ToString()
-            }).ToList();
-
-            // Get a regular list of payment methods (non-select)
-            var paymentMethods = db.payment_method.Where(x => x.payer_id == payerID).ToList();
+            var model = GetPaymentMethods();
 
             // Get bill types for list box
-            List<SelectListItem> billTypes = new List<SelectListItem>();
-
-            billTypes = db.bill_type.Where(x => x.payer_id == payerID).ToList().Select(x => new SelectListItem {
+            var billTypes = db.bill_type.Where(x => x.payer_id == payerID).ToList().Select(x => new SelectListItem {
                 Text = x.type_name,
                 Value = x.type_id.ToString()
             }).ToList();
 
             // Get permission settings
             var permissions = db.payers_permissions.Include(x => x.permission).Include(x => x.permission_level).Where(x => x.source_payer_id == payerID).ToList();
-
-            // Create and populate ViewModel
-            var model = new WizardViewModel();
-            model.PaymentMethodSelectList = paymentMethodSelectList;
-            model.PaymentMethods = paymentMethods;
-
-            //model.PaymentMethodID = 1;
 
             model.BillTypes = billTypes;
             model.Permissions = permissions;
@@ -60,198 +38,94 @@ namespace billsapp.Controllers
         // POST: Wizard payment methods
         [HttpPost]
         [ValidateOnlyIncomingValues]
-        public ActionResult WizardAddEditPaymentMethod(WizardViewModel model, int? paymentMethodID) {
-            //if (!ModelState.IsValidField("PaymentMethodName") || !ModelState.IsValidField("PaymentMethodAbbreviation") || !ModelState.IsValidField("Status")) {
+        public ActionResult AddEditPaymentMethod(WizardViewModel model, int? paymentMethodID) {
             if (!ModelState.IsValid) {
-
-                //var errors = ModelState.Where(a => a.Value.Errors.Count > 0)
-                //.Select(b => new { b.Key, b.Value.Errors })
-                //.ToArray();
-
-                // Get the current user's payer_id
-                var userID = User.Identity.GetUserId();
-                var payer = db.payer.Single(p => p.user_id == userID);
-                var payerID = payer.payer_id;
-
-                // Repopulate the portion of the model needed for rendering the partial
-                // (and anything that has changed)
-                //
-                // Get new payment methods select list
-                //List<SelectListItem> paymentMethodSelectList = new List<SelectListItem>();
-                //paymentMethodSelectList = db.payment_method.Where(x => x.payer_id == payerID).ToList().Select(x => new SelectListItem {
-                //    Text = x.payment_method_name,
-                //    Value = x.payment_method_id.ToString()
-                //}).ToList();
-
-                // Get new regular list of payment methods (non-select)
-                var paymentMethods = db.payment_method.Where(x => x.payer_id == payerID).ToList();
-
-                // Update model with new payment methods
-                //model.PaymentMethodSelectList = paymentMethodSelectList;
-                model.PaymentMethods = paymentMethods;
+                model = GetPaymentMethods();
 
                 return PartialView("_WizardStep1", model);
             }
             else {
-
-                // Get the current user's payer_id
-                var userID = User.Identity.GetUserId();
-                var payer = db.payer.Single(p => p.user_id == userID);
-                var payerID = payer.payer_id;
-
+                // Check for duplicates
                 if (paymentMethodID.HasValue) {
-                    var existingPaymentMethodName = db.payment_method.FirstOrDefault(x => x.payer_id == payerID && x.payment_method_name == model.PaymentMethodName && x.payment_method_id != paymentMethodID);
-
-                    var existingPaymentMethodAbbreviation = db.payment_method.FirstOrDefault(x => x.payer_id == payerID && x.payment_method_abbreviation == model.PaymentMethodAbbreviation && x.payment_method_id != paymentMethodID);
-
-                    if (existingPaymentMethodName != null) {
-                        ModelState.AddModelError("DuplicatePaymentMethodName", "Payment method names must be unique.");
-
-                        // Get new regular list of payment methods (non-select)
-                        var paymentMethods = db.payment_method.Where(x => x.payer_id == payerID).ToList();
-
-                        // Update model with payment methods
-                        model.PaymentMethods = paymentMethods;
-
-                        return PartialView("_WizardStep1", model);
-                    }
-                    else if (existingPaymentMethodAbbreviation != null) {
-                        ModelState.AddModelError("DuplicatePaymentMethodAbbreviation", "Payment method abbreviation must be unique.");
-
-                        // Get new regular list of payment methods (non-select)
-                        var paymentMethods = db.payment_method.Where(x => x.payer_id == payerID).ToList();
-
-                        // Update model with payment methods
-                        model.PaymentMethods = paymentMethods;
-
-                        return PartialView("_WizardStep1", model);
-                    }
-                    else {
-
-                        var paymentMethod = db.payment_method.Single(x => x.payer_id == payerID && paymentMethodID == x.payment_method_id);
-
-                        // Update payment_method object fields
-                        paymentMethod.payment_method_name = model.PaymentMethodName;
-                        paymentMethod.payment_method_abbreviation = model.PaymentMethodAbbreviation;
-                        paymentMethod.status_id = (int)model.Status;
-
-                        db.Entry(paymentMethod).State = EntityState.Modified;
-                        db.SaveChanges();
-
-                        // Clear update form
-                        ModelState.Clear();
-                        model.PaymentMethodID = null;
-                        model.PaymentMethodAbbreviation = null;
-                        model.PaymentMethodName = null;
-                        model.Status = billsapp.Enum.Status.Active;
-
-                        var paymentMethods = db.payment_method.Where(x => x.payer_id == payerID).ToList();
-                        model.PaymentMethods = paymentMethods;
-
-                        return PartialView("_WizardStep1", model);
-                    }
+                    model = CheckForDuplicatePaymentMethod(model, paymentMethodID);
                 }
                 else {
-                    var existingPaymentMethodName = db.payment_method.FirstOrDefault(x => x.payer_id == payerID && x.payment_method_name == model.PaymentMethodName);
+                    model = CheckForDuplicatePaymentMethod(model);
+                }
 
-                    var existingPaymentMethodAbbreviation = db.payment_method.FirstOrDefault(x => x.payer_id == payerID && x.payment_method_abbreviation == model.PaymentMethodAbbreviation);
+                if (model.DuplicatePaymentMethodAbbreviation) {
+                    ModelState.AddModelError("DuplicatePaymentMethodAbbreviation", "Payment method abbreviation must be unique.");
+                }
 
-                    if (existingPaymentMethodName != null) {
-                        ModelState.AddModelError("DuplicatePaymentMethodName", "Payment method names must be unique.");
+                if (model.DuplicatePaymentMethodName) {
+                    ModelState.AddModelError("DuplicatePaymentMethodName", "Payment method names must be unique.");
+                }
 
-                        // Get new regular list of payment methods (non-select)
-                        var paymentMethods = db.payment_method.Where(x => x.payer_id == payerID).ToList();
+                if (model.DuplicatePaymentMethodName || model.DuplicatePaymentMethodAbbreviation) {
+                    model = GetPaymentMethods();
 
-                        // Update model with payment methods
-                        model.PaymentMethods = paymentMethods;
+                    return PartialView("_WizardStep1", model);
+                }
 
-                        return PartialView("_WizardStep1", model);
-                    }
-                    else if (existingPaymentMethodAbbreviation != null) {
-                        ModelState.AddModelError("DuplicatePaymentMethodAbbreviation", "Payment method abbreviation must be unique.");
+                if (paymentMethodID.HasValue) {
+                    // Store the input fields from the current model
+                    var paymentMethodName = model.PaymentMethodName;
+                    var paymentMethodAbbreviation = model.PaymentMethodAbbreviation;
+                    var paymentMethodStatus = (int)model.Status;
 
-                        // Get new regular list of payment methods (non-select)
-                        var paymentMethods = db.payment_method.Where(x => x.payer_id == payerID).ToList();
+                    // Get new model with specific payment method
+                    model = GetPaymentMethods(paymentMethodID);
+                    var paymentMethod = model.PaymentMethod;
+                    
+                    // Put input field values on existing payment method
+                    paymentMethod.payment_method_name = paymentMethodName;
+                    paymentMethod.payment_method_abbreviation = paymentMethodAbbreviation;
+                    paymentMethod.status_id = paymentMethodStatus;
 
-                        // Update model with payment methods
-                        model.PaymentMethods = paymentMethods;
+                    // Write
+                    db.Entry(paymentMethod).State = EntityState.Modified;
+                    db.SaveChanges();
 
-                        return PartialView("_WizardStep1", model);
-                    }
-                    else {
-                        // Create payment_method object for writing
-                        var paymentMethod = new payment_method();
-                        paymentMethod.payer_id = payerID;
-                        paymentMethod.payment_method_name = model.PaymentMethodName;
-                        paymentMethod.payment_method_abbreviation = model.PaymentMethodAbbreviation;
-                        paymentMethod.status_id = (int)model.Status;
-                        db.payment_method.Add(paymentMethod);
-                        db.SaveChanges();
+                    ModelState.Clear();
+                    model = GetPaymentMethods();
 
-                        // Get new payment methods select list
-                        //List<SelectListItem> paymentMethodSelectList = new List<SelectListItem>();
-                        //paymentMethodSelectList = db.payment_method.Where(x => x.payer_id == payerID).ToList().Select(x => new SelectListItem {
-                        //    Text = x.payment_method_name,
-                        //    Value = x.payment_method_id.ToString()
-                        //}).ToList();
+                    return PartialView("_WizardStep1", model);
+                }
+                else {
+                    // Create payment_method object for writing
+                    var paymentMethod = new payment_method();
+                    paymentMethod.payer_id = payerID;
+                    paymentMethod.payment_method_name = model.PaymentMethodName;
+                    paymentMethod.payment_method_abbreviation = model.PaymentMethodAbbreviation;
+                    paymentMethod.status_id = (int)model.Status;
 
-                        // Clear update form
-                        ModelState.Clear();
-                        model.PaymentMethodID = null;
-                        model.PaymentMethodAbbreviation = null;
-                        model.PaymentMethodName = null;
-                        model.Status = billsapp.Enum.Status.Active;
+                    // Write
+                    db.payment_method.Add(paymentMethod);
+                    db.SaveChanges();
 
-                        // Get new regular list of payment methods (non-select)
-                        var paymentMethods = db.payment_method.Where(x => x.payer_id == payerID).ToList();
+                    ModelState.Clear();
+                    model = GetPaymentMethods();
 
-                        // Update model with new payment methods
-                        //model.PaymentMethodSelectList = paymentMethodSelectList;
-                        model.PaymentMethods = paymentMethods;
-
-                        return PartialView("_WizardStep1", model);
-                    }
+                    return PartialView("_WizardStep1", model);
                 }
             }
         }
 
-        //[HttpPost]
         public ActionResult RefreshPaymentMethods() {
-            var model = new WizardViewModel();
-
-            // Get the current user's payer_id
-            var userID = User.Identity.GetUserId();
-            var payer = db.payer.Single(p => p.user_id == userID);
-            var payerID = payer.payer_id;
-
-            // Get new payment methods select list
-            List<SelectListItem> paymentMethodSelectList = new List<SelectListItem>();
-            paymentMethodSelectList = db.payment_method.Where(x => x.payer_id == payerID).ToList().Select(x => new SelectListItem {
-                Text = x.payment_method_name,
-                Value = x.payment_method_id.ToString()
-            }).ToList();
-
-            // Update model with new payment methods
-            model.PaymentMethodSelectList = paymentMethodSelectList;
+            var model = GetPaymentMethods();
 
             return PartialView("_PaymentMethodFormGroup", model);
         }
 
-        public ActionResult WizardEditPaymentMethod(int paymentMethodID) {
+        public ActionResult EditPaymentMethod(int paymentMethodID) {
+            // Get single payment method
+            var model = GetPaymentMethods(paymentMethodID);
+            var paymentMethod = model.PaymentMethod;
 
-            // Get the current user's payer_id
-            var userID = User.Identity.GetUserId();
-            var payer = db.payer.Single(p => p.user_id == userID);
-            var payerID = payer.payer_id;
+            // Get all payment methods
+            model = GetPaymentMethods();
 
-            // Get a payment method object given ID
-            var paymentMethod = db.payment_method.Single(x => x.payer_id == payerID && x.payment_method_id == paymentMethodID);
-
-            // Regather payment methods for model for reloading partial
-            var paymentMethods = db.payment_method.Where(x => x.payer_id == payerID).ToList();
-
-            var model = new WizardViewModel();
-            model.PaymentMethods = paymentMethods;
+            // Restore single payment method to model
             model.PaymentMethodID = paymentMethod.payment_method_id;
             model.PaymentMethodName = paymentMethod.payment_method_name;
             model.PaymentMethodAbbreviation = paymentMethod.payment_method_abbreviation;
@@ -260,47 +134,107 @@ namespace billsapp.Controllers
             return PartialView("_WizardStep1", model);
         }
 
-        public ActionResult WizardCancelForm(string partial) {
+        public ActionResult CancelForm(string partial) {
             var model = new WizardViewModel();
+            model = GetPaymentMethods();
 
-            // Get the current user's payer_id
-            var userID = User.Identity.GetUserId();
-            var payer = db.payer.Single(p => p.user_id == userID);
-            var payerID = payer.payer_id;
-
-            // Clear update form
-            ModelState.Clear();
-            model.PaymentMethodID = null;
-            model.PaymentMethodAbbreviation = null;
-            model.PaymentMethodName = null;
-            model.Status = billsapp.Enum.Status.Active;
-
-            var paymentMethods = db.payment_method.Where(x => x.payer_id == payerID).ToList();
-            model.PaymentMethods = paymentMethods;
-
-            return PartialView("_WizardStep1", model);
+            return PartialView(partial, model);
         }
 
-        public ActionResult WizardDeletePaymentMethod(int paymentMethodID) {
-            // Get the current user's payer_id
-            var userID = User.Identity.GetUserId();
-            var payer = db.payer.Single(p => p.user_id == userID);
-            var payerID = payer.payer_id;
+        public ActionResult DeletePaymentMethod(int paymentMethodID) {
+            // Check if payment method is in use
+            var usedByTemplate = db.bill_type.FirstOrDefault(x => x.payment_method_id == paymentMethodID);
+            var usedByPayment = db.payment.FirstOrDefault(x => x.payment_method_id == paymentMethodID);
 
-            // Get a payment method object given ID
-            var paymentMethod = db.payment_method.Single(x => x.payer_id == payerID && x.payment_method_id == paymentMethodID);
+            if (usedByTemplate != null) {
+                var model = GetPaymentMethods();
+                ModelState.AddModelError("PaymentMethodUsedByTemplate", "Payment method is currently in use by a template and cannot be removed.");
+                model.PaymentMethodUsedByTemplate = true;
 
-            // Delete
-            db.payment_method.Remove(paymentMethod);
-            db.SaveChanges();
+                return PartialView("_WizardStep1", model);
+            }
+            else if (usedByPayment != null) {
+                var model = GetPaymentMethods();
+                ModelState.AddModelError("PaymentMethodUsedByPayment", "Payment method has been used to pay a previous bill and cannot be removed.");
+                model.PaymentMethodUsedByPayment = true;
 
-            // Regather payment methods for model for reloading partial
-            var paymentMethods = db.payment_method.Where(x => x.payer_id == payerID).ToList();
+                return PartialView("_WizardStep1", model);
+            }
+            else {
+                // Get specific payment method
+                var model = GetPaymentMethods(paymentMethodID);
+                var paymentMethod = model.PaymentMethod;
 
-            var model = new WizardViewModel();
-            model.PaymentMethods = paymentMethods;            
+                // Delete the payment method
+                db.payment_method.Remove(paymentMethod);
+                db.SaveChanges();
 
-            return PartialView("_WizardStep1", model);
+                // Regather payment methods for model / partial
+                model = GetPaymentMethods();
+
+                return PartialView("_WizardStep1", model);
+            }
+        }
+
+        private WizardViewModel CheckForDuplicatePaymentMethod(WizardViewModel model, int? paymentMethodID = null) {
+            var existingPaymentMethodName = new payment_method();
+            var existingPaymentMethodAbbreviation = new payment_method();
+
+            if (paymentMethodID.HasValue) {
+                // Exclude the current payment method when checking for duplicates
+                existingPaymentMethodName = db.payment_method.FirstOrDefault(x => x.payer_id == payerID && x.payment_method_name == model.PaymentMethodName && x.payment_method_id != model.PaymentMethodID);
+
+                existingPaymentMethodAbbreviation = db.payment_method.FirstOrDefault(x => x.payer_id == payerID && x.payment_method_abbreviation == model.PaymentMethodAbbreviation && x.payment_method_id != model.PaymentMethodID);
+            }
+            else {
+                // There is no specific payment method, so just check for any duplicate
+                existingPaymentMethodName = db.payment_method.FirstOrDefault(x => x.payer_id == payerID && x.payment_method_name == model.PaymentMethodName);
+
+                existingPaymentMethodAbbreviation = db.payment_method.FirstOrDefault(x => x.payer_id == payerID && x.payment_method_abbreviation == model.PaymentMethodAbbreviation);
+            }
+
+            if (existingPaymentMethodName != null) {                
+                model.DuplicatePaymentMethodName = true;
+            }
+
+            if (existingPaymentMethodAbbreviation != null) {
+                model.DuplicatePaymentMethodAbbreviation = true;
+            }
+
+            return model;
+        }
+
+        private WizardViewModel GetPaymentMethods(int? paymentMethodID = null) {
+            // Get payment method if given a specific ID
+            if (paymentMethodID.HasValue) {
+                var paymentMethod = db.payment_method.Single(x => x.payer_id == payerID && x.payment_method_id == paymentMethodID);
+
+                var model = new WizardViewModel();
+                model.PaymentMethod = paymentMethod;
+                model.PaymentMethodID = paymentMethod.payment_method_id;
+                model.PaymentMethodName = paymentMethod.payment_method_name;
+                model.PaymentMethodAbbreviation = paymentMethod.payment_method_abbreviation;
+                model.Status = (billsapp.Enum.Status)paymentMethod.status_id;
+
+                return model;
+            }
+            else {
+                // Get payment methods
+                var paymentMethods = db.payment_method.Where(x => x.payer_id == payerID).ToList();
+
+                // Get payment methods for select list
+                var paymentMethodSelectList = db.payment_method.Where(x => x.payer_id == payerID && x.status_id != (int)Enum.Status.Disabled).ToList().Select(x => new SelectListItem {
+                    Text = x.payment_method_name,
+                    Value = x.payment_method_id.ToString()
+                }).ToList();
+
+                var model = new WizardViewModel();
+                model.PaymentMethods = paymentMethods;
+                model.PaymentMethodSelectList = paymentMethodSelectList;
+                model.Status = billsapp.Enum.Status.Active;
+
+                return model;
+            }
         }
     }
 }
