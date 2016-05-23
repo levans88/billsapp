@@ -8,12 +8,19 @@
         <div class="jumbotron">
             <h1>BillsApp</h1>
             <p class="lead">A simple C# / ASP.NET MVC web application to help record data and share costs when paying the bills.</p>
-            <p><a href="http://asp.net" class="btn btn-primary btn-lg">Start demo &raquo;</a></p>
+            @*<p><a href="~/Wizard" class="btn btn-primary btn-lg">View sample &raquo;</a></p>*@
+            @if (!Request.IsAuthenticated) {
+                <h4>Please @Html.ActionLink("log in", "Login", "Account") or @Html.ActionLink("register", "Register", "Account") to view a sample.</h4>
+            }
+            <ul>
+                <li>A pretend email address currently works just fine. No correspondence will be sent.</li>
+                <li>Please consider "Wizard Step 1" as the functionally complete portion of this app.</li>
+                <li>For a code sample, please see: "WizardController.cs"</li>
+            </ul>
         </div>
     </div>
 </div>
-
-<div class="row" style=@(Request.IsAuthenticated ? "display:none;" : "display:block;")>
+<div class="row" style="display:block;")>
     <div class="col-md-10">
         <section class="panel panel-default">
             <header class="panel-heading">

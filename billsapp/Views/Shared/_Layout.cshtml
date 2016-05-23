@@ -44,7 +44,7 @@
                 <!-- start: search & user box -->
                 <div class="header-right">
 
-                    <span class="separator"></span>
+                    @*<span class="separator"></span>
 
                     <ul class="notifications">
                         <li>
@@ -52,7 +52,7 @@
                                 <i class="fa fa-info"></i>
                             </a>
                         </li>
-                    </ul>
+                    </ul>*@
 
                     <span class="separator"></span>
 
@@ -150,6 +150,14 @@
                                             <span>Home</span>
                                         </a>
                                     </li>
+                                    @if (Request.IsAuthenticated) {
+                                        <li id="nav-wizard">
+                                            <a href=@Url.Action("Index", "Wizard")>
+                                                <i class="fa fa-magic" aria-hidden="true"></i>
+                                                <span>Setup Wizard</span>
+                                            </a>
+                                        </li>
+                                    }
                                     @if (HttpContext.Current.IsDebuggingEnabled) {
                                 <li id="nav-examples" class="nav-parent">
                                     <a>

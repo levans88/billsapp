@@ -39,6 +39,7 @@ $(document).ready(function () {
 
     // Set nav-active class in nav menu for current URL path
     if (urlPath == "/Manage") $('#nav-examples, #nav-manage').addClass('nav-active nav-expanded');
+    if (urlPath == "/Wizard") $('#nav-wizard').addClass('nav-active');
     if (urlPath == "/Account/Login") $('#nav-login').addClass('nav-active');
     if (urlPath == "/Account/Register") $('#nav-register').addClass('nav-active');
 
