@@ -1,5 +1,5 @@
 ﻿@model billsapp.Models.WizardViewModel
-@using System.Globalization
+@using billsapp.Enum;
 
 <div class="form-inputs-container">
 
@@ -48,37 +48,41 @@
     </div>
 </div>
 <br />
-<table class="table table-no-more table-bordered table-striped mb-none" id="w1-datatable-editable">
-    <thead>
-        <tr>
-            <th>Payment Method Name</th>
-            <th>Abbreviation</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var pm in Model.PaymentMethods) {
+@if (Model.PaymentMethods != null) {
+    if (Model.PaymentMethods.Count > 0) {
+    <table class="table table-no-more table-bordered table-striped mb-none" id="w1-datatable-editable">
+        <thead>
+            <tr>
+                <th>Payment Method Name</th>
+                <th>Abbreviation</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pm in Model.PaymentMethods) {
                 <tr>
                     <td data-title="Name">@pm.payment_method_name</td>
                     <td data-title="Abbreviation">@pm.payment_method_abbreviation</td>
-                    <td data-title="Status">@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(pm.status.status_description)</td>
+                    <td data-title="Status">@Enum.GetName(typeof(Status), pm.status_id)</td>
                     <td data-title="Actions" class="actions">                            
-                        @Ajax.ActionLink(" ", "EditPaymentMethod", "Wizard", new { paymentMethodID = pm.payment_method_id }, new AjaxOptions {
-                           UpdateTargetId = "w1-ajax-target",
-                           InsertionMode = InsertionMode.Replace,
-                           HttpMethod = "GET"
-                       }, new { @class = "ajax-action-link-edit-icon" })
+                    @Ajax.ActionLink(" ", "EditPaymentMethod", "Wizard", new { paymentMethodID = pm.payment_method_id }, new AjaxOptions {
+                       UpdateTargetId = "w1-ajax-target",
+                       InsertionMode = InsertionMode.Replace,
+                       HttpMethod = "GET"
+                    }, new { @class = "ajax-action-link-edit-icon" })
 
-                        @Ajax.ActionLink(" ", "DeletePaymentMethod", "Wizard", new { paymentMethodID = pm.payment_method_id }, new AjaxOptions {
-                           Confirm = "Are you sure?",
-                           UpdateTargetId = "w1-ajax-target",
-                           InsertionMode = InsertionMode.Replace,
-                           HttpMethod = "POST",
-                           OnSuccess = "$('#w2-payment-method-form-group').load('" + @Html.Raw(Url.Action("RefreshPaymentMethods", "Wizard")) + "');"
-                   }, new { @class = "ajax-action-link-delete-icon" })
+                    @Ajax.ActionLink(" ", "DeletePaymentMethod", "Wizard", new { paymentMethodID = pm.payment_method_id }, new AjaxOptions {
+                       Confirm = "Are you sure?",
+                       UpdateTargetId = "w1-ajax-target",
+                       InsertionMode = InsertionMode.Replace,
+                       HttpMethod = "POST",
+                       OnSuccess = "$('#w2-payment-method-form-group').load('" + @Html.Raw(Url.Action("RefreshPaymentMethods", "Wizard")) + "');"
+                    }, new { @class = "ajax-action-link-delete-icon" })
                     </td>
                 </tr>
             }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+    }
+}
