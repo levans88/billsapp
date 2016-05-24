@@ -1,0 +1,186 @@
+﻿@model billsapp.Models.SessionPayersViewModel
+
+@{
+    ViewBag.Title = "Session Details";
+}
+
+@section Styles {
+    @if (Model.payerCount == 2) {
+        <link href="@Url.Content("~/assets/stylesheets/theme-custom-session-x2.css")" rel="stylesheet" type="text/css" />
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <section class="panel panel-primary">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle=""></a>
+                </div>
+                <h2 class="panel-title">Shared Bills</h2>
+            </header>
+            <div class="panel-body">
+                <section>
+                    <table class="table table-no-more table-bordered table-striped mb-none">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th class="hidden-xs hidden-sm">Company</th>
+                                <th class="text-right">Price</th>
+                                <th class="text-right hidden-xs hidden-sm">Change</th>
+                                <th class="text-right">Change %</th>
+                                <th class="text-right">Open</th>
+                                <th class="text-right hidden-xs hidden-sm">High</th>
+                                <th class="text-right hidden-xs hidden-sm">Low</th>
+                                <th class="text-right">Volume</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-title="Code">AGG</td>
+                                <td data-title="Company" class="hidden-xs hidden-sm">ANGLOGOLD ASHANTI LIMITED</td>
+                                <td data-title="Price" class="text-right">$7.81</td>
+                                <td data-title="Change" class="text-right hidden-xs hidden-sm">-0.22</td>
+                                <td data-title="Change %" class="text-right">-2.74%</td>
+                                <td data-title="Open" class="text-right">$7.82</td>
+                                <td data-title="High" class="text-right hidden-xs hidden-sm">$7.82</td>
+                                <td data-title="Low" class="text-right hidden-xs hidden-sm">$7.81</td>
+                                <td data-title="Volume" class="text-right">148</td>
+                            </tr>
+                            <tr>
+                                <td data-title="Code">AGK</td>
+                                <td data-title="Company" class="hidden-xs hidden-sm">AGL ENERGY LIMITED</td>
+                                <td data-title="Price" class="text-right">$13.82</td>
+                                <td data-title="Change" class="text-right hidden-xs hidden-sm">  +0.02</td>
+                                <td data-title="Change %" class="text-right">0.14%</td>
+                                <td data-title="Open" class="text-right">$13.83</td>
+                                <td data-title="High" class="text-right hidden-xs hidden-sm">$13.83</td>
+                                <td data-title="Low" class="text-right hidden-xs hidden-sm">$13.67</td>
+                                <td data-title="Volume" class="text-right">846,403</td>
+                            </tr>
+                            <tr>
+                                <td data-title="Code">AGO</td>
+                                <td data-title="Company" class="hidden-xs hidden-sm">ATLAS IRON LIMITED</td>
+                                <td data-title="Price" class="text-right">$3.17</td>
+                                <td data-title="Change" class="text-right hidden-xs hidden-sm">-0.02</td>
+                                <td data-title="Change %" class="text-right">-0.47%</td>
+                                <td data-title="Open" class="text-right">$3.11</td>
+                                <td data-title="High" class="text-right hidden-xs hidden-sm">$3.22</td>
+                                <td data-title="Low" class="text-right hidden-xs hidden-sm">$3.10</td>
+                                <td data-title="Volume" class="text-right">5,416,303</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="row">
+        @{
+            foreach (var p in Model.payers) {
+                var u = Model.users.Single(x => x.Id == p.user_id);
+                <div class="col-md-@(12 / Model.payerCount)">
+                    <section class="panel panel-primary">
+                        <header class="panel-heading" style="background-color:@p.AspNetUsers.theme_color">
+                        @*<header class="panel-heading">*@
+                            <div class="widget-profile-info">
+                                <div class="profile-picture">
+                                    <img src="~/assets/images/avatars/@p.AspNetUsers.avatar">
+                                </div>
+                                <div class="profile-info">
+                                    <div class="session-user-header">
+                                        <h4 class="name text-weight-semibold">@u.first_name @u.last_name</h4>
+                                        <h5 class="role">@u.Email</h5>
+                                    </div>
+                                    <ul class="profile-stats">
+                                        <li>
+                                            @{
+                                                //var balanceStarting = p.sessions_payers.Select(x => x.balance_starting);
+                                                //var balanceRemaining = p.sessions_payers.Select(x => x.balance_remaining);
+                                                //var amountSpent = balanceStarting - balanceRemaining;
+                                            }
+                                            <h5 class="stat text-uppercase">Starting</h5>
+                                            <h4 class="count">$0000</h4>
+                                        </li>
+                                        <li>
+                                            <h5 class="stat text-uppercase">Spent</h5>
+                                            <h4 class="count">$000</h4>
+                                        </li>
+                                        <li>
+                                            <h5 class="stat text-uppercase">Remaining</h5>
+                                            <h4 class="count">$000</h4>
+                                        </li>
+                                    </ul>
+                                    <div class="profile-footer">
+                                        <a href="#" style="visibility:hidden;">(edit profile)</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle=""></a>
+                            </div>
+                        </header>
+
+                        @*<div class="panel-body panel-body-fake">
+                            <div class="panel-heading-fake">
+                                <h2 class="panel-title">@(u.first_name + "'s Bills")</h2>
+                            </div>
+                        </div>*@
+                        <div class="panel-body">
+                            <table class="table table-no-more table-bordered table-striped mb-none session-user-table">
+                                <thead>
+                                    <tr>
+                                        <th>Bill</th>
+                                        <th>Sharing</th>
+                                        <th class="text-center">Typical<br />($)</th>
+                                        <th class="text-center">Current<br />($)</th>
+                                        <th class="text-center">Payment<br />Method</th>
+                                        <th>Paid&nbsp;?</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-title="Bill">Some Fake Long Company Name Co.</td>
+                                        <td data-title="Sharing" id="payer-sharing-cell">
+                                            <div class="btn-group">
+                                                @Html.ListBoxFor(m => m.users, Model.multiSelectPayers.Where(x => x.Value != u.Id), new { @class = "form-control", @multiple = "multiple", data_plugin_multiselect = "", data_plugin_options = "{ \"maxHeight\": 200, \"nonSelectedText\": \"None\"}" })
+                                            </div>
+                                        </td>
+                                        <td data-title="Typical ($)" class="text-right">$500.58</td>
+                                        <td data-title="Current ($)" class="text-right">
+                                            @Html.TextBoxFor(m => m.paidAmount, new { @class = "form-control", @id = "paid-amount" })
+                                        </td>
+                                        <td data-title="Payment Method" id="payment-method-cell">
+                                            @*@Html.DropDownListFor(m => m.paymentMethod, Model.paymentMethods.Where(us), new { @class = "form-control" })*@
+                                            
+                                            <select class="form-control" id="paymentMethod" name="paymentMethod">
+                                            @{ 
+                                                var pm = Model.paymentMethods.Where(x => x.payer_id == p.payer_id).ToList();
+                                                foreach (var m in pm) {
+                                                    <option value="@m.payment_method_id">@m.payment_method_abbreviation</option>
+                                                }
+                                            }
+                                            </select>
+                                        </td>
+                                        <td data-title="Paid ?">
+                                                @*@Html.CheckBoxFor(m => m.paid, new { @checked = "checked" })*@
+                                            <div class="checkbox-custom checkbox-default">
+                                                <input type="checkbox" checked="" id="paid-@p.payer_id" name="paid-@p.payer_id">
+                                                <label for="paid-@p.payer_id"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            }
+        }        
+</div>
+
+@section Scripts {
+
+}

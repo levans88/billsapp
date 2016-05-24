@@ -58,6 +58,8 @@
           <Property Name="first_name" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="last_name" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="status_id" Type="int" Nullable="false" />
+          <Property Name="theme_color" Type="nchar" MaxLength="7" />
+          <Property Name="avatar" Type="nvarchar" MaxLength="16" />
         </EntityType>
         <EntityType Name="bill">
           <Key>
@@ -885,6 +887,8 @@
           <NavigationProperty Name="status" Relationship="billsappDataModel.FK_AspNetUsers_status" FromRole="AspNetUsers" ToRole="status" />
           <NavigationProperty Name="payer" Relationship="billsappDataModel.FK_payer_AspNetUsers" FromRole="AspNetUsers" ToRole="payer" />
           <NavigationProperty Name="AspNetRoles" Relationship="billsappDataModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <Property Name="theme_color" Type="String" MaxLength="7" FixedLength="true" Unicode="true" />
+          <Property Name="avatar" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="bill">
           <Key>
@@ -1450,6 +1454,8 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="billsappDataModel.AspNetUsers">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+                <ScalarProperty Name="theme_color" ColumnName="theme_color" />
                 <ScalarProperty Name="status_id" ColumnName="status_id" />
                 <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />

@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using billsapp.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Net;
 
 namespace billsapp.Controllers
 {
@@ -61,6 +63,7 @@ namespace billsapp.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.ChangeThemeColorSuccess ? "Your theme color has been changed."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -72,7 +75,32 @@ namespace billsapp.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
+
+            // Get user's theme color from database
+            var themeColor = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId()).theme_color;
+            model.ThemeColor = themeColor;
+
             return View(model);
+        }
+
+        //
+        [HttpPost]
+        public ActionResult ChangeThemeColor(IndexViewModel model) {
+            if (!ModelState.IsValid) {
+                //var result = Json(new { IsValid = false, errors = ModelState.Keys.Where(k => ModelState[k].Errors.Count > 0).Select(k => new { propertyName = k, errorMessage = ModelState[k].Errors[0].ErrorMessage }) });
+                //return result;
+                return PartialView("_ThemeColorFormGroup", model);
+            }
+            else {
+                var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+                var userManager = new ApplicationUserManager(userStore);
+
+                userManager.FindById(User.Identity.GetUserId()).theme_color = model.ThemeColor;
+                userStore.Context.SaveChanges();
+
+                //return Json(new { IsValid = true });
+                return PartialView("_ThemeColorFormGroup", model);
+            }
         }
 
         //
@@ -379,7 +407,8 @@ namespace billsapp.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
-            Error
+            Error,
+            ChangeThemeColorSuccess
         }
 
 #endregion

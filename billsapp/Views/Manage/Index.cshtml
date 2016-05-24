@@ -13,79 +13,49 @@
                 <h2 class="panel-title">Change Account Settings</h2>
             </header>
             <div class="panel-body">
-                <p class="text-success">@ViewBag.StatusMessage</p>
-                <div>
-                    <dl class="dl-horizontal">
-                        <dt>Password:</dt>
-                        <dd>
-                            [
-                            @if (Model.HasPassword) {
-                                @Html.ActionLink("Change your password", "ChangePassword")
-                            }
-                            else {
-                                @Html.ActionLink("Create", "SetPassword")
-                            }
-                            ]
-                        </dd>
-                        @*<dt>External Logins:</dt>
-                    <dd>
-                        @Model.Logins.Count [
-                        @Html.ActionLink("Manage", "ManageLogins") ]
-                    </dd>*@
-                        @*
-                    Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+                <section id="account-management">
+                    @using (Ajax.BeginForm("ChangeThemeColor", null, new AjaxOptions {
+                        HttpMethod = "POST",
+                        UpdateTargetId = "theme-color-form-group",
+                        OnBegin = "$('#apply-theme-color-btn').toggleClass('active').prop('disabled', true);",
+                        OnComplete = "$('#apply-theme-color-btn').toggleClass('active').prop('disabled', false);" + "$(document).ready(function () { StyleValidationErrors(); });"
+                    }, new { id = "themeColorForm", @class = "form-horizontal" }))
+                    {
+                        @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+                        <p class="text-success">@ViewBag.StatusMessage</p>
 
-                     See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                        for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Password</label>
+                            <div class="col-md-6" style="padding-top:7px;">
+                                [
+                                @if (Model.HasPassword) {
+                                    @Html.ActionLink("Change your password", "ChangePassword")
+                                }
+                                else {
+                                    @Html.ActionLink("Create", "SetPassword")
+                                }
+                                ]
+                            </div>
+                        </div>
+                        
+                        @*<div id="theme-color-form-group" class="form-group">
+                            @{
+                                Html.RenderPartial("_ThemeColorFormGroup", this.Model);
+                            }
+                        </div>*@
 
-                     Uncomment the following block after you have set up two-factor authentication
-                        *@
-                        @*
-                    <dt>Phone Number:</dt>
-                    <dd>
-                        @(Model.PhoneNumber ?? "None") [
-                        @if (Model.PhoneNumber != null)
-                        {
-                            @Html.ActionLink("Change", "AddPhoneNumber")
-                            @: &nbsp;|&nbsp;
-                            @Html.ActionLink("Remove", "RemovePhoneNumber")
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Add", "AddPhoneNumber")
-                        }
-                        ]
-                    </dd>
-                        *@
-                        @*<dt>Two-Factor Authentication:</dt>
-                    <dd>
-                        <p>
-                            There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                            for details on setting up this ASP.NET application to support two-factor authentication.
-                        </p>
-                        @if (Model.TwoFactor)
-                            {
-                                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    <text>Enabled
-                                    <input type="submit" value="Disable" class="btn btn-link" />
-                                    </text>
-                                }
-                            }
-                            else
-                            {
-                                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    <text>Disabled
-                                    <input type="submit" value="Enable" class="btn btn-link" />
-                                    </text>
-                                }
-                            }
-                    </dd>*@
-                    </dl>
-                </div>
+                        @*<div class="form-group">
+                            <div class="col-md-offset-3 col-md-6">
+                                <button id="apply-theme-color-btn" type="submit" class="btn btn-primary has-spinner">
+                                    <span class="spinner">
+                                        <i class="fa fa-spinner fa-spin"></i>
+                                    </span> Apply
+                                </button>
+                            </div>
+                        </div>*@
+                        <br />
+                    }
+                </section>
             </div>
         </section>
     </div>

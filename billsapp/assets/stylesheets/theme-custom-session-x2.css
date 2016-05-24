@@ -1,0 +1,57 @@
+
+/* Duplicate styling from theme.css - customized breakpoints for 
+  dual payer sessions so "no-more-tables" style tables can switch 
+  their layout on time */
+
+@media only screen and (max-width: 1545px) {
+  .table.session-user-table,
+  .table.session-user-table thead,
+  .table.session-user-table tbody,
+  .table.session-user-table tr,
+  .table.session-user-table th,
+  .table.session-user-table td {
+    display: block;
+  }
+
+  .table.session-user-table thead tr {
+    left: -9999px;
+    position: absolute;
+    top: -9999px;
+  }
+
+  .table.session-user-table tr {
+    border-bottom: 1px solid #DDD;
+  }
+
+  .table.session-user-table td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .table.session-user-table td:before {
+    content: attr(data-title);
+    font-weight: bold;
+    left: 6px;
+    padding-right: 10px;
+    position: absolute;
+    text-align: left;
+    top: 8px;
+    white-space: nowrap;
+    width: 45%;
+  }
+
+  .table.session-user-table.table-bordered td {
+    border-bottom: 1px solid #EFEFEF;
+  }
+
+  .table.session-user-table.table-condensed td:before {
+    top: 5px;
+  }
+
+  html.dark .table.session-user-table tr, html.dark .table.session-user-table.table-bordered td {
+    border-bottom-color: #262b33;
+  }
+}

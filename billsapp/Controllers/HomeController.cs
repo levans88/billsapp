@@ -31,7 +31,7 @@ namespace billsapp.Controllers {
             Modal m = new Modal(modalName, modalContent, modalContext, modalColorLevel);
 
             // Supply the new modal to the ViewModel
-            ModalViewModel modalViewModel = new ModalViewModel() { modal = m };
+            ModalViewModel modalViewModel = new ModalViewModel() { Modal = m };
 
             return PartialView("_ModalAnim", modalViewModel);
         }

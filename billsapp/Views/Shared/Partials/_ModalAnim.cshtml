@@ -1,17 +1,17 @@
 ﻿
-<div id="@Model.modal.Name" class="zoom-anim-dialog modal-block @Model.modal.ColorLevel modal-block-@Model.modal.Context mfp-hide">
+<div id="@Model.Modal.Name" class="zoom-anim-dialog modal-block @Model.Modal.ColorLevel modal-block-@Model.Modal.Context mfp-hide">
     <section class="panel">
         <header class="panel-heading">
-            <h2 class="panel-title">@Model.modal.Title</h2>
+            <h2 class="panel-title">@Model.Modal.Title</h2>
         </header>
         <div class="panel-body">
             <div class="modal-wrapper">
                 <div class="modal-icon">
-                    <i class="@Html.Raw("fa " + (String)Model.modal.Icon)"></i>
+                    <i class="@Html.Raw("fa " + (String)Model.Modal.Icon)"></i>
                 </div>
                 <div class="modal-text">
-                    @(Model.modal.ShowSubTitle ? Html.Raw("<h4>" + Model.modal.SubTitle + "</h4>") : "")
-                    @Html.Raw((String)Model.modal.Content)
+                    @(Model.Modal.ShowSubTitle ? Html.Raw("<h4>" + Model.Modal.SubTitle + "</h4>") : "")
+                    @Html.Raw((String)Model.Modal.Content)
                 </div>
             </div>
         </div>
@@ -19,9 +19,9 @@
             <div class="row">
                 <div class="col-md-12 text-right">
                     @{
-                        var btnConfirm = Model.modal.ShowConfirmButton ? "<button class=\"btn btn-" + Model.modal.Context + " modal-confirm\">" + Model.modal.ConfirmButtonText + "</button>" : "";
+                        var btnConfirm = Model.Modal.ShowConfirmButton ? "<button class=\"btn btn-" + Model.Modal.Context + " modal-confirm\">" + Model.Modal.ConfirmButtonText + "</button>" : "";
 
-                        var btnDismiss = Model.modal.ShowDismissButton ? "<button class=\"btn btn-default modal-dismiss\">" + Model.modal.DismissButtonText + "</button>" : "";
+                        var btnDismiss = Model.Modal.ShowDismissButton ? "<button class=\"btn btn-default modal-dismiss\">" + Model.Modal.DismissButtonText + "</button>" : "";
                     }
 
                     @Html.Raw(btnConfirm)

@@ -39,6 +39,7 @@ $(document).ready(function () {
 
     // Set nav-active class in nav menu for current URL path
     if (urlPath == "/Manage") $('#nav-examples, #nav-manage').addClass('nav-active nav-expanded');
+    if (urlPath == "/Wizard") $('#nav-wizard').addClass('nav-active');
     if (urlPath == "/Account/Login") $('#nav-login').addClass('nav-active');
     if (urlPath == "/Account/Register") $('#nav-register').addClass('nav-active');
 
@@ -147,4 +148,47 @@ $(document).ready(function () {
 
     }).apply(this, [jQuery]);
 
+    // Datatables customization overrides
+/*    $('#w1-datatable-editable').dataTable({
+        "bPaginate": false,
+        "bFilter": false,
+        "bInfo": false
+    });*/
+
 });
+
+// Manually called functions
+
+// Apply appropriate style via 'has-error' class to form-groups that failed validation
+function StyleValidationErrors() {
+
+    $('span.field-validation-valid, span.field-validation-error').each(function () {
+        $(this).addClass('help-inline');
+    });
+
+    // Find the divs containing the form controls, find the error spans within
+    $('form').submit(function () {
+        if ($(this).valid()) {
+            $(this).find('div.form-group').each(function () {
+                if ($(this).find('span.field-validation-error').length == 0) {
+                    $(this).removeClass('has-error');
+                }                
+            });
+        }
+        else {
+            $(this).find('div.form-group').each(function () {
+                if ($(this).find('span.field-validation-error').length > 0) {
+                    $(this).addClass('has-error');
+                }                
+            });
+        }
+    });
+
+    $('form').each(function () {
+        $(this).find('div.form-group').each(function () {
+            if ($(this).find('span.field-validation-error').length > 0) {
+                $(this).addClass('has-error');
+            }
+        });
+    });
+}

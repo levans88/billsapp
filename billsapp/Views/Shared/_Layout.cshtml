@@ -4,416 +4,436 @@
 @using Microsoft.AspNet.Identity.EntityFramework;
 
 <!DOCTYPE html>
-<html>
+<html class="fixed">
 @* <html class="dark"> *@
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - BillsApp</title>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - BillsApp</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
 
-    @Styles.Render("~/bundles/githubactivitycss")
-    @Styles.Render("~/bundles/jqueryuicss")
-    @Styles.Render("~/bundles/bootstrapcss")
-    @Styles.Render("~/bundles/fontawesomecss")
-    @Styles.Render("~/bundles/pnotifycss")
-    @Styles.Render("~/bundles/magnificcss")
-    @Styles.Render("~/bundles/bootstrapdatepickercss")
-    @Styles.Render("~/bundles/bootstrapmultiselectcss")
-    @Styles.Render("~/bundles/themecss")
-    @Scripts.Render("~/bundles/modernizrjs")
-</head>
-<body>
-    <!-- start: header -->
-    <header class="header">
-        <div class="logo-container">
-            <a href="#" class="logo">
-                <img src="~/assets/images/ducks4light.png" height="35" />
-            </a>
-            <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
-                <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
-            </div>
-        </div>
-
-        <!-- start: search & user box -->
-        <div class="header-right">
-
-            <span class="separator"></span>
-
-            <ul class="notifications">
-                <li>
-                    <a id="app-info" href="#siteInfoModal" class="modal-with-zoom-anim notification-icon">
-                        <i class="fa fa-info"></i>
+        @Styles.Render("~/bundles/githubactivitycss")
+        @Styles.Render("~/bundles/jqueryuicss")
+        @Styles.Render("~/bundles/bootstrapcss")
+        @Styles.Render("~/bundles/fontawesomecss")
+        @Styles.Render("~/bundles/elusivecss")
+        @Styles.Render("~/bundles/pnotifycss")
+        @Styles.Render("~/bundles/magnificcss")
+        @Styles.Render("~/bundles/bootstrapdatepickercss")
+        @Styles.Render("~/bundles/bootstrapmultiselectcss")
+        @Styles.Render("~/bundles/bootstrapcolorpickercss")
+        @Styles.Render("~/bundles/datatablescss")
+        @Styles.Render("~/bundles/themecss")
+        @RenderSection("Styles", false)
+        @Scripts.Render("~/bundles/modernizrjs")
+    </head>
+    <body>
+        <section class="body">
+            <!-- start: header -->
+            <header class="header">
+                <div class="logo-container">
+                    <a href="#" class="logo">
+                        <img src="~/assets/images/ducks4light.png" height="35" />
                     </a>
-                </li>
-            </ul>
-
-            <span class="separator"></span>
-
-            <div id="userbox" class="userbox">
-                @if (Request.IsAuthenticated) {
-                    <a href="#" data-toggle="dropdown">
-                        <figure class="profile-picture">
-                            <img src="~/assets/images/!logged-user.jpg" class="img-circle" />
-                        </figure>
-                        <div class="profile-info">
-                            @{ 
-                                //HttpContext.Current.User.Identity.GetUserId()
-                                var currentUserId = User.Identity.GetUserId();
-                                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-                                var currentUser = manager.FindById(User.Identity.GetUserId());
-                                var firstName = Html.Raw(currentUser.first_name.FixLength(15));
-                            }
-                            <span class="name">@firstName</span>
-                            <span class="role">@(User.IsInRole("Admin") ? "Admin" : "User")</span>
-                        </div>
-
-                        <i class="fa custom-caret"></i>
-                    </a>
-
-                    <div class="dropdown-menu">
-                        <ul class="list-unstyled">
-                            <li class="divider"></li>
-                            <li>
-                                <a role="menuitem" tabindex="-1" href=@Url.Action("Index", "Manage")><i class="fa fa-user"></i> My Profile</a>
-                            </li>
-                            @*<li>
-                                <a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
-                            </li>*@
-                            <li>
-                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
-                                    @Html.AntiForgeryToken()
-                                    <a role="menuitem" tabindex="-1" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Logout</a>
-                                }
-                            </li>
-                        </ul>
+                    <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+                        <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
                     </div>
-                }
-                else {
-                    <a href="#" data-toggle="dropdown">
-                        <figure class="profile-picture" style="visibility: hidden;">
-                            <img src="assets/images/!logged-user.jpg" class="img-circle" />
-                        </figure>
-                        
-                        <div class="profile-info">
-                            @{ var userBoxText = "Account";}
-                            <span id="name-logged-out" class="name">@(Html.Raw(userBoxText.FixLength(15)))</span>
-                        </div>
-
-                        <i class="fa custom-caret"></i>
-                    </a>
-
-                    <div class="dropdown-menu">
-                        <ul class="list-unstyled">
-                            <li class="divider"></li>
-                            <li>
-                                <a role="menuitem" tabindex="-1" href=@Url.Action("Login", "Account")><i class="fa fa-user"></i> &nbsp;&nbsp;Log In</a>
-                            </li>
-                            <li>
-                                <a role="menuitem" tabindex="-1" href=@Url.Action("Register", "Account")><i class="fa fa-user-plus"></i> Register</a>
-                            </li>
-                        </ul>
-                    </div>
-                }
-            </div>
-        </div>
-        
-        <!-- end: search & user box -->
-    </header>
-    <!-- end: header -->
-
-    <div class="inner-wrapper">
-        <!-- start: sidebar -->
-        <aside id="sidebar-left" class="sidebar-left">
-
-            <div class="sidebar-header">
-                <div class="sidebar-title">
-                    Navigation
                 </div>
-                <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
-                    <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
-                </div>
-            </div>
 
-            <div class="nano">
-                <div class="nano-content">
-                    <nav id="menu" class="nav-main" role="navigation">
-                        <ul class="nav nav-main">
-                            <li id="nav-home">
-                                <a href=@Url.Action("Index", "Home")>
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Home</span>
-                                </a>
-                            </li>
-                        @if (HttpContext.Current.IsDebuggingEnabled) {
-                            <li id="nav-examples" class="nav-parent">
-                                <a>
-                                    <i class="fa fa-tasks" aria-hidden="true"></i>
-                                    <span>Nano/Menu Examples</span>
-                                </a>
-                                <ul class="nav nav-children">
-                                    <li id="nav-manage">
-                                        <a href=@Url.Action("Index", "Manage")>
-                                            My Profile
-                                        </a>
-                                    </li>
-                                    <li class="nav-parent">
-                                        <a>
-                                            ...
-                                        </a>
-                                        <ul class="nav nav-children">
-                                            <li>
-                                                <a href="#">
-                                                    ...
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    ...
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    ...
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    ...
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    ...
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                    <li class="nav-parent">
-                                        <a>
-                                            ...
-                                        </a>
-                                        <ul class="nav nav-children">
-                                            <li>
-                                                <a href="#">
-                                                    ...
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    ...
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-parent">
-                                        <a>
-                                            ...
-                                        </a>
-                                        <ul class="nav nav-children">
-                                            <li>
-                                                <a href="#">
-                                                    ...
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    ...
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            ...
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li id="nav-login">
-                                <a href=@Url.Action("Login", "Account")>
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Test_Login</span>
-                                </a>
-                            </li>
-                            <li id="nav-register">
-                                <a href=@Url.Action("Register", "Account")>
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span>Test_Register</span>
-                                </a>
-                            </li>
-                        }
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </aside>
-        <!-- end: sidebar -->
+                <!-- start: search & user box -->
+                <div class="header-right">
 
-        <section role="main" class="content-body">
-            <header class="page-header">
-                <h2>@ViewBag.Title</h2>
+                    @*<span class="separator"></span>
 
-                <div class="right-wrapper pull-right">
-                    <ol class="breadcrumbs">
+                    <ul class="notifications">
                         <li>
-                            <a href=@Url.Action("Index", "Home")>
-                                <i class="fa fa-home"></i>
+                            <a id="app-info" href="#siteInfoModal" class="modal-with-zoom-anim notification-icon">
+                                <i class="fa fa-info"></i>
                             </a>
                         </li>
-                        <li><span>@ViewBag.Title</span></li>
-                        
-                        @if (ViewBag.SubTitleOne != null) {
-                            <li><span>@ViewBag.SubTitleOne</span></li>
+                    </ul>*@
+
+                    <span class="separator"></span>
+
+                    <div id="userbox" class="userbox">
+                        @if (Request.IsAuthenticated) {
+
+                            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                            var currentUser = manager.FindById(User.Identity.GetUserId());
+                            var firstName = Html.Raw(currentUser.first_name.FixLength(15));
+                            var avatar = currentUser.avatar;
+
+                            <a href="#" data-toggle="dropdown">
+                                <figure class="profile-picture">
+                                    <img src="~/assets/images/avatars/@avatar" class="img-circle" />
+                                </figure>
+                                <div class="profile-info">
+                                    <span class="name">@firstName</span>
+                                    <span class="role">@(User.IsInRole("Admin") ? "Admin" : "User")</span>
+                                </div>
+
+                                <i class="fa custom-caret"></i>
+                            </a>
+
+                            <div class="dropdown-menu">
+                                <ul class="list-unstyled">
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a role="menuitem" tabindex="-1" href=@Url.Action("Index", "Manage")><i class="fa fa-user"></i> My Profile</a>
+                                    </li>
+                                    @*<li>
+                                            <a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
+                                        </li>*@
+                                    <li>
+                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+                                            @Html.AntiForgeryToken()
+                                            <a role="menuitem" tabindex="-1" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Logout</a>
+                                        }
+                                    </li>
+                                </ul>
+                            </div>
                         }
+                        else {
+                            <a href="#" data-toggle="dropdown">
+                                <figure class="profile-picture" style="visibility: hidden;">
+                                    <img src="~/assets/images/!logged-user.jpg" class="img-circle" />
+                                </figure>
 
-                        @if (ViewBag.SubTitleTwo != null) {
-                            <li><span>@ViewBag.SubTitleTwo</span></li>
-                        }
+                                <div class="profile-info">
+                                    @{ var userBoxText = "Account";}
+                                    <span id="name-logged-out" class="name">@(Html.Raw(userBoxText.FixLength(15)))</span>
+                                </div>
 
-                    </ol>
-                    @*<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>*@
-                </div>
-            </header>
-            <div class="container-fluid">
-                @RenderBody()
-                @{
-                    // Build main site information modal
-                    var modalContentString =
-                        "<p>BillsApp is a sample ASP.NET MVC application and a work in progress. Its purpose is to help share and track the payment of family bills. " +
-                        "Try out the app using the built in demo account __here__. Please let me know if you have any questions or encounter any issues.</p>" + "<p>Thanks for visiting!</br>" +
-                        "&#8211; Lenny</p>";
+                                <i class="fa custom-caret"></i>
+                            </a>
 
-                    Html.RenderAction("CreateModal", "Home", new { modalName = "siteInfoModal", modalContent = modalContentString, modalContext = ModalContext.Info, modalColorLevel = ModalColorLevel.Header });
-                }
-            </div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <footer>
-                            <hr />
-                            <p>&copy; @DateTime.Now.Year - Lenny Evans - All rights reserved.</p>
-                        </footer>
+                            <div class="dropdown-menu">
+                                <ul class="list-unstyled">
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a role="menuitem" tabindex="-1" href=@Url.Action("Login", "Account")><i class="fa fa-user"></i> &nbsp;&nbsp;Log In</a>
+                                    </li>
+                                    <li>
+                                        <a role="menuitem" tabindex="-1" href=@Url.Action("Register", "Account")><i class="fa fa-user-plus"></i> Register</a>
+                                    </li>
+                                </ul>
+                            </div>
+                                        }
                     </div>
                 </div>
+
+                <!-- end: search & user box -->
+            </header>
+            <!-- end: header -->
+
+            <div class="inner-wrapper">
+                <!-- start: sidebar -->
+                <aside id="sidebar-left" class="sidebar-left">
+
+                    <div class="sidebar-header">
+                        <div class="sidebar-title">
+                            Navigation
+                        </div>
+                        <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+                            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+                        </div>
+                    </div>
+
+                    <div class="nano">
+                        <div class="nano-content">
+                            <nav id="menu" class="nav-main" role="navigation">
+                                <ul class="nav nav-main">
+                                    <li id="nav-home">
+                                        <a href=@Url.Action("Index", "Home")>
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Home</span>
+                                        </a>
+                                    </li>
+                                    @if (Request.IsAuthenticated) {
+                                        <li id="nav-wizard">
+                                            <a href=@Url.Action("Index", "Wizard")>
+                                                <i class="fa fa-magic" aria-hidden="true"></i>
+                                                <span>Setup Wizard</span>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (HttpContext.Current.IsDebuggingEnabled) {
+                                <li id="nav-examples" class="nav-parent">
+                                    <a>
+                                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                                        <span>Nano/Menu Examples</span>
+                                    </a>
+                                    <ul class="nav nav-children">
+                                        <li id="nav-manage">
+                                            <a href=@Url.Action("Index", "Manage")>
+                                                My Profile
+                                            </a>
+                                        </li>
+                                        <li class="nav-parent">
+                                            <a>
+                                                ...
+                                            </a>
+                                            <ul class="nav nav-children">
+                                                <li>
+                                                    <a href="#">
+                                                        ...
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        ...
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        ...
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        ...
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        ...
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                        <li class="nav-parent">
+                                            <a>
+                                                ...
+                                            </a>
+                                            <ul class="nav nav-children">
+                                                <li>
+                                                    <a href="#">
+                                                        ...
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        ...
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-parent">
+                                            <a>
+                                                ...
+                                            </a>
+                                            <ul class="nav nav-children">
+                                                <li>
+                                                    <a href="#">
+                                                        ...
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        ...
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                ...
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li id="nav-login">
+                                    <a href=@Url.Action("Login", "Account")>
+                                        <i class="fa fa-home" aria-hidden="true"></i>
+                                        <span>Test_Login</span>
+                                    </a>
+                                </li>
+                                <li id="nav-register">
+                                    <a href=@Url.Action("Register", "Account")>
+                                        <i class="fa fa-home" aria-hidden="true"></i>
+                                        <span>Test_Register</span>
+                                    </a>
+                                </li>
+                            }
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </aside>
+                <!-- end: sidebar -->
+
+                <section role="main" class="content-body">
+                    <header class="page-header">
+                        <h2>@ViewBag.Title</h2>
+
+                        <div class="right-wrapper pull-right">
+                            <ol class="breadcrumbs">
+                                <li>
+                                    <a href=@Url.Action("Index", "Home")>
+                                        <i class="fa fa-home"></i>
+                                    </a>
+                                </li>
+                                <li><span>@ViewBag.Title</span></li>
+
+                                @if (ViewBag.SubTitleOne != null) {
+                                    <li><span>@ViewBag.SubTitleOne</span></li>
+                                }
+
+                                @if (ViewBag.SubTitleTwo != null) {
+                                    <li><span>@ViewBag.SubTitleTwo</span></li>
+                                }
+
+                            </ol>
+                            @*<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>*@
+                        </div>
+                    </header>
+                    <div class="container-fluid">
+                        @RenderBody()
+                        @{
+                            // Build main site information modal
+                            var modalContentString =
+                                "<p>BillsApp is a sample ASP.NET MVC application and a work in progress. Its purpose is to help share and track the payment of family bills. " +
+                                "Try out the app using the built in demo account __here__. Please let me know if you have any questions or encounter any issues.</p>" + "<p>Thanks for visiting!</br>" +
+                                "&#8211; Lenny</p>";
+
+                            Html.RenderAction("CreateModal", "Home", new { modalName = "siteInfoModal", modalContent = modalContentString, modalContext = ModalContext.Info, modalColorLevel = ModalColorLevel.Default });
+                        }
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <footer>
+                                    <hr />
+                                    <p>&copy; @DateTime.Now.Year - Lenny Evans - All rights reserved.</p>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
+
+            @* Scripts that pass server side data *@
+            <script>
+                // Provide path portion of URL only to javascript (exclude domain)
+                var urlPath = '@(Request.RawUrl.ToString())';
+            </script>
+
+            @Scripts.Render("~/bundles/jqueryjs")
+            @Scripts.Render("~/bundles/jquerybrowsermobilejs")
+            @Scripts.Render("~/bundles/jqueryvaljs")
+            @Scripts.Render("~/bundles/jqueryuijs")
+            @Scripts.Render("~/bundles/bootstrapjs")
+            @Scripts.Render("~/bundles/bootstrapdatepickerjs")
+            @Scripts.Render("~/bundles/pnotifyjs")
+            @Scripts.Render("~/bundles/magnificjs")
+            @Scripts.Render("~/bundles/jqueryplaceholderjs")
+            @Scripts.Render("~/bundles/jqueryuitouchpunchjs")
+            @Scripts.Render("~/bundles/jqueryappearjs")
+            @Scripts.Render("~/bundles/bootstrapmultiselectjs")
+            @Scripts.Render("~/bundles/bootstrapcolorpickerjs")
+            @Scripts.Render("~/bundles/bootstrapwizardjs")
+            @Scripts.Render("~/bundles/snapsvgjs")
+            @Scripts.Render("~/bundles/githubactivityjs")
+            @Scripts.Render("~/bundles/nanoscrollerjs")
+            @Scripts.Render("~/bundles/datatablesjs")
+            @Scripts.Render("~/bundles/themejs")
+
+            @* Unbundled for debugging *@
+            <script src="~/assets/javascripts/setup.wizard.js"></script>
+            @*<script src="~/assets/javascripts/datatables.editable.w1.js"></script>*@
+
+            @RenderSection("scripts", required: false)
         </section>
-    </div>
-
-    @*Scripts that pass server side data*@
-    <script>
-        // Provide path portion of URL only to javascript (exclude domain)
-        var urlPath = '@(Request.RawUrl.ToString())';
-    </script>
-
-    @Scripts.Render("~/bundles/jqueryjs")
-    @Scripts.Render("~/bundles/jquerybrowsermobilejs")
-    @Scripts.Render("~/bundles/jqueryvaljs")
-    @Scripts.Render("~/bundles/jqueryuijs")
-    @Scripts.Render("~/bundles/bootstrapjs")
-    @Scripts.Render("~/bundles/bootstrapdatepickerjs")
-    @Scripts.Render("~/bundles/pnotifyjs")
-    @Scripts.Render("~/bundles/magnificjs")
-    @Scripts.Render("~/bundles/jqueryplaceholderjs")
-    @Scripts.Render("~/bundles/jqueryuitouchpunchjs")
-    @Scripts.Render("~/bundles/jqueryappearjs")
-    @Scripts.Render("~/bundles/bootstrapmultiselectjs")
-    @Scripts.Render("~/bundles/snapsvgjs")
-    @Scripts.Render("~/bundles/githubactivityjs")
-    @Scripts.Render("~/bundles/nanoscrollerjs")
-    @Scripts.Render("~/bundles/themejs")
-
-    @RenderSection("scripts", required: false)
-</body>
+    </body>
 </html>

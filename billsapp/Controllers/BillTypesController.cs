@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using billsapp.Models;
+using Microsoft.AspNet.Identity;
 
 namespace billsapp.Controllers
 {
@@ -17,12 +18,6 @@ namespace billsapp.Controllers
         // GET: BillTypes
         public ActionResult Index()
         {
-            var bill_type = db.bill_type.Include(b => b.frequency).Include(b => b.payer).Include(b => b.payment_method).Include(b => b.status);
-            return View(bill_type.ToList());
-        }
-
-        // GET: Wizard
-        public ActionResult Wizard() {
             var bill_type = db.bill_type.Include(b => b.frequency).Include(b => b.payer).Include(b => b.payment_method).Include(b => b.status);
             return View(bill_type.ToList());
         }

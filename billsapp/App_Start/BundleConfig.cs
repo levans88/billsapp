@@ -32,7 +32,10 @@ namespace billsapp {
 
             // jQuery Validate
             bundles.Add(new ScriptBundle("~/bundles/jqueryvaljs").Include(
-                        "~/assets/vendor/jquery-validation/jquery.validate.js"));
+                        "~/assets/vendor/jquery-validation/jquery.validate.js",
+                        "~/scripts/jquery.validate.unobtrusive.js",
+                        "~/scripts/jquery.unobtrusive-ajax.js",
+                        "~/assets/javascripts/jquery.validate.plugin-reset.js"));
 
             // jQuery UI
             bundles.Add(new ScriptBundle("~/bundles/jqueryuijs").Include(
@@ -105,6 +108,17 @@ namespace billsapp {
             bundles.Add(new StyleBundle("~/bundles/bootstrapmultiselectcss").Include(
                         "~/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css"));
 
+            // Bootstrap Color Picker
+            bundles.Add(new ScriptBundle("~/bundles/bootstrapcolorpickerjs").Include(
+                        "~/assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/bootstrapcolorpickercss").Include(
+                        "~/assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css"));
+
+            // Bootstrap Wizard
+            bundles.Add(new ScriptBundle("~/bundles/bootstrapwizardjs").Include(
+                        "~/assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js"));
+
             // Snap SVG
             bundles.Add(new ScriptBundle("~/bundles/snapsvgjs").Include(
                         "~/assets/vendor/snap.svg/snap.svg.js"));
@@ -112,7 +126,19 @@ namespace billsapp {
             // Font Awesome
             bundles.Add(new StyleBundle("~/bundles/fontawesomecss").Include(
                         "~/assets/vendor/font-awesome/css/font-awesome.css"));
-            
+
+            // Elusive Icons
+            bundles.Add(new StyleBundle("~/bundles/elusivecss").Include(
+                        "~/assets/vendor/elusive-icons/css/elusive-icons.css"));
+
+            // Datatables
+            bundles.Add(new ScriptBundle("~/bundles/datatablesjs").Include(
+                "~/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js", 
+                "~/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/datatablescss").Include(
+                        "~/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css"));
+
             // Theme
             bundles.Add(new StyleBundle("~/bundles/themecss").Include(
                         "~/assets/stylesheets/theme.css",                           // Basic layout structure styles

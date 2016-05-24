@@ -1,11 +1,11 @@
 /* Add here all your CSS customizations */
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
-}
+}*/
 
 .jumbotron {
 	background-color: transparent !important;
@@ -95,6 +95,174 @@ div.validation-summary-errors ul label.error:before {
   color: #D9534F;
   display: inline-block;
 }
+
+/* Remove extra padding from nesting in setup wizard */
+#setup-wizard-tab-content {
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: #fdfdfd;
+}
+
+/* A div that looks like a panel heading */
+.panel-heading-fake {
+  background: #f6f6f6;
+  /*border-radius: 5px 5px 0 0;*/
+  border-bottom: 1px solid #DADADA;
+  padding: 18px;
+  position: relative;
+}
+
+/* A fake panel heading as a table header */
+.panel-heading-fake-table {
+  /*background: #EBEBEB;*/
+  background: white;
+  /*border-radius: 5px 5px 0 0;*/
+  /*border: 1px solid #DADADA;*/
+  padding: 5px;
+  position: relative;
+}
+
+/* Fake heading title color fix */
+/*.panel-heading-fake .panel-title {
+  color: #33353F !important;
+}*/
+
+/* An extra panel-body with no padding to hold a fake panel heading */
+/*.panel-body-fake {
+  padding: 0px;
+}*/
+
+/* Form container styled like alert-default */
+.form-inputs-container {
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  padding: 15px;
+  /*color: #6c6c6c;*/
+}
+
+.ajax-action-link-edit-icon:before {
+  font-family: FontAwesome;
+  content: "\f040";
+}
+
+.ajax-action-link-delete-icon:before {
+  font-family: FontAwesome;
+  content: "\f014";
+}
+
+a.ajax-action-link-edit-icon, a.ajax-action-link-delete-icon {
+  text-decoration: none;
+}
+
+/* User session table column style overrides */
+.session-user-table thead tr th {
+  vertical-align: top;
+}
+
+.session-user-table tbody tr td {
+  vertical-align: middle;
+}
+
+#payment-method-cell {
+  text-align: center; 
+  min-width: 105px;
+}
+
+#payer-sharing-cell {
+  min-width: 105px;
+}
+
+#payer-sharing-cell .btn-group button {
+  min-width: 90px;
+}
+
+button .caret {
+  text-align: right;
+}
+
+#paid-amount {
+  width: 90px;
+}
+
+.checkbox-custom {
+  text-align: center;
+  margin-right: 0px;
+  vertical-align: middle;
+  margin-top: 5px;
+  margin-left: 33%;
+}
+
+#paymentMethod {
+  cursor: pointer;
+}
+
+/* User payer table header style overrides */
+.widget-profile-info .profile-info .profile-stats {
+  float: right;
+  list-style: none;
+  padding: 5px 0;
+  margin-top: 18px;
+}
+
+.widget-profile-info .profile-info .profile-stats li {
+  float: left;
+  padding: 0 10px;
+}
+
+.widget-profile-info .profile-info .profile-stats li .stat {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.widget-profile-info .profile-info .profile-stats li .count {
+  display: block;
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.session-user-header {
+  float: left;
+}
+
+.profile-footer {
+  clear: both;
+  border-top: 1px solid white !important;
+}
+
+.widget-profile-info .profile-picture img {
+  /*border: 2px solid rgba(0, 170, 255, 0.7);*/ 
+  border: 2px solid #fff;
+}
+
+/* Blocked Buttons (ajax in progress) */
+.spinner {
+  display: inline-block;
+  opacity: 0;
+  width: 0;
+
+  -webkit-transition: opacity 0.25s, width 0.25s;
+  -moz-transition: opacity 0.25s, width 0.25s;
+  -o-transition: opacity 0.25s, width 0.25s;
+  transition: opacity 0.25s, width 0.25s;
+}
+
+.has-spinner.active {
+  cursor: default;
+  /*cursor: not-allowed;*/
+}
+
+.has-spinner.active .spinner {
+  opacity: 1;
+  width: auto; 
+}
+
+/* Datatables */
+
+/* Not needed since options are set on table initialization */
+/*.datatables-header, .datatables-footer {
+  display: none;
+}*/
 
 /* Override location of octicons fonts in octicons.css 
   and font-awesome fonts in font-awesome.css */

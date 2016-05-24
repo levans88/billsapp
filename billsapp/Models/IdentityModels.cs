@@ -22,6 +22,8 @@ namespace billsapp.Models
         public string first_name { get; set; }
         public string last_name { get; set; }
         public int status_id { get; set; }
+        public string theme_color { get; set; }
+        public string avatar { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
