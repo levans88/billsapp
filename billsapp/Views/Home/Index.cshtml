@@ -10,12 +10,12 @@
             <p class="lead">A simple C# / ASP.NET MVC web application to help record data and share costs when paying the bills.</p>
             @*<p><a href="~/Wizard" class="btn btn-primary btn-lg">View sample &raquo;</a></p>*@
             @if (!Request.IsAuthenticated) {
-                <h4>Please @Html.ActionLink("log in", "Login", "Account") or @Html.ActionLink("register", "Register", "Account") to view a sample.</h4>
+                <h4><strong>@Html.ActionLink("Log in", "Login", "Account") or @Html.ActionLink("register", "Register", "Account") to preview the application.</strong></h4>
             }
             <ul>
                 <li>A pretend email address currently works just fine. No correspondence will be sent.</li>
                 <li>Please consider "Wizard Step 1" as the functionally complete portion of this app.</li>
-                <li>For a code sample, please see: "WizardController.cs"</li>
+                <li><span style="background-color:yellow;"><strong>For a specific code sample, see: <a href="https://github.com/levans88/billsapp/blob/master/billsapp/Controllers/WizardController.cs" target="_blank">WizardController.cs</a></strong></span></li>
             </ul>
         </div>
     </div>
