@@ -12,10 +12,12 @@
             @if (!Request.IsAuthenticated) {
                 <h4><strong>@Html.ActionLink("Log in", "Login", "Account") or @Html.ActionLink("register", "Register", "Account") to preview the application.</strong></h4>
             }
+            <h4 style="padding-top:10px;"><strong>Important Notes:</strong></h4>
             <ul>
                 <li>A pretend email address currently works just fine. No correspondence will be sent.</li>
                 <li>Please consider "Wizard Step 1" as the functionally complete portion of this app.</li>
                 <li><span style="background-color:yellow;"><strong>For a specific code sample, see: <a href="https://github.com/levans88/billsapp/blob/master/billsapp/Controllers/WizardController.cs" target="_blank">WizardController.cs</a></strong></span></li>
+                <li><span style="background-color:cyan;"><strong>On first login/register, please wait for Azure to connect to the database (~10+ seconds...)</strong></span><br />(I will resolve this with Microsoft in the future.)</li>
             </ul>
         </div>
     </div>
